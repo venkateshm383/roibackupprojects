@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>timeTracker</Name>
+		<Features>
+			<Feature vendorName="KEY2ACT" vendorVersion="1.0">
+				<Name>timeProxy</Name>
+				
+				<!-- <fms:EventResources>
+					<fms:EventResource resourceName="" />
+				</fms:EventResources> -->
+				
+		 		<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration resourceName="timeproxy-KEY2ACT-permastore.xml" />
+				</fms:PermaStoreConfigurations>
+				
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="timeproxy-KEY2ACT-featureservice.xml" />
+				</FeatureImplementations>
+				
+				<!-- <IntegrationPipeLineConfigurations>
+				    <PipeConfiguration resourceName="" />
+				</IntegrationPipeLineConfigurations> -->
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

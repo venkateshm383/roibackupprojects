@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="sacExecution">
+		<route id="workOrder-key2act-TR">
+			<from uri="direct:sac-workOrder-TR" />
+			<to uri="direct:sac-workOrder-ER" />
+		</route>
+		<route id="workOrder-key2act-ER">
+			<from uri="direct:sac-workOrder-ER" />
+			<log message="inside sac workorder execution route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		<route id="workOrderType-key2act-TR">
+			<from uri="direct:sac-workOrderType-TR" />
+			<to uri="direct:sac-workOrderType-ER"/>
+		</route>
+		<route id="workOrderType-key2act-ER">
+			<from uri="direct:sac-workOrderType-ER" />
+			<log message="inside sac workOrderType execution route"/>
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />	
+		</route>
+		<route>
+			<from uri="direct:sac-notification-TR" />
+			<log message="Entered into notification TR Route" />
+			<to uri="direct:sac-notification-key2act-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-notification-key2act-ER" />
+			<log message="Entered into notification ER Route " />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		<route>
+			<from uri="direct:sac-noteService-TR" />
+			<log message="Entered into noteService TR Route" />
+			<to uri="direct:sac-noteService-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-noteService-ER" />
+			<log message="Entered into noteService ER Route " />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		<route>
+			<from uri="direct:sac-scNotificationService-TR" />
+				<log message="Entered into scNotificationService TR Route" />
+			<to uri="direct:sac-scNotificationService-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-scNotificationService-ER" />
+			<log message="Entered into scNotificationService ER Route " />
+			<to uri="bean:labelServiceDynamic?method=route" />
+   			<toD uri="direct:${in.header.implroute}" />
+		</route>
+   			
+
+		<route>
+			<from uri="direct:sac-SMListNewServiceRequest-TR" />
+			<log message="Entered into SM-ListNewServiceRequest Route" />
+			<to uri="direct:sac-SMListNewServiceRequest-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-SMListNewServiceRequest-ER" />
+			<log message="Entered into SM-ListNewServiceRequest" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		<route>
+			<from uri="direct:sac-SMCreateServiceCall-TR" />
+			<log message="Entered into SMCreateServiceCallfromNew-TR" />
+			<to uri="direct:sac-SMCreateServiceCall-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-SMCreateServiceCall-ER" />
+			<log message="Entered into the execution route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		<route>
+			<from uri="direct:sac-SMListEditServiceRequest-TR" />
+			<log message="Entered into SMListEditServiceRequest route" />
+			<to uri="direct:sac-SMListEditServiceRequest-ER" />
+		</route>
+		<route>
+			<from uri="direct:sac-SMListEditServiceRequest-ER" />
+			<log message="Entered into SMListEditServiceRequest" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+	</routeContext>
+</beans>

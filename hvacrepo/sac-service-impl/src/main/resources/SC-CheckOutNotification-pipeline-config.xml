@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"	
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+
+	<IntegrationPipe name="checkOut-sc-notification-pipeline" isEnabled="true">
+		<PipeActivity>
+			<JDBCIntActivity name="jdbcextention">
+				<DBConfig operation="SELECT" dbType="CASSANDRA" />
+				<SQL>select (providernumber,sourcecustid,sourcerequestid) from servicerequest where servicecallnumber = ServiceCallId  </SQL>
+				<dbmsMapper>
+					<fieldMapper xPath="Event/ServiceCallId" Field="ServiceCallId" />
+				</dbmsMapper>
+				<RowMapper>
+					<xmlFieldMapper xpath="Event/SRSourceRequestId"
+						columnKey="sourcerequestid" />
+					<xmlFieldMapper xpath="Event/SRSourceProviderId"
+						columnKey="providernumber" />
+					<xmlFieldMapper xpath="Event/SRCustomerId"
+						columnKey="sourcecustid" />
+
+				</RowMapper>
+			</JDBCIntActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<XSLTEnricherActivity name="xsltTransform">
+				<xsltpathMapper>
+					<xsltPathMap filePath="checkOutNotification.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">
+					<ServiceName>scNotificationService</ServiceName>
+					<ExecutionRoute>direct:sac-scNotificationService-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity>
+		
+
+	 	<PipeActivity>
+			<FilterPipelineActivity name="filterPipeLineSC">
+				<conditions operator="AND">
+					<condition expression="ServiceChannelNotification/Payload/Event/SRSucessStatus" value="sucess" />
+				</conditions>
+				<conditionSuccess>
+					<fwk:send value="true" />
+				</conditionSuccess>
+				<conditionFaliure>
+					<fwk:drop value="true" />
+				</conditionFaliure>
+			</FilterPipelineActivity>
+		</PipeActivity> 
+			<PipeActivity>
+			<JDBCIntActivity name="serviceSacStatusUpdate">
+				<DBConfig operation="UPDATE" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>UPDATE servicerequest SET internalstatus=internalStatusfld,sourcestatus=statusfld WHERE tenantid=tenantfld AND sourcerequestid=transNumfld</SQL>
+				<dbmsMapper>	
+				
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRInternalStatus"
+						Field="internalStatusfld" />							
+					<fieldMapper xPath="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS"
+						Field="statusfld" />	
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/TenantId"
+						Field="tenantfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRSourceRequestId"
+						Field="transNumfld" />							
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		
+		<PipeActivity>
+			<FilterPipelineActivity name="filterPipeLIne">
+				<conditions operator="OR">
+					<condition expression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS" value="COMPLETED_NO_CHARGE" />
+					<condition expression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS" value="COMPLETED_CONFIRMED" />
+					<condition expression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS" value="CANCELLED" />
+					<condition expression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS" value="COMPLETED" />
+									
+				</conditions>
+				<conditionSuccess>
+					<fwk:send value="true" />
+				</conditionSuccess>
+				<conditionFaliure>
+					<fwk:drop value="true" />
+				</conditionFaliure>
+			</FilterPipelineActivity>
+		</PipeActivity>
+		
+				
+	<PipeActivity>
+			<JDBCIntActivity name="ServiceSelectSelect">
+				<DBConfig operation="SELECT" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>select (tenantid,internalstatus,workordernumber,providernumber,purchaseordernumber,requestedby,problemarea,problemdescription,requestcreateddtm,priority,servicecallnumber,sourcelocation,sourcestatus,sourcetype,sourcecustid,xmlpayload) from servicerequest where sourcerequestid = transNumfld</SQL>
+				<dbmsMapper>
+			
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRSourceRequestId"
+						Field="transNumfld" />
+				</dbmsMapper>
+					<RowMapper>
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/TenantId"
+						columnKey="tenantid" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/InternalStatus"
+						columnKey="internalstatus" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/WONumber"
+						columnKey="workordernumber" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/ProviderNumber"
+						columnKey="providernumber" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/purchaseorderNumber"
+						columnKey="purchaseordernumber" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/RequestedBy"
+						columnKey="requestedby" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/ProblemArea"
+						columnKey="problemarea" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/ProblemDescription"
+						columnKey="problemdescription" />
+				
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/ScheduledDTM"
+						columnKey="requestcreateddtm" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/WOPriority"
+						columnKey="priority" />
+					 <xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/servicecallnumber"
+						columnKey="servicecallnumber" />					
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/WOLocation"
+						columnKey="sourcelocation" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/WOStatus"
+						columnKey="sourcestatus" />
+					<xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/SourceType"
+						columnKey="sourcetype" />	
+						 <xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/cutomerId"
+						columnKey="sourcecustid" />					
+					  <xmlFieldMapper xpath="ServiceChannelNotification/Payload/Event/Payload"
+					  columnKey="xmlpayload" />  
+					
+				
+
+				</RowMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+				<PipeActivity>
+			<JDBCIntActivity name="ServiceRequestInsertToHistory">
+				<DBConfig operation="INSERT" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>INSERT INTO servicerequesthistory (tenantid,internalstatus,workordernumber,providernumber,purchaseordernumber,requestedby,problemarea,problemdescription,requestcreateddtm,priority,sourcelocation,sourcestatus,sourcetype,sourcecustid,servicecallnumber,xmlpayload,sourcerequestid,callstatus) VALUES (tenantfld,internalStatusfld,woNumberfld,providerNumberfld,poNumberfld,requestedByfld,problemAreafld,problemDescriptionfld,schedulefld,priorityfld,woLocfld,statusfld,sourceTypefld,cutomerIdfld,serviceCallIdfld,payloadfld,sourcerequestidfld,Open);</SQL>
+				<dbmsMapper>
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/TenantId"
+						Field="tenantfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/InternalStatus"
+						Field="internalStatusfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/WONumber"
+						Field="woNumberfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/ProviderNumber"
+						Field="providerNumberfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/purchaseorderNumber"
+						Field="poNumberfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/RequestedBy"
+						Field="requestedByfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/ProblemArea"
+						Field="problemAreafld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/ProblemDescription"
+						Field="problemDescriptionfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/ScheduledDTM"
+						Field="schedulefld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/WOPriority"
+						Field="priorityfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/WOLocation"
+						Field="woLocfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/WOStatus"
+						Field="statusfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SourceType"
+						Field="sourceTypefld" />	
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/cutomerId"
+						Field="cutomerIdfld" />	
+							 <fieldMapper xPath="ServiceChannelNotification/Payload/Event/Payload"
+						Field="payloadfld" /> 
+			
+							<fieldMapper xPath="ServiceChannelNotification/Payload/Event/servicecallnumber"
+						Field="serviceCallIdfld" />
+						<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRSourceRequestId"
+						Field="sourcerequestidfld" />					
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		
+		<PipeActivity>
+			<JDBCIntActivity name="serviceRequestDelete">
+				<DBConfig operation="DELETE" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>delete from servicerequest WHERE tenantid = tenantfld AND sourcerequestid = transNumfld</SQL>
+				<dbmsMapper>	
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/TenantId"
+						Field="tenantfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRSourceRequestId"
+						Field="transNumfld" />							
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		
+		
+	</IntegrationPipe>
+</IntegrationPipes>

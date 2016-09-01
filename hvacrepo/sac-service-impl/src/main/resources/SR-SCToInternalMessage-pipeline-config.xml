@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+	<IntegrationPipe name="serviceChanel-internalMessage-pipeline" isEnabled="true">
+		<PipeActivity>
+			<XSLTEnricherActivity name="SRXsltTransform">
+				<xsltpathMapper>
+					<xsltPathMap filePath="serviceRequestFormation.xsl" />
+					<xsltPathMap filePath="serviceRequestTransform.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>		
+		  <PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">					
+					<ServiceName>workOrderType</ServiceName>
+					<ExecutionRoute>direct:sac-workOrderType-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity>  
+	</IntegrationPipe>
+</IntegrationPipes>

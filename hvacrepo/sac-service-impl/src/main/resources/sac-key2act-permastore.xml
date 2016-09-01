@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+	<PermaStoreConfiguration>
+		<Name>SC-XML_SC-mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"OPEN":{"SCPrimaryStatus":"OPEN","SCSecondaryStatus":""},"ON_HOLD":{"SCPrimaryStatus":"IN
+				PROGRESS", "SCSecondaryStatus":""},
+				"CANCELLED":{"SCPrimaryStatus":"COMPLETED",
+				"SCSecondaryStatus":""},"COMPLETE" :{"SCPrimaryStatus":"COMPLETED",
+				"SCSecondaryStatus":""},"DECLINED":{"SCPrimaryStatus":"OPEN",
+				"SCSecondaryStatus":"DECLINED"},"LOCATION_DECLINED":{"SCPrimaryStatus":"OPEN",
+				"SCSecondaryStatus":"DECLINED"},"TIME_DECLINED":{"SCPrimaryStatus":"OPEN","SCSecondaryStatus":"DECLINED"},"TRADE_DECLINED":{"SCPrimaryStatus":"OPEN",
+				"SCSecondaryStatus":"DECLINED"},"DISPATCH_CONFIRMED":{"SCPrimaryStatus":"IN
+				PROGRESS","SCSecondaryStatus":"DISPATCH
+				CONFIRMED"},"INCOMPLETE":{"SCPrimaryStatus":"IN PROGRESS",
+				"SCSecondaryStatus":"INCOMPLETE"},"PARTS_ON_ORDER":{"SCPrimaryStatus":"IN
+				PROGRESS", "SCSecondaryStatus":"PARTS ON
+				ORDER"},"WAITING_FOR_QUOTE":{"SCPrimaryStatus":"IN PROGRESS",
+				"SCSecondaryStatus":"WAITING FOR
+				QUOTE"},"WAITING_FOR_APPROVAL":{"SCPrimaryStatus":"IN PROGRESS",
+				"SCSecondaryStatus":"WAITING FOR
+				APPROVAL"},"PROPOSAL_APPROVED":{"SCPrimaryStatus":"IN PROGRESS",
+				"SCSecondaryStatus":"PROPOSAL
+				APPROVED"},"ON_SITE":{"SCPrimaryStatus":"IN PROGRESS",
+				"SCSecondaryStatus":"ON
+				SITE"},"COMPLETED_NO_CHARGE":{"SCPrimaryStatus":"COMPLETED",
+				"SCSecondaryStatus":"NO
+				CHARGE"},"COMPLETED_PENDING":{"SCPrimaryStatus":"COMPLETED",
+				"SCSecondaryStatus":"PENDING
+				CONFIRMATION"},"COMPLETED_CONFIRMED":{"SCPrimaryStatus":"COMPLETED",
+				"SCSecondaryStatus":"CONFIRMED"},
+				"COMPLETED":{"SCPrimaryStatus":"Open", "SCSecondaryStatus":""}}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<PermaStoreConfiguration>
+		<Name>ServiceChanel-PipelineHandler</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"ServiceRequest:New":"SAC-new-Service","ServiceRequest:Update":"SAC-update-Service","ServiceRequest:Cancelled":""}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<PermaStoreConfiguration>
+		<Name>ServiceChanel-Key2ACT-Status-Mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"OPEN": [{"Type":
+				"WONEW","InternalStatus": "ServiceRequest:Created"},
+				{"Type":
+				"WOUPDATE","InternalStatus":
+				"ServiceRequest:UpdateCreated"}],"DISPATCH_CONFIRMED":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:DispatchConfirmed"},"LOCATION_DECLINED":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:LocationDeclined"},"TIME_DECLINED":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:TimeDeclined"},"TRADE_DECLINED":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:TradeDeclined"},"COMPLETED": [{"Type":
+				"WONEW","InternalStatus": "ServiceRequest:NewAndCompleted"},
+				{"Type": "WOUPDATE","InternalStatus":
+				"ServiceRequest:Completed"}],"COMPLETED_PENDING": {"Type":
+				"WOUPDATE","InternalStatus":
+				"ServiceRequest:CompletedPending"},"COMPLETED_CONFIRMED": {"Type":
+				"WOUPDATE","InternalStatus":
+				"ServiceRequest:CompletedConfirmed"},"INCOMPLETE": {"Type":
+				"WOUPDATE","InternalStatus":
+				"ServiceRequest:Incomplete"},"CANCELLED": {"Type":
+				"WOUPDATE","InternalStatus":
+				"ServiceRequest:Cancelled"},"COMPLETED_NO_CHARGE": {"Type":
+				"WOUPDATE","InternalStatus": "ServiceRequest:CompletedNoCharge"},"ON_SITE":
+				{"Type": "WOUPDATE","InternalStatus":
+				"ServiceRequest:OnSite"},"PARTS_ON_ORDER":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:PartsOnOrder"},"WAITING_FOR_APPROVAL":{"Type":
+				"WOUPDATE","InternalStatus":"ServiceRequest:WaitingForApproval"},"PROPOSAL_APPROVED": {"Type":
+				"WOUPDATE","InternalStatus": "ServiceRequest:ProposalApproved"}}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<PermaStoreConfiguration>
+		<Name>InternalEvent-pipelineHandler-mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"ServiceRequest:Created":"SR-WONEW-handler-pipeline","ServiceRequest:UpdateCreated":"SR-WOUPDATE-handler-pipeline","ServiceRequest:NewAndCompleted":"SR-WONEW-handler-pipeline","ServiceRequest:Completed":"SR-StatusChanged-handler-pipeline","ServiceRequest:CompletedPending":"SR-StatusChanged-handler-pipeline","ServiceRequest:CompletedConfirmed":"SR-StatusChanged-handler-pipeline","ServiceRequest:Cancelled":"","ServiceRequest:Incomplete":"SR-StatusChanged-handler-pipeline","ServiceRequest:OnSite":"SR-StatusChanged-handler-pipeline","ServiceRequest:ProposalApproved":"SR-StatusChanged-handler-pipeline","ServiceRequest:WONumberChanged":"SR-WONumberChanged-handler-pipeline","ServiceRequest:providerNumberChanged":"SR-ProviderChanged-handler-piepeline","ServiceRequest:PriorityChanged":"SR-PriorityChanged-handler-pipeline","ServiceRequest:ScheduleDTMChanged":"SR-ScheduleDTMChanged-handler-pipeline","ServiceRequest:NTEChanged":"SR-NTEChanged-handler-pipeline","ServiceRequest:CategoryChanged":"SR-NTEChanged-handler-pipeline","ServiceRequest:CallerChanged":"SR-CallerChanged-handler-pipeline","ServiceRequest:TradeChanged":"SR-TradeChanged-handler-pipeline","ServiceRequest:ProblemDescriptionChanged":"SR-PDChanged-handler-pipeline","ServiceRequest:PurchaseOrderChanged":"SR-PurchaseOrderChanged-handler-pipeline","ServiceRequest:NoteAdded":"SR-noteAdded-handler-pipeline"}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<PermaStoreConfiguration>
+		<Name>SourceType-pipelineConfigName-mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"ServiceChannel":"serviceChanel-internalMessage-pipeline"}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<PermaStoreConfiguration>
+		<Name>ServiceChannel-Key2Act-Notification-Mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"Notification":[
+				{"ServiceRequest-Accepted":["accepted-sc-notification-pipeline","email-sc-notification-pipeline"],"ServiceRequest-Declined":["declined-sc-notification-pipeline"],"Appointment-Scheduled":["scheduledDTM-sc-notification-pipeline"],"Appointment-TechnicianCheckIn":["checkIn-sc-notification-pipeline"],"ServiceCall-NoteAdded":["notedAdded-sc-notification-pipeline"],"ServiceCall-ResolutionSuggested":["resolutionSuggested-sc-notification-pipeline"],"Appointment-CheckOut":["checkOut-sc-notification-pipeline"],"ServiceCall-PartsOnOrder":["partsOnOrder-sc-notification-pipeline"],"ServiceCall-ProposalSubmitted":["proposalSubmitted-sc-notification-pipeline"],"Appointment-ReScheduled":["reScheduledDTM-sc-notification-pipeline"]}]}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	
+	
+	<PermaStoreConfiguration>
+		<Name>Provider-Details-Mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="sac" featureGroup="sacGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+			{
+				"gap": {
+					"Type": "Tenant",
+					"providerName": "gap",
+					"SCConfig": {
+						"PIN": "823370",
+						"CustomerId": "xmlws",
+						"StoreId": "wennsoftxml",
+						"SCURl": "http://sb2aspnet.servicechannel.com/xmlWS/service.asmx/postXML"
+					},
+					"SignatureConfig": {
+						"SignatureVersion": "v1",
+						"SignatureURL": "",
+						"userName": "",
+						"password": "",
+						"token": ""
+					},
+					"ScEmailConfig": {
+						"authUser": "joydeep.paul@bizruntime.com",
+						"transport": "smtp",
+						"mailHost": "smtp.gmail.com",
+						"smtpport": 587,
+						"smtpsslenable": true,
+						"authenticate": true,
+						"starttlsenable": true,
+						"authPassword": "dogababaA1!"
+					}
+				}
+			}
+					</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+</PermaStoreConfigurations>

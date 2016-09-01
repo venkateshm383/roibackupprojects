@@ -1,0 +1,213 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	
+	<bean id="custServiceBean" class="com.key2act.bean.CustomerServiceBean" />
+	<bean id="billToAddressServiceBean" class="com.key2act.bean.BillToAddressServiceBean" />
+	<bean id="divisionServiceBean" class="com.key2act.bean.DivisionServiceBean" />
+	<bean id="laborRateGroupServiceBean" class="com.key2act.bean.LaborRateGroupServiceBean" />
+	<bean id="locationServiceBean" class="com.key2act.bean.LocationServiceBean" />
+	<bean id="masterTaxScheduleServiceBean" class="com.key2act.bean.MasterTaxScheduleServiceBean" />
+	<bean id="primaryTechnicianServiceBean" class="com.key2act.bean.PrimaryTechnicianServiceBean" />
+	<bean id="secondaryTechnicianServiceBean" class="com.key2act.bean.SecondaryTechnicianServiceBean" />
+	<bean id="salesPersonServiceBean" class="com.key2act.bean.SalesPersonServiceBean" />
+	<bean id="serviceAreaServiceBean" class="com.key2act.bean.ServiceAreaServiceBean" />
+	<bean id="priceMatrixServiceBean" class="com.key2act.bean.PriceMatrixServiceBean" />
+	<bean id="billCustomerBean" class="com.key2act.bean.BillCustomerBean" />
+	<bean id="callStatusBean" class="com.key2act.bean.CallStatusBean" />
+	<bean id="callTypeBean" class="com.key2act.bean.CallTypeBean" />
+	<bean id="contactNumberBean" class="com.key2act.bean.ContactNumberBean" />
+	<bean id="equipmentBean" class="com.key2act.bean.EquipmentBean" />
+	<bean id="jobNumberBean" class="com.key2act.bean.JobNumberBean" />
+	<bean id="localTaxBean" class="com.key2act.bean.LocalTaxBean" />
+	<bean id="problemTypeBean" class="com.key2act.bean.ProblemTypeBean" />
+	<bean id="serviceLevelBean" class="com.key2act.bean.ServiceLevelBean" />
+	<bean id="taskCodeBean" class="com.key2act.bean.TaskCodeBean" />
+	<bean id="technicianBean" class="com.key2act.bean.TechnicianBean" />
+	
+	<routeContext id="masterDataFeatureVendRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+
+		<!-- customer impl route -->
+		<route id="sac-customer-key2act-route">
+			<from uri="direct:sac-customer-key2act-IR" />
+			<log message="inside sac-customer-vend route" />
+			<to uri="bean:custServiceBean" />
+		</route>
+		
+		<!-- billToAddress impl route -->
+		<route id="sac-billToAddress-key2act-route">
+			<from uri="direct:sac-billToAddress-key2act-IR" />
+			<log message="inside sac-billToAddress-key2act route" />
+			<to uri="bean:billToAddressServiceBean" />
+		</route>
+		
+		<!-- division impl route -->
+		<route id="sac-division-key2act-route">
+			<from uri="direct:sac-division-key2act-IR" />
+			<log message="inside sac-division-key2act route" />
+			<to uri="bean:divisionServiceBean" />
+		</route>
+		
+		<!-- laborRateGroup impl route -->
+		<route id="sac-laborRateGroup-key2act-route">
+			<from uri="direct:sac-laborRateGroup-key2act-IR" />
+			<log message="inside sac-laborRateGroup-key2act route" />
+			<to uri="bean:laborRateGroupServiceBean" />
+		</route>
+		
+		<!-- location impl route -->
+		<route id="sac-location-key2act-route">
+			<from uri="direct:sac-location-key2act-IR" />
+			<log message="inside sac-location-key2act route" />
+			<to uri="bean:locationServiceBean" />
+		</route>
+		
+		<!-- masterTaxSchedule impl route -->
+		<route id="sac-masterTaxSchedule-key2act-route">
+			<from uri="direct:sac-masterTaxSchedule-key2act-IR" />
+			<log message="inside sac-masterTaxSchedule-key2act route" />
+			<to uri="bean:masterTaxScheduleServiceBean" />
+		</route>
+		
+		<!-- primaryTechnician impl route -->
+		<route id="sac-primaryTechnician-key2act-route">
+			<from uri="direct:sac-primaryTechnician-key2act-IR" />
+			<log message="inside sac-primaryTechnician-key2act route" />
+			<to uri="bean:primaryTechnicianServiceBean" />
+		</route>
+		
+		<!-- secondaryTechnician impl route -->
+		<route id="sac-secondaryTechnician-key2act-route">
+			<from uri="direct:sac-secondaryTechnician-key2act-IR" />
+			<log message="inside sac-secondaryTechnician-key2act route" />
+			<to uri="bean:secondaryTechnicianServiceBean" />
+		</route>
+		
+		<!-- salesPerson impl route -->
+		<route id="sac-salesPerson-key2act-route">
+			<from uri="direct:sac-salesPerson-key2act-IR" />
+			<log message="inside sac-salesPerson-key2act route" />
+			<to uri="bean:salesPersonServiceBean" />
+		</route>
+	
+		<!-- serviceArea impl route -->
+		<route id="sac-serviceArea-key2act-route">
+			<from uri="direct:sac-serviceArea-key2act-IR" />
+			<log message="inside sac-serviceArea-key2act route" />
+			<to uri="bean:serviceAreaServiceBean" />
+		</route>
+		
+		<!-- priceMatrix impl route -->
+		<route id="sac-priceMatrix-key2act-route">
+			<from uri="direct:sac-priceMatrix-key2act-IR" />
+			<log message="inside sac-priceMatrix-key2act route" />
+			<to uri="bean:priceMatrixServiceBean" />
+		</route>
+		
+		<!-- serviceCall impl route -->
+		<route id="sac-serviceCall-key2act-route">
+			<from uri="direct:sac-serviceCall-key2act-IR" />
+			<log message="inside sac-serviceCall-key2act route" />
+			<to uri="bean:sacBean" />
+		</route>
+		
+		<!-- problemType impl route -->
+
+		<route id="sac-problemType-key2act-route">
+			<from uri="direct:sac-problemType-key2act-IR" />
+			<log message="inside sac-problemType-key2act route" />
+			<to uri="bean:problemTypeBean" />
+		</route>
+
+		<!-- callStatus impl route -->
+
+		<route id="sac-callStatus-key2act-route">
+			<from uri="direct:sac-callStatus-key2act-IR" />
+			<log message="inside sac-callStatus-key2act route" />
+			<to uri="bean:callStatusBean" />
+		</route>
+
+		<!-- callType impl route -->
+
+		<route id="sac-callType-key2act-route">
+			<from uri="direct:sac-callType-key2act-IR" />
+			<log message="inside sac-callType-key2act route" />
+			<to uri="bean:callTypeBean" />
+		</route>
+
+		<!-- contactNumber impl route -->
+
+		<route id="sac-contactNumber-key2act-route">
+			<from uri="direct:sac-contactNumber-key2act-IR" />
+			<log message="inside sac-contactNumber-key2act route" />
+			<to uri="bean:contactNumberBean" />
+		</route>
+
+		<!-- billCustomer impl route -->
+
+		<route id="sac-billCustomer-key2act-IR">
+			<from uri="direct:sac-billCustomer-key2act-IR" />
+			<log message="inside sac-billCustomer-key2act-IR" />
+			<to uri="bean:billCustomerBean" />
+		</route>
+
+
+		<!-- equipment Id impl route -->
+
+		<route id="sac-equipment-key2act-IR">
+			<from uri="direct:sac-equipment-key2act-IR" />
+			<log message="inside sac-equipment-key2act-IR" />
+			<to uri="bean:equipmentBean" />
+		</route>
+
+
+		<!-- Job Number impl route -->
+
+		<route id="sac-jobNumber-key2act-IR">
+			<from uri="direct:sac-jobNumber-key2act-IR" />
+			<log message="inside sac-jobNumber-key2act-IR" />
+			<to uri="bean:jobNumberBean" />
+		</route>
+
+
+		<!-- local Tax impl route -->
+
+		<route id="sac-localTax-key2act-IR">
+			<from uri="direct:sac-localTax-key2act-IR" />
+			<log message="inside sac-localTax-key2act-IR" />
+			<to uri="bean:localTaxBean" />
+		</route>
+
+
+		<!-- ServicelevelId impl route -->
+
+		<route id="sac-serviceLevel-key2act-IR">
+			<from uri="direct:sac-serviceLevel-key2act-IR" />
+			<log message="inside sac-serviceLevel-key2act-IR" />
+			<to uri="bean:serviceLevelBean" />
+		</route>
+
+
+		<!-- TaskCode impl route -->
+
+		<route id="sac-taskCode-key2act-IR">
+			<from uri="direct:sac-taskCode-key2act-IR" />
+			<log message="inside sac-taskCode-key2act-IR" />
+			<to uri="bean:taskCodeBean" />
+		</route>
+
+
+		<!-- TechnicianId impl route -->
+
+		<route id="sac-technician-key2act-IR">
+			<from uri="direct:sac-technician-key2act-IR" />
+			<log message="inside sac-technician-key2act-IR" />
+			<to uri="bean:technicianBean" />
+		</route>
+		
+	</routeContext>
+</beans>

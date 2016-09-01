@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="notificationUtil" class="com.key2act.sac.notification.util.NotificationUtil" />
+	<bean id="scNotificationBean"
+		class="com.key2act.sac.notification.bean.ServiceChannelNotificationProcessBean" />
+	<bean id="fetchPipeLineNameList" class="com.key2act.sac.notification.service.FetchPipelineName" />
+	<bean id="serviceRequestBean"
+		class="com.key2act.sac.servicerequest.bean.ServiceRequestProcessBean" />
+	<bean id="serviceRequestLogBean"
+		class="com.key2act.sac.servicerequest.bean.ServiceRequestLogBean" />
+	<bean id="serviceRequestNoteBean"
+		class="com.key2act.sac.servicerequest.note.service.ServiceRequestNoteProcessor" />
+		<bean id="serviceRequestImpl" class="com.key2act.sac.servicerequest.impl.ServiceRequestImpl" />
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="sacimpl">
+		<route id="sac-permaloader">
+			<from uri="direct:loadParmastoreConfigRoute" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(SC-XML_SC-mapping)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ServiceChanel-PipelineHandler)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ServiceChanel-Key2ACT-Status-Mapping)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(InternalEvent-pipelineHandler-mapping)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(SourceType-pipelineConfigName-mapping)" />
+		</route>
+		<route id="sac-workorder-IR">
+			<from uri="direct:SR-workorder-key2act-IR" />
+			<log message="inside sac-workorder impl route" />
+			<to uri="direct:loadParmastoreConfigRoute" />
+			<to
+				uri="bean:serviceRequestBean?method=convertServiceRequestDataInXMLFormate" />
+			<to uri="bean:serviceRequestLogBean" />
+			<to uri="bean:serviceRequestBean?method=identifySourceAndProcess" />
+			<to
+				uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(${in.header.pipelineLoaded})" />
+			<to uri="direct:pipeactivity" />		
+		</route>
+		<route id="identifyWorkOrderType">
+			<from uri="direct:SR-workOrderType-key2act-IR"/>
+			<log message="inside identify workorder type (WONEW|WOUPDATE) route"/>
+			<to
+				uri="bean:serviceRequestBean?method=identifyWorkOrderType" />
+			<toD uri="direct:${in.header.pipelineLoaded}"/>		
+		</route>
+		<route id="processNewWorkOrderRequest">
+			<from uri="direct:workorder-new-route-IR" />
+			<log message="inside processNewWorkOrderRequest route" />
+			<to uri="bean:serviceRequestBean?method=processNewWorkOrder" />
+			<!-- <recipientList parallelProcessing="false"> <header>pipelineLoadedCounter</header> 
+				</recipientList> -->
+			<loop>
+				<simple>${in.header.pipelineLoadedCounter}</simple>
+				<log message="executing the loop " />
+				<to uri="bean:serviceRequestBean" />
+				<log message="pipeline to be loaded : ${in.header.pipelineLoaded}" />
+				<to
+					uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(${in.header.pipelineLoaded})" />
+				<to uri="direct:pipeactivity" />
+			</loop>
+			<to uri="bean:serviceRequestBean?method=sendResponseCode" />
+		</route>
+		<route id="processUpdateWorkOrder">
+			<from uri="direct:workorder-update-route-IR" />
+			<log message="inside processUpdateWorkOrder route" />
+			<to uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(SR-generic-handler-pipeline)" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(Provider-Details-Mapping)" />
+			
+			<to uri="direct:pipeactivity" />
+			<to uri="bean:serviceRequestBean?method=processUpdatedWorkOrder" />
+			<loop>
+				<simple>${in.header.pipelineLoadedCounter}</simple>
+				<log message="executing the loop " />
+				<to uri="bean:serviceRequestBean" />
+				<log message="pipeline to be loaded : ${in.header.pipelineLoaded}" />
+				<to
+					uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(${in.header.pipelineLoaded})" />
+				<to uri="direct:pipeactivity" />
+			</loop>
+			<to uri="bean:serviceRequestBean?method=sendResponseCode" />
+		</route>
+		<!-- Sac Notification start  -->	
+		<route id="sac-notification-IR">
+			<from uri="direct:sac-notification-key2act-IR" />
+			<to uri="bean:notificationUtil?method=serviceCallUnmarshall" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ServiceChannel-Key2Act-Notification-Mapping)"/>
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ServiceChanel-Key2ACT-Status-Mapping)" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(Provider-Details-Mapping)" />
+			<to uri="bean:fetchPipeLineNameList?method=processorBean" />
+			 <recipientList parallelProcessing="true">
+				<header>pipelineRecipientList</header>
+			</recipientList> 
+		</route>
+		<route>
+			<from uri="direct:pipeline" />
+			<to uri="bean:fetchPipeLineNameList"/>
+			<log message="notification pipeline name to be loaded  : ${in.header.pipelineName}" />
+ 			<to uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(${in.header.pipelineName})" />
+			<to uri="direct:pipeactivity" />
+		</route>
+		<!-- Notification Service IR route Start here -->
+		<route id="sac-scNotificationService-IR">
+			<from uri="direct:sac-scNotificationService-key2act-IR" />
+			<to uri="bean:notificationUtil?method=serviceCallUnmarshall" />
+			<to uri="bean:scNotificationBean?method=processorBean" />
+		    <setHeader headerName="CamelHttpMethod">
+  				<constant>POST</constant>
+			</setHeader>
+			
+			<toD uri="http://scurl" />
+			<to uri="bean:scNotificationBean?method=checkResponseFromSC" />
+			
+		</route>
+			<!--  Notification Service IR route End here -->
+		
+		<route id="sac-noteService-IR">
+			<from uri="direct:sac-noteService-key2act-IR" />
+			<to uri="bean:serviceRequestNoteBean?method=serviceCallUnmarshall" />
+			<to
+				uri="bean:getPipeConfigurationFromCache?method=loadPipeConfiguration(SAC-SR)" />
+			<to uri="direct:pipeActivity" />
+		</route>
+		
+		<!-- Service to Display OPEN ServiceRequests -->
+		<route id="SMListNewServiceRequest">
+			<from uri="direct:sac-SMListNewServiceRequest-key2act-IR" />
+			<to uri="bean:serviceRequestBean?method=fetchJsonRequestForListingNewServiceRequest" />
+		</route>
+		
+		<!-- Service to CallCreate function in OpenServiceRequests -->
+		<route id="SMCreateServiceCall">
+			<from uri="direct:sac-SMCreateServiceCall-key2act-IR" />
+			<to uri="bean:serviceRequestBean?method=createCallFromOpenServiceRequest" />
+		</route>
+		
+		<!-- Service to Edit the serviceRequests which are OPEN -->
+		<route id="SMListEditServiceRequest">
+			<from uri="direct:sac-SMListEditServiceRequest-key2act-IR" />
+			<to uri="bean:serviceRequestBean?method=fetchJsonRequestForEditServiceRequest" />
+		</route>
+	</routeContext>
+</beans>

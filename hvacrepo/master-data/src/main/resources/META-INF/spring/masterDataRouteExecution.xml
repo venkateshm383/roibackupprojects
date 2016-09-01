@@ -1,0 +1,448 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	<routeContext id="masterDataRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+
+		<!-- route for customer service -->
+		<route id="sacserviceCustomerTransformation">
+			<from uri="direct:sac-customer-TR" />
+			<log message="inside sac-customer execution route" />
+			<to uri="direct:sac-customer-ER" />
+		</route>
+		
+		<route id="sacCustomerExecutionRoute">
+
+			<from uri="direct:sac-customer-ER" />
+			<log
+				message="inside sac-customer before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-customer executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for billToAddress service -->
+		<route id="sacBillToAddressTransformation">
+			<from uri="direct:sac-billToAddress-TR" />
+			<log message="inside sac-billToAddress execution route" />
+			<to uri="direct:sac-billToAddress-ER" />
+		</route>
+		
+		<route id="sacBillToAddressExecutionRoute">
+
+			<from uri="direct:sac-billToAddress-ER" />
+			<log
+				message="inside sac-billToAddress before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-billToAddress executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for division service -->
+		<route id="sacdivisionTransformation">
+			<from uri="direct:sac-division-TR" />
+			<log message="inside sac-division execution route" />
+			<to uri="direct:sac-division-ER" />
+		</route>
+		
+		<route id="sacDivisionExecutionRoute">
+
+			<from uri="direct:sac-division-ER" />
+			<log
+				message="inside sac-division before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-division executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for laborRateGroup service -->
+		<route id="sacLaborRateGroupTransformation">
+			<from uri="direct:sac-laborRateGroup-TR" />
+			<log message="inside sac-laborRateGroup execution route" />
+			<to uri="direct:sac-laborRateGroup-ER" />
+		</route>
+		
+		<route id="sacLaborRateGroupRoute">
+
+			<from uri="direct:sac-laborRateGroup-ER" />
+			<log
+				message="inside sac-laborRateGroup before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-laborRateGroup executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for location service -->
+		<route id="sacLocationTransformation">
+			<from uri="direct:sac-location-TR" />
+			<log message="inside sac-location execution route" />
+			<to uri="direct:sac-location-ER" />
+		</route>
+		
+		<route id="sacLocationRoute">
+
+			<from uri="direct:sac-location-ER" />
+			<log
+				message="inside sac-location before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-location executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for masterTaxSchedule service -->
+		<route id="sacMasterTaxScheduleTransformation">
+			<from uri="direct:sac-masterTaxSchedule-TR" />
+			<log message="inside sac-masterTaxSchedule execution route" />
+			<to uri="direct:sac-masterTaxSchedule-ER" />
+		</route>
+		
+		<route id="sacMasterTaxScheduleRoute">
+
+			<from uri="direct:sac-masterTaxSchedule-ER" />
+			<log
+				message="inside sac-masterTaxSchedule before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-masterTaxSchedule executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for primaryTechnician service -->
+		<route id="sacPrimaryTechnicianTransformation">
+			<from uri="direct:sac-primaryTechnician-TR" />
+			<log message="inside sac-primaryTechnician execution route" />
+			<to uri="direct:sac-primaryTechnician-ER" />
+		</route>
+		
+		<route id="sacPrimaryTechnicianRoute">
+
+			<from uri="direct:sac-primaryTechnician-ER" />
+			<log
+				message="inside sac-primaryTechnician before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-primaryTechnician executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for secondaryTechnician service -->
+		<route id="sacSecondaryTechnicianTransformation">
+			<from uri="direct:sac-secondaryTechnician-TR" />
+			<log message="inside sac-secondaryTechnician execution route" />
+			<to uri="direct:sac-secondaryTechnician-ER" />
+		</route>
+		
+		<route id="sacSecondaryTechnicianRoute">
+
+			<from uri="direct:sac-secondaryTechnician-ER" />
+			<log
+				message="inside sac-secondaryTechnician before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-secondaryTechnician executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for salesPerson service -->
+		<route id="sacSalesPersonTransformation">
+			<from uri="direct:sac-salesPerson-TR" />
+			<log message="inside sac-salesPerson execution route" />
+			<to uri="direct:sac-salesPerson-ER" />
+		</route>
+		
+		<route id="sacSalesPersonRoute">
+
+			<from uri="direct:sac-salesPerson-ER" />
+			<log
+				message="inside sac-salesPerson before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-salesPerson executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for serviceArea service -->
+		<route id="sacServiceAreaformation">
+			<from uri="direct:sac-serviceArea-TR" />
+			<log message="inside sac-serviceArea execution route" />
+			<to uri="direct:sac-serviceArea-ER" />
+		</route>
+		
+		<route id="sacserviceAreaRoute">
+
+			<from uri="direct:sac-serviceArea-ER" />
+			<log
+				message="inside sac-serviceArea before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside sac-serviceArea executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for serviceCall service -->
+		<route id="sacServiceCallformation">
+			<from uri="direct:sac-serviceCall-TR" />
+			<log message="inside sac-serviceCall execution route" />
+			<to uri="direct:sac-serviceCall-ER" />
+		</route>
+		
+		<route id="sacServiceCallRoute">
+			<from uri="direct:sac-serviceCall-ER" />
+			<log
+				message="inside sac-serviceCall before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-serviceCall executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for problemType service -->
+		<route id="sacProblemTypeTransformation">
+			<from uri="direct:sac-problemType-TR" />
+			<log message="inside sac-problemType execution route" />
+			<to uri="direct:sac-problemType-ER" />
+		</route>
+		
+		<route id="sacProblemTypeRoute">
+			<from uri="direct:sac-problemType-ER" />
+			<log
+				message="inside sac-problemType before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-problemType executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for callStatus service -->
+		<route id="saccallStatusTransformation">
+			<from uri="direct:sac-callStatus-TR" />
+			<log message="inside sac-callStatus execution route" />
+			<to uri="direct:sac-callStatus-ER" />
+		</route>
+		
+		<route id="saccallStatusRoute">
+			<from uri="direct:sac-callStatus-ER" />
+			<log
+				message="inside sac-callStatus before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-problemType executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for callType service -->
+		<route id="saccallTypeTransformation">
+			<from uri="direct:sac-callType-TR" />
+			<log message="inside sac-callType execution route" />
+			<to uri="direct:sac-callType-ER" />
+		</route>
+		
+		<route id="saccallTypeRoute">
+			<from uri="direct:sac-callType-ER" />
+			<log
+				message="inside sac-callStatus before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-callType executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for contactNumber service -->
+		<route id="saccontactNumberTransformation">
+			<from uri="direct:sac-contactNumber-TR" />
+			<log message="inside sac-contactNumber execution route" />
+			<to uri="direct:sac-contactNumber-ER" />
+		</route>
+		
+		<route id="saccontactNumberRoute">
+			<from uri="direct:sac-contactNumber-ER" />
+			<log
+				message="inside sac-contactNumber before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-contactNumber executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for priceMatrix service -->
+		<route id="sacpriceMatrixTransformation">
+			<from uri="direct:sac-priceMatrix-TR" />
+			<log message="inside sac-priceMatrix execution route" />
+			<to uri="direct:sac-priceMatrix-ER" />
+		</route>
+		
+		<route id="sacpriceMatrixRoute">
+			<from uri="direct:sac-priceMatrix-ER" />
+			<log
+				message="inside sac-priceMatrix before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			<toD uri="direct:${in.header.implroute}"/>
+			<log
+				message="inside sac-priceMatrix executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for billcustomer service -->
+		<route id="sacbillCustomerTransformation">
+			<from uri="direct:sac-billCustomer-TR" />
+			<log message="inside sac-billCustomer execution route" />
+			<to uri="direct:sac-billCustomer-ER" />
+		</route>
+
+		<route id="sacbillCustomerExecutionRoute">
+
+			<from uri="direct:sac-billCustomer-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-billcustomer executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for equipment service -->
+		<route id="sacequipmentTransformation">
+			<from uri="direct:sac-equipment-TR" />
+			<log message="inside sac-equipment execution route" />
+			<to uri="direct:sac-equipment-ER" />
+		</route>
+
+		<route id="sacequipmentExecutionRoute">
+
+			<from uri="direct:sac-equipment-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-equipment executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for jobNumber service -->
+		<route id="sacjobNumberTransformation">
+			<from uri="direct:sac-jobNumber-TR" />
+			<log message="inside sac-jobNumber execution route" />
+			<to uri="direct:sac-jobNumber-ER" />
+		</route>
+
+		<route id="sacjobNumberExecutionRoute">
+
+			<from uri="direct:sac-jobNumber-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-jobNumber executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for localTax service -->
+		<route id="saclocalTaxTransformation">
+			<from uri="direct:sac-localTax-TR" />
+			<log message="inside sac-localTax execution route" />
+			<to uri="direct:sac-localTax-ER" />
+		</route>
+
+		<route id="saclocalTaxExecutionRoute">
+
+			<from uri="direct:sac-localTax-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-localTax executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for serviceLevel service -->
+		<route id="sacserviceLevelTransformation">
+			<from uri="direct:sac-serviceLevel-TR" />
+			<log message="inside sac-serviceLevel execution route" />
+			<to uri="direct:sac-serviceLevel-ER" />
+		</route>
+
+		<route id="sacserviceLevelExecutionRoute">
+
+			<from uri="direct:sac-serviceLevel-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-serviceLevel executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for taskCode service -->
+		<route id="sactaskCodeTransformation">
+			<from uri="direct:sac-taskCode-TR" />
+			<log message="inside sac-taskCode execution route" />
+			<to uri="direct:sac-taskCode-ER" />
+		</route>
+
+		<route id="sactaskCodeExecutionRoute">
+
+			<from uri="direct:sac-taskCode-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-taskCode executionroute after calling feature execution" />
+		</route>
+		
+		<!-- route for technician service -->
+		<route id="sactechnicianTransformation">
+			<from uri="direct:sac-technician-TR" />
+			<log message="inside sac-technician execution route" />
+			<to uri="direct:sac-technician-ER" />
+		</route>
+
+		<route id="sactechnicianExecutionRoute">
+
+			<from uri="direct:sac-technician-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside sac-technician executionroute after calling feature execution" />
+		</route>
+		
+	</routeContext>
+</beans>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+	<IntegrationPipe name="SR-WONumberChanged-handler-pipeline" isEnabled="true">		
+		 <PipeActivity>
+			<JDBCIntActivity name="WONumberUpdate">
+				<DBConfig operation="UPDATE" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>UPDATE servicerequest SET workordernumber=woNumberfld WHERE tenantid=tenantidfld AND sourcerequestid=transNumfld</SQL>
+				<dbmsMapper>					
+					<fieldMapper xPath="ServiceRequest/RequestDetail/WONumber"
+						Field="woNumberfld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/TenantId"
+						Field="tenantidfld" />
+					<fieldMapper xPath="ServiceRequest/RequestSource/TransactionNumber"
+						Field="transNumfld" />
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		<PipeActivity>
+		<EventPublishActivity EventName="WORKORDER_NUMBER_CHANGED_EVENT">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceRequest/RequestDetail/WONumber"/>
+						<EventData xpathExpression="ServiceRequest/RequestSource/TransactionNumber"/>
+					</EventActivityParams>
+				</EventPublishActivity>
+		</PipeActivity> 		
+	</IntegrationPipe>
+</IntegrationPipes>

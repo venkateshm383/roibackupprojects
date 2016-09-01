@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="sacGroup">
+
+		<Feature featureName="sac" version="V_1" enabled='true'
+			interfaceName="com.getusroi.Isac">
+			
+			<Service name="customer" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/customer">sac-customer-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="billToAddress" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/billToAddress">sac-billToAddress-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="division" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/division">sac-division-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="laborRateGroup" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/laborRateGroup">sac-laborRateGroup-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="location" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/location">sac-location-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="masterTaxSchedule" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/masterTaxSchedule">sac-masterTaxSchedule-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="primaryTechnician" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/primaryTechnician">sac-primaryTechnician-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="secondaryTechnician" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/secondaryTechnician">sac-secondaryTechnician-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="salesPerson" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/salesPerson">sac-salesPerson-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="serviceArea" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/serviceArea">sac-serviceArea-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="serviceCall" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/serviceCall">sac-serviceCall-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="problemType" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/problemType">sac-problemType-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="callStatus" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/callStatus">sac-callStatus-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="callType" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/callType">sac-callType-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="contactNumber" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/contactNumber">sac-contactNumber-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="priceMatrix" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/priceMatrix">sac-priceMatrix-key2act-IR</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="billCustomer" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/billCustomer">sac-billCustomer-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="equipment" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/equipment">sac-equipment-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="jobNumber" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/jobNumber">sac-jobNumber-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="localTax" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/localTax">sac-localTax-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="serviceLevel" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/serviceLevel">sac-serviceLevel-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="taskCode" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/taskCode">sac-taskCode-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+			<Service name="technician" enabled='true' vendorName="proship"
+				Description="sac through Proship">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/technician">sac-technician-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			
+		</Feature>
+
+	</Features>
+</FeaturesServiceInfo>

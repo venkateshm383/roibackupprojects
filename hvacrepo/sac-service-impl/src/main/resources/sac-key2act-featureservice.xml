@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="sacGroup">
+
+		<Feature featureName="sac" version="1.0" enabled='true'
+			interfaceName="com.getusroi.ISACService">
+			<Service name="workOrder" enabled='true' vendorName="key2act"
+				Description="sac workorder">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/workOrder">SR-workorder-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="workOrderType" enabled='true' vendorName="key2act"
+				Description="sac workorder">
+				<GenericRestEndpoint httpMethod="POST">SR-workOrderType-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="notification" enabled='true' vendorName="key2act"
+				Description="notification through pipeline">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/notification">sac-notification-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="noteService" enabled='true' vendorName="key2act"
+				Description="noteService through pipeline">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/noteService">sac-noteService-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="scNotificationService" enabled='true'
+				vendorName="key2act" Description="scNotificationService through Pipeline">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/scNotificationService">sac-scNotificationService-key2act-IR
+				</GenericRestEndpoint>
+			</Service>
+			<Service name="SMListNewServiceRequest" enabled='true'
+				vendorName="key2act" Description="SMListNewServiceRequest">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/SMListNewServiceRequest">sac-SMListNewServiceRequest-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="SMCreateServiceCall" enabled='true'
+				vendorName="key2act" Description="SMCreateServiceCall">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/SMCreateServiceCall">sac-SMCreateServiceCall-key2act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="SMListEditServiceRequest" enabled='true'
+				vendorName="key2act" Description="SMListEditServiceRequest">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="sacGroup/sac/SMListEditServiceRequest">sac-SMListEditServiceRequest-key2act-IR</GenericRestEndpoint>
+			</Service>
+		</Feature>
+	</Features>
+</FeaturesServiceInfo>

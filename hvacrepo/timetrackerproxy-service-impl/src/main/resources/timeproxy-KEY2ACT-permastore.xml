@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+	<PermaStoreConfiguration>
+		<Name>tenant-version-WebServiceMappingEndpoint-connectionString-mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeProxy" featureGroup="timeTracker" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"gap": {"connectionString":"Data source = DEVTESTSIGSQL; Integrated Security = false; Initial Catalog = TWO; User ID = sa; Password=Access01","version": "1.0","webServiceURL":"http://52.201.18.79:5000/TimeTrackService/ListDataService.asmx"}}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>version-requestXSL-responseXSL-mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeProxy" featureGroup="timeTracker" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{ "1.0": { "GetServiceCallListData": { "operationName": "GetServiceCallListData", "RequestTransformerFile": "ServiceCallListRequest.xsl", "ResponseTransformerFile": "ServiceCallListResponse.xsl" }, "GetCostCodeListData": { "operationName": "GetCostCodeListData", "RequestTransformerFile": "JobCostCodeListRequest.xsl", "ResponseTransformerFile": "JobCostCodeListResponse.xsl" }, "GetWSCostCodeListData": { "operationName": "GetWSCostCodeListData", "RequestTransformerFile": "ServiceCallCostCodeResponse.xsl", "ResponseTransformerFile": "ServiceCallCostCodeResponse.xsl" }, "GetJobNumberListData": { "OperationName": "GetJobNumberListData", "RequestTransformerFile": "JobNumberListRequest.xsl", "ResponseTransformerFile": "JobNumberListResponse.xsl" }, "GetTransactionTypeListData": { "OperationName": "GetTransactionTypeListData", "RequestTransformerFile": "TransactionTypeRequest.xsl", "ResponseTransformerFile": "TransactionTypeResponse.xsl" } } }
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+</PermaStoreConfigurations>

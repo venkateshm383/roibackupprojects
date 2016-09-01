@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="timeTracker">
+
+		<Feature featureName="timeSetup" version="1.0" enabled='true'
+			interfaceName="com.getusroi.ISACService">
+			
+			<Service name="generalSetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/generalSetup">timeSetup-generalSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="batchSetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/batchSetup">timeSetup-batchSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="crewSetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/crewSetup">timeSetup-crewSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="employeeOTSetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/employeeSetup">timeSetup-employeeOTSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="customerbillingsetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/customerbillingsetup">timeSetup-customerbillingSetup-key2Act-IR</GenericRestEndpoint>
+			</Service> 
+			<Service name="holidaypayperhoursetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/holidaypayperhoursetup">timeSetup-holidaypayperhourSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="transactiontypesetup" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/transactiontypesetup">timeSetup-transactiontypeSetup-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="crewSetupInput" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/crewSetupInput">timeSetup-crewSetupInput-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="crewPosition" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/crewPosition">timeSetup-crewPosition-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="generalSetupInput" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/generalSetupInput">timeSetup-generalSetupInput-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="batchSetupInput" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/batchSetupInput">timeSetup-batchSetupInput-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="employeeOTSetupInput" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/employeeOTSetupInput">timeSetup-employeeOTSetupInput-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="customerBillingSetupInput" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeSetup/customerBillingSetupInput">timeSetup-customerBillingSetupInput-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="createtimesheet" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/createtimesheet">timeSetup-createtimesheet-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			
+				<Service name="gettimesheet" enabled='true' vendorName="key2Act" Description="">
+				<GenericRestEndpoint httpMethod="POST" 
+					urlMappingScheme="timeTracker/timeSetup/gettimesheet">timeSetup-gettimesheet-key2Act-IR</GenericRestEndpoint>
+			</Service>
+			
+			
+		</Feature>
+	</Features>
+</FeaturesServiceInfo>

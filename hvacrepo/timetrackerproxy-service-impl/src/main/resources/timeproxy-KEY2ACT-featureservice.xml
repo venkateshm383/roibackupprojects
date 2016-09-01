@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="timeTracker">
+		<Feature featureName="timeProxy" version="1.0" enabled='true'
+			interfaceName="com.getusroi.ISACService">
+			<Service name="GetServiceCallListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetServiceCallListData">timeProxy-GetServiceCallListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetRateClassListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetRateClassListData">timeProxy-GetRateClassListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetJobNumberListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetJobNumberListData">timeProxy-GetJobNumberListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetUnionListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetUnionListData">timeProxy-GetUnionListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetFedClassListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetFedClassListData">timeProxy-GetFedClassListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetDepartmentIDListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetDepartmentIDListData">timeProxy-GetDepartmentIDListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetPositionDataListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetPositionDataListData">timeProxy-GetPositionDataListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetStateCodeListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetStateCodeListData">timeProxy-GetStateCodeListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetSutaStateCodeListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetSutaStateCodeListData">timeProxy-GetSutaStateCodeListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetWorkerCompListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetWorkerCompListData">timeProxy-GetWorkerCompListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetEmployeeListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetEmployeeListData">timeProxy-GetEmployeeListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetEquipmentListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetEquipmentListData">timeProxy-GetEquipmentListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="GetTransactionListData" enabled='true' vendorName="KEY2ACT" Description="">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="timeTracker/timeProxy/GetTransactionListData">timeProxy-GetTransactionListData-KEY2ACT-IR</GenericRestEndpoint>
+			</Service>
+		</Feature>
+	</Features>
+</FeaturesServiceInfo>

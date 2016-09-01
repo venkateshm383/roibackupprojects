@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+	<IntegrationPipe name="SR-generic-handler-pipeline" isEnabled="true">		
+		<PipeActivity>
+			<PropertiesActivity>
+				<PropertiesMapping setToXpath="ServiceRequest/RequestDetail" propertyValue="gap" elementToAdd="TenantId" propertyValueSource="Direct"/>				
+			</PropertiesActivity>
+		</PipeActivity>		
+	</IntegrationPipe>
+</IntegrationPipes>

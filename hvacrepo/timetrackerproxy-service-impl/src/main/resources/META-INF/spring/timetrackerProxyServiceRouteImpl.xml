@@ -1,0 +1,151 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:sec="http://cxf.apache.org/configuration/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	<bean id="requestProcessor"
+		class="com.key2act.timetrackerproxy.service.RequestProcessorBean" />
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="timeandexpenseProxyImpl">
+
+		<!-- Impl for getting the List of ServiceCalls -->
+		<route id="timeProxy-GetServiceCallListData-IR">
+			<from uri="direct:timeProxy-GetServiceCallListData-KEY2ACT-IR" />
+			<to uri="direct:timeTrackerPermaLoader" />
+			<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadPermaDataForWS(GetServiceCallListData)" />
+			<toD uri="xslt:file://${in.header.RequestTransformerFile}" />
+			<to uri="cxf:bean:camelCXFEndpoint?dataFormat=MESSAGE" />
+			<toD uri="xslt:file://${in.header.ResponseTransformerFile}" />
+			<removeHeaders pattern="CamelHttp*" />
+			<marshal ref="xmljson" />
+			<log message="final body :: ${body}" />
+		</route>
+
+		<!-- Impl for getting the List of JobNumbers -->
+		<route id="timeProxy-getListsForJobNumber-IR">
+			<from uri="direct:timeProxy-GetJobNumberListData-KEY2ACT-IR" />
+			<to uri="direct:timeTrackerPermaLoader" />
+			<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadPermaDataForWS(GetJobNumberListData)" />
+			<toD uri="xslt:file://${in.header.RequestTransformerFile}" />
+			<to uri="cxf:bean:camelCXFEndpoint?dataFormat=MESSAGE" />
+			<toD uri="xslt:file://${in.header.ResponseTransformerFile}" />
+			<removeHeaders pattern="CamelHttp*" />
+			<marshal ref="xmljson" />
+			<log message="final body :: ${body}" />
+		</route>
+
+		<route>
+			<from uri="direct:timeTrackerPermaLoader" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(tenant-version-WebServiceMappingEndpoint-connectionString-mapping)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(version-requestXSL-responseXSL-mapping)" />
+		</route>
+
+		<!-- Impl for getting the List of RateClasses from cdc -->
+		<route id="GetRateClassListData">
+		<from uri="direct:timeProxy-GetRateClassListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadRestClassConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of Rate Classes :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of UnionClasses -->
+		<route id="GetUnionListData">
+		<from uri="direct:timeProxy-GetUnionListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadUnionConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of Union Classes :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of FedClass Codes -->
+		<route id="GetFedClassListData">
+		<from uri="direct:timeProxy-GetFedClassListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadFedClassConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of fedClass Codes :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of Department Codes -->
+		<route id="GetDepartmentIDListData">
+		<from uri="direct:timeProxy-GetDepartmentIDListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadDepartmentConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of DepartmentID :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of PositionData -->
+		<route id="GetPositionDataListData">
+		<from uri="direct:timeProxy-GetPositionDataListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadPositionConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of PositionData :: ${body}" />
+		</route>
+		
+		<!--  Impl for getting the List of PayrollData -->
+		<route id="GetStateCodeListData">
+		<from uri="direct:timeProxy-GetStateCodeListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadStateConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of States :: ${body}" />
+		</route>
+		
+		<!--  Impl for getting the List of SutaState -->
+		<route id="GetSutaStateCodeListData">
+		<from uri="direct:timeProxy-GetSutaStateCodeListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadSutaStateConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of SutaStates :: ${body}" />
+		</route>
+		
+		<!--  Impl for getting the List of Worker's Comp List -->
+		<route id="GetWorkerCompListData">
+		<from uri="direct:timeProxy-GetWorkerCompListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadWorkersCompConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of Worker's Companies :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of Employee -->
+		<route id="GetEmployeeListData">
+		<from uri="direct:timeProxy-GetEmployeeListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadEmployeeDataConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of Employees in the Companies :: ${body}" />
+		</route>
+		
+		<!-- Impl for getting the List of Equipments -->
+		<route id="GetEquipmentListData">
+		<from uri="direct:timeProxy-GetEquipmentListData-KEY2ACT-IR" />
+		<to uri="bean:requestProcessor" /> 
+		<to
+				uri="bean:requestProcessor?method=getTenantNameAndLoadEquipmentConfigurationsForCDC(${in.header.servicetype})" />
+		<log message="loadedData For list of Employees in the Companies :: ${body}" />
+		</route>
+		
+	</routeContext>
+	<cxf:cxfEndpoint id="camelCXFEndpoint"
+		address="http://52.201.18.79:5000/TimeTrackService/ListDataService.asmx"
+		wsdlURL="ListDataService.wsdl" serviceName="ListDataService"
+		endpointName="ListDataServiceSoap" xmlns="http://wennsoft.com/webservices/" />
+</beans>

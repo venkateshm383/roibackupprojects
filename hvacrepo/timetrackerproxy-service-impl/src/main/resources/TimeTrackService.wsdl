@@ -1,0 +1,2058 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wennsoft.com/webservices/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://wennsoft.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://wennsoft.com/webservices/">
+      <s:element name="GetConnectionString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="db_company" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConnectionStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConnectionStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConnectionStringNew">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="db_company" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConnectionStringNewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConnectionStringNewResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLoginCredentials">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLoginCredentialsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLoginCredentialsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUsernameAndCompanies">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUsernameAndCompaniesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckUsernameAndCompaniesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TimeSheetTrx">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="COMPTRNM" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="BACHNUMB" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="BCHSOURC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Document_Source" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="EMPLOYID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="WS_Transaction_Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WS_Transaction_Status" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WS_Cost_Type" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Payroll_Pay_Type" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="WS_Job_Number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Project_Number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Appointment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Cost_Code_Number_1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Cost_Code_Number_2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Cost_Code_Number_3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Cost_Code_Number_4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Cost_Code_Alias" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WS_Cost_Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Cost_Element" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="LNSEQNBR" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Profit_Type_Number" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Profit_Amount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="COMPTRTP" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="UPRTRXCD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="TRXHRUNT" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Billing_Amount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="PAYRTAMT" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="VARDBAMT" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Transaction_Pay_Period" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Cost_Code_Act_Cost_TTD" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="TRXBEGDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="TRXENDDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="WS_Transaction_Date" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="TRXDSCRN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Unit_Decimal_Places" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Cost_Decimal_Places" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="TRX_QTY_PR" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="TRXQTY" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Cost_Per_Unit" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Ovrhd_1_Unit_Dec_Places" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Overhead_1_Cst_Dec_Plcs" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Overhead_Units_1" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Overhead_1_Cst_Per_Unit" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Overhead_1_Percent" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Overhead_1_Pct_Rate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="OH_Amount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="ACTINDX" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="UNIONCD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="RATECLSS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="DAYSWRDK" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WKSWRKD" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="DEPRTMNT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="JOBTITLE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="STATECD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="LOCALTAX" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="SUTASTAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="WRKRCOMP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="FEDCLSSCD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Production_Actual_Qty" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Est_Pct_Complete_to_Date" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Overhead_Group_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Labor_Fixed_OH" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Labor_OH_Percentage" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Certified_Payroll" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Monday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Tuesday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Wednesday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Thursday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Friday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Saturday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="Sunday" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="PSTGSTUS" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="USERID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="WS_Module" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Equipment_ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Task_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="DYOFWEEK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="ADRSCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="CUSTNMBR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="ASSETID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="ASSETIDSUF" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="ASSETINDEX" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="ITEMNMBR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="ITEMDESC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="UOFM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WS_Extended_Cost" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="VENDORID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="LOCNCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="SHFTCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="SHFTPREM" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="TRX_Verified" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="TRX_Origin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="Time_In" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="Time_In_Date" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="Time_Out" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="Time_Out_Date" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="WO_Task_ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="SEQNUMBR" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="EQSEQUIPID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="EQS_Cost_Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Time_Zone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="SV_Language_ID" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Wennsoft_Affiliate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Wennsoft_Branch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Wennsoft_Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="MODIFDT" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="Modified_Time" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="MDFUSRID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="User_Define_1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="User_Define_2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="USERDEF1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="USERDEF2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Def_Integer_1" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Def_Integer_2" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Integer_3" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Integer_4" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Dollar_1" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Dollar_2" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Dollar_3" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_Dollar_4" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="USRDAT01" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="USRDAT02" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="User_Defined_Date_3" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="1900-01-01T00:00:00.0000000-06:00" name="User_Defined_Date_4" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_CB_1" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_CB_2" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_CB_3" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="User_Defined_CB_4" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB1" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB2" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB3" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB4" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB5" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB6" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB7" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB8" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB9" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WSReserved_CB10" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="BasePayRateAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="EmployeeFringe" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="PrevailingFringe" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="CashFringe" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="EmployeeRate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="EmployeeHomeRCRate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="JobTransactionRCRate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="WS_Posting_Status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Note" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="DEX_ROW_ID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InsertTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertTransactionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTransactionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateInputField">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fieldName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fieldValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateInputFieldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateInputFieldResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateGLPeriod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateGLPeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ValidateGLPeriodResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLookupData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lookupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lookupInput" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLookupDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLookupDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="COMPTRNM" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTransactionResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImportStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCOMPTRNMS" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetImportStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImportStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrxImportStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="COMPTRNM" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrxImportStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrxImportStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPLOYID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetGrid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPLOYID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetGridResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetGridResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPLOYID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetReportResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSDocAttachGrid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TRXDOCNUM" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSDocAttachGridResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSDocAttachGridResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocAttach">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DOCID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocAttachResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateDocAttach">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TRXDOCNUM" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DOCDATE" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="DOCDESC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FILEPATH" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DOCUMENT" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDocAttachResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IsSubmitForApprovalEnabled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsSubmitForApprovalEnabledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsSubmitForApprovalEnabledResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSubmitForApprovalEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TRXENDDT" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSubmitForApprovalEmailResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWSTimeSheetTrxByBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetTrxByBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetTrxByBatchResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckForBatchApproval">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckForBatchApprovalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckForBatchApprovalResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrxBatchRollback">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCOMPTRNM" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrxBatchRollbackResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckAreDocumentsAttached">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCOMPTRNM" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAreDocumentsAttachedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAreDocumentsAttachedResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTrxGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCOMPTRNM" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTrxGroupResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWSTimeSheetTotals">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPLOYID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetTotalsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetTotalsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetHours">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPLOYID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSTimeSheetHoursResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSTimeSheetHoursResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoByCommonFields">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoByCommonFieldsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompTrxNoByCommonFieldsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrxDetailGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrxDetailGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrxDetailGroupResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompTrxNoGroupResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoGroupByDay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompTrxNoGroupByDayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompTrxNoGroupByDayResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearWSTimeSheetAudit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearWSTimeSheetAuditResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSetupOptions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSetupOptionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSetupOptionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNoteInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompTrxNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNoteInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNoteInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBatchInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBatchResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SaveBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BCHCOMNT" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TRXENDDT" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveBatchResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateTrxDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trx" type="tns:TimeSheetTrx" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTrxDetailResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="VerifyRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="productType" type="tns:ProductType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ProductType">
+        <s:list>
+          <s:simpleType>
+            <s:restriction base="s:string">
+              <s:enumeration value="eTimeTrack" />
+              <s:enumeration value="MobileTEC" />
+              <s:enumeration value="ExcelClient" />
+              <s:enumeration value="WebTech" />
+              <s:enumeration value="AdvancedDocumentManagement" />
+            </s:restriction>
+          </s:simpleType>
+        </s:list>
+      </s:simpleType>
+      <s:element name="VerifyRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerifyRegistrationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRegKeyInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRegKeyInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRegKeyInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetConnectionStringSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConnectionString" />
+  </wsdl:message>
+  <wsdl:message name="GetConnectionStringSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConnectionStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConnectionStringNewSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConnectionStringNew" />
+  </wsdl:message>
+  <wsdl:message name="GetConnectionStringNewSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConnectionStringNewResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginCredentialsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLoginCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginCredentialsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLoginCredentialsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckUsernameAndCompaniesSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUsernameAndCompanies" />
+  </wsdl:message>
+  <wsdl:message name="CheckUsernameAndCompaniesSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUsernameAndCompaniesResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertTransaction" />
+  </wsdl:message>
+  <wsdl:message name="InsertTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTransaction" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateInputFieldSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateInputField" />
+  </wsdl:message>
+  <wsdl:message name="ValidateInputFieldSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateInputFieldResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateGLPeriodSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateGLPeriod" />
+  </wsdl:message>
+  <wsdl:message name="ValidateGLPeriodSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateGLPeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLookupDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLookupData" />
+  </wsdl:message>
+  <wsdl:message name="GetLookupDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLookupDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTransaction" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImportStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImportStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetImportStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImportStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxImportStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrxImportStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxImportStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrxImportStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheet" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetGridSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetGrid" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetGridSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetGridResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetReport" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSDocAttachGridSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSDocAttachGrid" />
+  </wsdl:message>
+  <wsdl:message name="GetWSDocAttachGridSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSDocAttachGridResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocAttachSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocAttach" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocAttachSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocAttachResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateDocAttachSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateDocAttach" />
+  </wsdl:message>
+  <wsdl:message name="CreateDocAttachSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateDocAttachResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsSubmitForApprovalEnabledSoapIn">
+    <wsdl:part name="parameters" element="tns:IsSubmitForApprovalEnabled" />
+  </wsdl:message>
+  <wsdl:message name="IsSubmitForApprovalEnabledSoapOut">
+    <wsdl:part name="parameters" element="tns:IsSubmitForApprovalEnabledResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSubmitForApprovalEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSubmitForApprovalEmail" />
+  </wsdl:message>
+  <wsdl:message name="SendSubmitForApprovalEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSubmitForApprovalEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetTrxByBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetTrxByBatch" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetTrxByBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetTrxByBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckForBatchApprovalSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckForBatchApproval" />
+  </wsdl:message>
+  <wsdl:message name="CheckForBatchApprovalSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckForBatchApprovalResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrxBatchRollbackSoapIn">
+    <wsdl:part name="parameters" element="tns:TrxBatchRollback" />
+  </wsdl:message>
+  <wsdl:message name="TrxBatchRollbackSoapOut">
+    <wsdl:part name="parameters" element="tns:TrxBatchRollbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckAreDocumentsAttachedSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAreDocumentsAttached" />
+  </wsdl:message>
+  <wsdl:message name="CheckAreDocumentsAttachedSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAreDocumentsAttachedResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTrxGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteTrxGroup" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTrxGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTrxGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetTotalsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetTotals" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetTotalsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetTotalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetHoursSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetHours" />
+  </wsdl:message>
+  <wsdl:message name="GetWSTimeSheetHoursSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSTimeSheetHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoByCommonFieldsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoByCommonFields" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoByCommonFieldsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoByCommonFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxDetailGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrxDetailGroup" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxDetailGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrxDetailGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoGroup" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoGroupByDaySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoGroupByDay" />
+  </wsdl:message>
+  <wsdl:message name="GetCompTrxNoGroupByDaySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompTrxNoGroupByDayResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearWSTimeSheetAuditSoapIn">
+    <wsdl:part name="parameters" element="tns:ClearWSTimeSheetAudit" />
+  </wsdl:message>
+  <wsdl:message name="ClearWSTimeSheetAuditSoapOut">
+    <wsdl:part name="parameters" element="tns:ClearWSTimeSheetAuditResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSetupOptionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSetupOptions" />
+  </wsdl:message>
+  <wsdl:message name="GetSetupOptionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSetupOptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNoteInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNoteInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetNoteInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNoteInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBatchInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBatchInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteBatch" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveBatch" />
+  </wsdl:message>
+  <wsdl:message name="SaveBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTrxDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTrxDetail" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTrxDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTrxDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerifyRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:VerifyRegistration" />
+  </wsdl:message>
+  <wsdl:message name="VerifyRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:VerifyRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRegKeyInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRegKeyInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetRegKeyInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRegKeyInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TimeTrackServiceSoap">
+    <wsdl:operation name="GetConnectionString">
+      <wsdl:input message="tns:GetConnectionStringSoapIn" />
+      <wsdl:output message="tns:GetConnectionStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionStringNew">
+      <wsdl:input message="tns:GetConnectionStringNewSoapIn" />
+      <wsdl:output message="tns:GetConnectionStringNewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLoginCredentials">
+      <wsdl:input message="tns:GetLoginCredentialsSoapIn" />
+      <wsdl:output message="tns:GetLoginCredentialsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUsernameAndCompanies">
+      <wsdl:input message="tns:CheckUsernameAndCompaniesSoapIn" />
+      <wsdl:output message="tns:CheckUsernameAndCompaniesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertTransaction">
+      <wsdl:input message="tns:InsertTransactionSoapIn" />
+      <wsdl:output message="tns:InsertTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <wsdl:input message="tns:UpdateTransactionSoapIn" />
+      <wsdl:output message="tns:UpdateTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateInputField">
+      <wsdl:input message="tns:ValidateInputFieldSoapIn" />
+      <wsdl:output message="tns:ValidateInputFieldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateGLPeriod">
+      <wsdl:input message="tns:ValidateGLPeriodSoapIn" />
+      <wsdl:output message="tns:ValidateGLPeriodSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLookupData">
+      <wsdl:input message="tns:GetLookupDataSoapIn" />
+      <wsdl:output message="tns:GetLookupDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input message="tns:GetTransactionSoapIn" />
+      <wsdl:output message="tns:GetTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImportStatus">
+      <wsdl:input message="tns:GetImportStatusSoapIn" />
+      <wsdl:output message="tns:GetImportStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxImportStatus">
+      <wsdl:input message="tns:GetTrxImportStatusSoapIn" />
+      <wsdl:output message="tns:GetTrxImportStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheet">
+      <wsdl:input message="tns:GetWSTimeSheetSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetGrid">
+      <wsdl:input message="tns:GetWSTimeSheetGridSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetGridSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetReport">
+      <wsdl:input message="tns:GetWSTimeSheetReportSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSDocAttachGrid">
+      <wsdl:input message="tns:GetWSDocAttachGridSoapIn" />
+      <wsdl:output message="tns:GetWSDocAttachGridSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocAttach">
+      <wsdl:input message="tns:DeleteDocAttachSoapIn" />
+      <wsdl:output message="tns:DeleteDocAttachSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateDocAttach">
+      <wsdl:input message="tns:CreateDocAttachSoapIn" />
+      <wsdl:output message="tns:CreateDocAttachSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsSubmitForApprovalEnabled">
+      <wsdl:input message="tns:IsSubmitForApprovalEnabledSoapIn" />
+      <wsdl:output message="tns:IsSubmitForApprovalEnabledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSubmitForApprovalEmail">
+      <wsdl:input message="tns:SendSubmitForApprovalEmailSoapIn" />
+      <wsdl:output message="tns:SendSubmitForApprovalEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTrxByBatch">
+      <wsdl:input message="tns:GetWSTimeSheetTrxByBatchSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetTrxByBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckForBatchApproval">
+      <wsdl:input message="tns:CheckForBatchApprovalSoapIn" />
+      <wsdl:output message="tns:CheckForBatchApprovalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrxBatchRollback">
+      <wsdl:input message="tns:TrxBatchRollbackSoapIn" />
+      <wsdl:output message="tns:TrxBatchRollbackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAreDocumentsAttached">
+      <wsdl:input message="tns:CheckAreDocumentsAttachedSoapIn" />
+      <wsdl:output message="tns:CheckAreDocumentsAttachedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTrxGroup">
+      <wsdl:input message="tns:DeleteTrxGroupSoapIn" />
+      <wsdl:output message="tns:DeleteTrxGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTotals">
+      <wsdl:input message="tns:GetWSTimeSheetTotalsSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetTotalsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetHours">
+      <wsdl:input message="tns:GetWSTimeSheetHoursSoapIn" />
+      <wsdl:output message="tns:GetWSTimeSheetHoursSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoByCommonFields">
+      <wsdl:input message="tns:GetCompTrxNoByCommonFieldsSoapIn" />
+      <wsdl:output message="tns:GetCompTrxNoByCommonFieldsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxDetailGroup">
+      <wsdl:input message="tns:GetTrxDetailGroupSoapIn" />
+      <wsdl:output message="tns:GetTrxDetailGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroup">
+      <wsdl:input message="tns:GetCompTrxNoGroupSoapIn" />
+      <wsdl:output message="tns:GetCompTrxNoGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroupByDay">
+      <wsdl:input message="tns:GetCompTrxNoGroupByDaySoapIn" />
+      <wsdl:output message="tns:GetCompTrxNoGroupByDaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearWSTimeSheetAudit">
+      <wsdl:input message="tns:ClearWSTimeSheetAuditSoapIn" />
+      <wsdl:output message="tns:ClearWSTimeSheetAuditSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSetupOptions">
+      <wsdl:input message="tns:GetSetupOptionsSoapIn" />
+      <wsdl:output message="tns:GetSetupOptionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNoteInfo">
+      <wsdl:input message="tns:GetNoteInfoSoapIn" />
+      <wsdl:output message="tns:GetNoteInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchInfo">
+      <wsdl:input message="tns:GetBatchInfoSoapIn" />
+      <wsdl:output message="tns:GetBatchInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBatch">
+      <wsdl:input message="tns:DeleteBatchSoapIn" />
+      <wsdl:output message="tns:DeleteBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveBatch">
+      <wsdl:input message="tns:SaveBatchSoapIn" />
+      <wsdl:output message="tns:SaveBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrxDetail">
+      <wsdl:input message="tns:UpdateTrxDetailSoapIn" />
+      <wsdl:output message="tns:UpdateTrxDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyRegistration">
+      <wsdl:input message="tns:VerifyRegistrationSoapIn" />
+      <wsdl:output message="tns:VerifyRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRegKeyInfo">
+      <wsdl:input message="tns:GetRegKeyInfoSoapIn" />
+      <wsdl:output message="tns:GetRegKeyInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TimeTrackServiceSoap" type="tns:TimeTrackServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConnectionString">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetConnectionString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionStringNew">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetConnectionStringNew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLoginCredentials">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetLoginCredentials" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUsernameAndCompanies">
+      <soap:operation soapAction="http://wennsoft.com/webservices/CheckUsernameAndCompanies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertTransaction">
+      <soap:operation soapAction="http://wennsoft.com/webservices/InsertTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap:operation soapAction="http://wennsoft.com/webservices/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateInputField">
+      <soap:operation soapAction="http://wennsoft.com/webservices/ValidateInputField" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateGLPeriod">
+      <soap:operation soapAction="http://wennsoft.com/webservices/ValidateGLPeriod" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLookupData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetLookupData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImportStatus">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetImportStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxImportStatus">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetTrxImportStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheet">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetGrid">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetGrid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetReport">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSDocAttachGrid">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSDocAttachGrid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocAttach">
+      <soap:operation soapAction="http://wennsoft.com/webservices/DeleteDocAttach" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDocAttach">
+      <soap:operation soapAction="http://wennsoft.com/webservices/CreateDocAttach" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsSubmitForApprovalEnabled">
+      <soap:operation soapAction="http://wennsoft.com/webservices/IsSubmitForApprovalEnabled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSubmitForApprovalEmail">
+      <soap:operation soapAction="http://wennsoft.com/webservices/SendSubmitForApprovalEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTrxByBatch">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetTrxByBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForBatchApproval">
+      <soap:operation soapAction="http://wennsoft.com/webservices/CheckForBatchApproval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrxBatchRollback">
+      <soap:operation soapAction="http://wennsoft.com/webservices/TrxBatchRollback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAreDocumentsAttached">
+      <soap:operation soapAction="http://wennsoft.com/webservices/CheckAreDocumentsAttached" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTrxGroup">
+      <soap:operation soapAction="http://wennsoft.com/webservices/DeleteTrxGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTotals">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetTotals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetHours">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoByCommonFields">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoByCommonFields" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxDetailGroup">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetTrxDetailGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroup">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroupByDay">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoGroupByDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearWSTimeSheetAudit">
+      <soap:operation soapAction="http://wennsoft.com/webservices/ClearWSTimeSheetAudit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSetupOptions">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetSetupOptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNoteInfo">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetNoteInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchInfo">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetBatchInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBatch">
+      <soap:operation soapAction="http://wennsoft.com/webservices/DeleteBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveBatch">
+      <soap:operation soapAction="http://wennsoft.com/webservices/SaveBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrxDetail">
+      <soap:operation soapAction="http://wennsoft.com/webservices/UpdateTrxDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyRegistration">
+      <soap:operation soapAction="http://wennsoft.com/webservices/VerifyRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegKeyInfo">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetRegKeyInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TimeTrackServiceSoap12" type="tns:TimeTrackServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConnectionString">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetConnectionString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionStringNew">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetConnectionStringNew" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLoginCredentials">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetLoginCredentials" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUsernameAndCompanies">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/CheckUsernameAndCompanies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertTransaction">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/InsertTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateInputField">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/ValidateInputField" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateGLPeriod">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/ValidateGLPeriod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLookupData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetLookupData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImportStatus">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetImportStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxImportStatus">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetTrxImportStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheet">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetGrid">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetGrid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetReport">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSDocAttachGrid">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSDocAttachGrid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocAttach">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/DeleteDocAttach" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDocAttach">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/CreateDocAttach" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsSubmitForApprovalEnabled">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/IsSubmitForApprovalEnabled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSubmitForApprovalEmail">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/SendSubmitForApprovalEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTrxByBatch">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetTrxByBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForBatchApproval">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/CheckForBatchApproval" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrxBatchRollback">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/TrxBatchRollback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAreDocumentsAttached">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/CheckAreDocumentsAttached" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTrxGroup">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/DeleteTrxGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetTotals">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetTotals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSTimeSheetHours">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSTimeSheetHours" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoByCommonFields">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoByCommonFields" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxDetailGroup">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetTrxDetailGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroup">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompTrxNoGroupByDay">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetCompTrxNoGroupByDay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearWSTimeSheetAudit">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/ClearWSTimeSheetAudit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSetupOptions">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetSetupOptions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNoteInfo">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetNoteInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchInfo">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetBatchInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBatch">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/DeleteBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveBatch">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/SaveBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrxDetail">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/UpdateTrxDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyRegistration">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/VerifyRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegKeyInfo">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetRegKeyInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TimeTrackService">
+    <wsdl:port name="TimeTrackServiceSoap" binding="tns:TimeTrackServiceSoap">
+      <soap:address location="http://207.67.25.168/TimeTrackService/TimeTrackService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TimeTrackServiceSoap12" binding="tns:TimeTrackServiceSoap12">
+      <soap12:address location="http://207.67.25.168/TimeTrackService/TimeTrackService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

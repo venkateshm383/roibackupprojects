@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="timeandexpenseProxyExec">
+
+		<!-- Execution route for JobNumberList -->
+		<route>
+			<from uri="direct:timeProxy-GetJobNumberListData-TR" />
+			<log message="Entered into the  GetJobNumberListData transformation Route" />
+			<to uri="direct:timeProxy-GetJobNumberListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetJobNumberListData-KEY2ACT-ER" />
+			<log message="Entered into the GetJobNumberListData Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+
+		<!-- Execution route for Getting the list of Service Calls -->
+		<route>
+			<from uri="direct:timeProxy-GetServiceCallListData-TR" />
+			<log message="Entered into the  GetServiceCallListData transformation Route" />
+			<to uri="direct:timeProxy-GetServiceCallListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetServiceCallListData-KEY2ACT-ER" />
+			<log message="Entered into the GetServiceCallListData Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+
+		<!-- Execution route for getting the list of Rate Classes available in 
+			the cdc for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetRateClassListData-TR" />
+			<log message="Entered into the  GetRateClassListData transformation Route" />
+			<to uri="direct:timeProxy-GetRateClassListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetRateClassListData-KEY2ACT-ER" />
+			<log message="Entered into the GetRateClassListData Transformation Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+
+		<!-- Execution route for getting the list of Unions available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetUnionListData-TR" />
+			<log message="Entered into the GetUnionListData transformation Route" />
+			<to uri="direct:timeProxy-GetUnionListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetUnionListData-KEY2ACT-ER" />
+			<log message="Entered into the GetUnionListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of FedClass available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetFedClassListData-TR" />
+			<log message="Entered into the GetFedClassListData transformation Route" />
+			<to uri="direct:timeProxy-GetFedClassListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetFedClassListData-KEY2ACT-ER" />
+			<log message="Entered into the GetFedClassListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of DepartmentID available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetDepartmentIDListData-TR" />
+			<log message="Entered into the GetDepartmentIDListData transformation Route" />
+			<to uri="direct:timeProxy-GetDepartmentIDListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetDepartmentIDListData-KEY2ACT-ER" />
+			<log message="Entered into the GetDepartmentIDListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of PositionData available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetPositionDataListData-TR" />
+			<log message="Entered into the GetPositionDataListData transformation Route" />
+			<to uri="direct:timeProxy-GetPositionDataListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetPositionDataListData-KEY2ACT-ER" />
+			<log message="Entered into the GetPositionDataListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of State available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetStateCodeListData-TR" />
+			<log message="Entered into the GetStateCodeListData transformation Route" />
+			<to uri="direct:timeProxy-GetStateCodeListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetStateCodeListData-KEY2ACT-ER" />
+			<log message="Entered into the GetStateCodeListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of SUTA State available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetSutaStateCodeListData-TR" />
+			<log message="Entered into the GetSutaStateCodeListData transformation Route" />
+			<to uri="direct:timeProxy-GetSutaStateCodeListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetSutaStateCodeListData-KEY2ACT-ER" />
+			<log message="Entered into the GetSutaStateCodeListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of Worker's Comp available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetWorkerCompListData-TR" />
+			<log message="Entered into the GetWorkerCompListData transformation Route" />
+			<to uri="direct:timeProxy-GetWorkerCompListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetWorkerCompListData-KEY2ACT-ER" />
+			<log message="Entered into the GetWorkerCompListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of Employee available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetEmployeeListData-TR" />
+			<log message="Entered into the GetEmployeeListData transformation Route" />
+			<to uri="direct:timeProxy-GetEmployeeListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetEmployeeListData-KEY2ACT-ER" />
+			<log message="Entered into the GetEmployeeListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for getting the list of Equipment available in the cdc 
+			for the tenant -->
+		<route>
+			<from uri="direct:timeProxy-GetEquipmentListData-TR" />
+			<log message="Entered into the GetEquipmentListData transformation Route" />
+			<to uri="direct:timeProxy-GetEquipmentListData-KEY2ACT-ER" />
+		</route>
+		<route>
+			<from uri="direct:timeProxy-GetEquipmentListData-KEY2ACT-ER" />
+			<log message="Entered into the GetEquipmentListData Execution Route" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+	</routeContext>
+</beans>

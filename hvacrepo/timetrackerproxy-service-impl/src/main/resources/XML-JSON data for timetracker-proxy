@@ -1,0 +1,274 @@
+
+1) TransactionTypes : 
+------------------------------------------------------------------------------------
+xml data : 
+----------
+<?xml version="1.0" encoding="utf-8"?>
+<TransactionTypeList>
+    <TransactionType>JOB_COST</TransactionType>
+    <TransactionType>SERVICE</TransactionType>
+    <TransactionType>UNBILLED</TransactionType>
+</TransactionTypeList>
+
+------------------------------------------------------------------------------------
+json data: 
+----------
+{
+	"TransactionTypeList": {
+		"TransactionType": [
+			"JOB_COST",
+			"SERVICE",
+			"UNBILLED"
+		]
+	}
+}
+
+====================================================================================
+
+2) ServiceCallList :
+---------------------------------------------------------------------------------------
+xml data : 
+----------
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceCallList>
+    <ServiceCall>
+        <ServiceCallId>160531-0001</ServiceCallId>
+        <ServiceDescription>160531-0001 (COLD)</ServiceDescription>
+    </ServiceCall>
+    <ServiceCall>
+        <ServiceCallId>160531-0002</ServiceCallId>
+        <ServiceDescription>160531-0002 (HEAT OUT)</ServiceDescription>
+    </ServiceCall>
+    <ServiceCall>
+        <ServiceCallId>160607-0001</ServiceCallId>
+        <ServiceDescription>160607-0001 (NO HEAT)</ServiceDescription>
+    </ServiceCall>
+    <ServiceCall>
+        <ServiceCallId>160728-0002</ServiceCallId>
+        <ServiceDescription>160728-0002 (IHKJHAESF)</ServiceDescription>
+    </ServiceCall>
+</ServiceCallList>
+
+---------------------------------------------------------------------------------------
+json data :
+-----------
+{
+	"ServiceCallList": {
+		"ServiceCall": [{
+			"ServiceCallId": "160531-0001",
+			"ServiceDescription": "160531-0001 (COLD)"
+		}, {
+			"ServiceCallId": "160531-0002",
+			"ServiceDescription": "160531-0002 (HEAT OUT)"
+		}, {
+			"ServiceCallId": "160607-0001",
+			"ServiceDescription": "160607-0001 (NO HEAT)"
+		}, {
+			"ServiceCallId": "160728-0002",
+			"ServiceDescription": "160728-0002 (IHKJHAESF)"
+		}]
+	}
+}
+
+========================================================================================
+
+3) JobNumberList :
+-------------------------------------------------------------------------------------
+xml data :
+----------
+<?xml version="1.0" encoding="utf-8"?>
+<JobNumberList>
+    <JobNumber>
+        <JobId>1001</JobId>
+        <JobDisplay>1001 (Simple CC Job / Std Billing)</JobDisplay>
+    </JobNumber>
+    <JobNumber>
+        <JobId>1003</JobId>
+        <JobDisplay>1003 (Communications / SOP Billing)</JobDisplay>
+    </JobNumber>
+    <JobNumber>
+        <JobId>1005</JobId>
+        <JobDisplay>1005 (General / AIA Billing)</JobDisplay>
+    </JobNumber>
+    <JobNumber>
+        <JobId>1006</JobId>
+        <JobDisplay>1006 (Elevator / CC Level AIA)</JobDisplay>
+    </JobNumber>
+</JobNumberList>
+
+--------------------------------------------------------------------------------------
+json data:
+----------
+{
+	"JobNumberList": {
+		"JobNumber": [{
+			"JobId": "1001",
+			"JobDisplay": "1001 (Simple CC Job / Std Billing)"
+		}, {
+			"JobId": "1003",
+			"JobDisplay": "1003 (Communications / SOP Billing)"
+		}, {
+			"JobId": "1005",
+			"JobDisplay": "1005 (General / AIA Billing)"
+		}, {
+			"JobId": "1006",
+			"JobDisplay": "1006 (Elevator / CC Level AIA)"
+		}]
+	}
+}
+
+=======================================================================================
+
+4) ServiceCallCostCodeList 
+-----------------------------
+xml data : 
+----------
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceCallCostCodeList>
+    <ServiceCallCostCode>
+        <CostCode>1</CostCode>
+        <CostCodeDescription>EQUIPMENT</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>2</CostCode>
+        <CostCodeDescription>MATERIAL</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>3</CostCode>
+        <CostCodeDescription>LABOR</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>4</CostCode>
+        <CostCodeDescription>SUBCONTRACTOR</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>5</CostCode>
+        <CostCodeDescription>OTHER</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>6</CostCode>
+        <CostCodeDescription>Labor Category1</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>7</CostCode>
+        <CostCodeDescription>Labor Category2</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>8</CostCode>
+        <CostCodeDescription>Labor Category3</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>9</CostCode>
+        <CostCodeDescription>Labor Category4</CostCodeDescription>
+    </ServiceCallCostCode>
+    <ServiceCallCostCode>
+        <CostCode>10</CostCode>
+        <CostCodeDescription>Labor Category5</CostCodeDescription>
+    </ServiceCallCostCode>
+</ServiceCallCostCodeList>
+
+==================================================================
+json data : 
+-----------
+{
+  "ServiceCallCostCodeList": {
+    "ServiceCallCostCode": [
+      {
+        "CostCode": "1",
+        "CostCodeDescription": "EQUIPMENT"
+      },
+      {
+        "CostCode": "2",
+        "CostCodeDescription": "MATERIAL"
+      },
+      {
+        "CostCode": "3",
+        "CostCodeDescription": "LABOR"
+      },
+      {
+        "CostCode": "4",
+        "CostCodeDescription": "SUBCONTRACTOR"
+      },
+      {
+        "CostCode": "5",
+        "CostCodeDescription": "OTHER"
+      },
+      {
+        "CostCode": "6",
+        "CostCodeDescription": "Labor Category1"
+      },
+      {
+        "CostCode": "7",
+        "CostCodeDescription": "Labor Category2"
+      },
+      {
+        "CostCode": "8",
+        "CostCodeDescription": "Labor Category3"
+      },
+      {
+        "CostCode": "9",
+        "CostCodeDescription": "Labor Category4"
+      },
+      {
+        "CostCode": "10",
+        "CostCodeDescription": "Labor Category5"
+      }
+    ]
+  }
+}
+
+====================================================================================
+
+5) JobCostCodeList : 
+------------------------------------------------------------------------------------
+xml data : 
+----------
+<?xml version="1.0" encoding="utf-8"?>
+<JobCostCodeList>
+    <JobCostCode>
+        <CostCode>00-1000-001</CostCode>
+        <CostCodeDescription>Engineering - Labor</CostCodeDescription>
+    </JobCostCode>
+    <JobCostCode>
+        <CostCode>00-1000-001</CostCode>
+        <CostCodeDescription>Engineering - Labor</CostCodeDescription>
+    </JobCostCode>
+    <JobCostCode>
+        <CostCode>99-9999-00</CostCode>
+        <CostCodeDescription>Other/Misc Costs</CostCodeDescription>
+    </JobCostCode>
+    <JobCostCode>
+        <CostCode>99-9999-999</CostCode>
+        <CostCodeDescription>Asset Applied To Job Costs</CostCodeDescription>
+    </JobCostCode>
+</JobCostCodeList>
+===================================================================================
+json data : 
+-----------
+{
+  "JobCostCodeList": {
+    "JobCostCode": [
+      {
+        "CostCode": "00-1000-001",
+        "CostCodeDescription": "Engineering - Labor"
+      },
+      {
+        "CostCode": "00-1000-001",
+        "CostCodeDescription": "Engineering - Labor"
+      },
+      {
+        "CostCode": "99-9999-00",
+        "CostCodeDescription": "Other/Misc Costs"
+      },
+      {
+        "CostCode": "99-9999-999",
+        "CostCodeDescription": "Asset Applied To Job Costs"
+      }
+    ]
+  }
+}
+
+
+=====================================================================================
+${in.header.webServiceURL}
+

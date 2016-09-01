@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wennsoft.com/webservices/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://wennsoft.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://wennsoft.com/webservices/">
+      <s:element name="GetTransactionTypeListData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTransactionTypeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTransactionTypeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrxTypeCompListData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTrxTypeCompListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrxTypeCompListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDayOfWeekListData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDayOfWeekListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDayOfWeekListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCostTypeListData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCostTypeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCostTypeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBatchListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExtendedBatchListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BACHNUMB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExtendedBatchListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetExtendedBatchListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPayCodeListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="distinct" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPayCodeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPayCodeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctPayCodeListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctPayCodeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDistinctPayCodeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCostCodeListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCostCodeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCostCodeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSCostCodeListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWSCostCodeListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWSCostCodeListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEquipmentListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEquipmentListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEquipmentListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGLAccountListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGLAccountListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGLAccountListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobNumberListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobNumberListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobNumberListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceCallListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceCallListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceCallListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWeekEndingDayListData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DYOFWEEK" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectionString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWeekEndingDayListDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWeekEndingDayListDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTransactionTypeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTransactionTypeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionTypeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTransactionTypeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxTypeCompListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrxTypeCompListData" />
+  </wsdl:message>
+  <wsdl:message name="GetTrxTypeCompListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrxTypeCompListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDayOfWeekListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDayOfWeekListData" />
+  </wsdl:message>
+  <wsdl:message name="GetDayOfWeekListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDayOfWeekListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCostTypeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCostTypeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetCostTypeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCostTypeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBatchListData" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBatchListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetExtendedBatchListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetExtendedBatchListData" />
+  </wsdl:message>
+  <wsdl:message name="GetExtendedBatchListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetExtendedBatchListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPayCodeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPayCodeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetPayCodeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPayCodeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctPayCodeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDistinctPayCodeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctPayCodeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDistinctPayCodeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCostCodeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCostCodeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetCostCodeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCostCodeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWSCostCodeListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWSCostCodeListData" />
+  </wsdl:message>
+  <wsdl:message name="GetWSCostCodeListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWSCostCodeListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEquipmentListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEquipmentListData" />
+  </wsdl:message>
+  <wsdl:message name="GetEquipmentListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEquipmentListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGLAccountListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGLAccountListData" />
+  </wsdl:message>
+  <wsdl:message name="GetGLAccountListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGLAccountListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobNumberListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobNumberListData" />
+  </wsdl:message>
+  <wsdl:message name="GetJobNumberListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobNumberListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceCallListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceCallListData" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceCallListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceCallListDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWeekEndingDayListDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWeekEndingDayListData" />
+  </wsdl:message>
+  <wsdl:message name="GetWeekEndingDayListDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWeekEndingDayListDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ListDataServiceSoap">
+    <wsdl:operation name="GetTransactionTypeListData">
+      <wsdl:input message="tns:GetTransactionTypeListDataSoapIn" />
+      <wsdl:output message="tns:GetTransactionTypeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxTypeCompListData">
+      <wsdl:input message="tns:GetTrxTypeCompListDataSoapIn" />
+      <wsdl:output message="tns:GetTrxTypeCompListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDayOfWeekListData">
+      <wsdl:input message="tns:GetDayOfWeekListDataSoapIn" />
+      <wsdl:output message="tns:GetDayOfWeekListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostTypeListData">
+      <wsdl:input message="tns:GetCostTypeListDataSoapIn" />
+      <wsdl:output message="tns:GetCostTypeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchListData">
+      <wsdl:input message="tns:GetBatchListDataSoapIn" />
+      <wsdl:output message="tns:GetBatchListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetExtendedBatchListData">
+      <wsdl:input message="tns:GetExtendedBatchListDataSoapIn" />
+      <wsdl:output message="tns:GetExtendedBatchListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeListData">
+      <wsdl:input message="tns:GetEmployeeListDataSoapIn" />
+      <wsdl:output message="tns:GetEmployeeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPayCodeListData">
+      <wsdl:input message="tns:GetPayCodeListDataSoapIn" />
+      <wsdl:output message="tns:GetPayCodeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctPayCodeListData">
+      <wsdl:input message="tns:GetDistinctPayCodeListDataSoapIn" />
+      <wsdl:output message="tns:GetDistinctPayCodeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCodeListData">
+      <wsdl:input message="tns:GetCostCodeListDataSoapIn" />
+      <wsdl:output message="tns:GetCostCodeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWSCostCodeListData">
+      <wsdl:input message="tns:GetWSCostCodeListDataSoapIn" />
+      <wsdl:output message="tns:GetWSCostCodeListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEquipmentListData">
+      <wsdl:input message="tns:GetEquipmentListDataSoapIn" />
+      <wsdl:output message="tns:GetEquipmentListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGLAccountListData">
+      <wsdl:input message="tns:GetGLAccountListDataSoapIn" />
+      <wsdl:output message="tns:GetGLAccountListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobNumberListData">
+      <wsdl:input message="tns:GetJobNumberListDataSoapIn" />
+      <wsdl:output message="tns:GetJobNumberListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceCallListData">
+      <wsdl:input message="tns:GetServiceCallListDataSoapIn" />
+      <wsdl:output message="tns:GetServiceCallListDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWeekEndingDayListData">
+      <wsdl:input message="tns:GetWeekEndingDayListDataSoapIn" />
+      <wsdl:output message="tns:GetWeekEndingDayListDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ListDataServiceSoap" type="tns:ListDataServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTransactionTypeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetTransactionTypeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxTypeCompListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetTrxTypeCompListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDayOfWeekListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetDayOfWeekListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostTypeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetCostTypeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetBatchListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExtendedBatchListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetExtendedBatchListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetEmployeeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayCodeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetPayCodeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctPayCodeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetDistinctPayCodeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCodeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetCostCodeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSCostCodeListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWSCostCodeListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEquipmentListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetEquipmentListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGLAccountListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetGLAccountListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobNumberListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetJobNumberListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceCallListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetServiceCallListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWeekEndingDayListData">
+      <soap:operation soapAction="http://wennsoft.com/webservices/GetWeekEndingDayListData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ListDataServiceSoap12" type="tns:ListDataServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTransactionTypeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetTransactionTypeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrxTypeCompListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetTrxTypeCompListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDayOfWeekListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetDayOfWeekListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostTypeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetCostTypeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetBatchListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExtendedBatchListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetExtendedBatchListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetEmployeeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayCodeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetPayCodeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctPayCodeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetDistinctPayCodeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCodeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetCostCodeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWSCostCodeListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWSCostCodeListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEquipmentListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetEquipmentListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGLAccountListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetGLAccountListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobNumberListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetJobNumberListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceCallListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetServiceCallListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWeekEndingDayListData">
+      <soap12:operation soapAction="http://wennsoft.com/webservices/GetWeekEndingDayListData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ListDataService">
+    <wsdl:port name="ListDataServiceSoap" binding="tns:ListDataServiceSoap">
+      <soap:address location="http://207.67.25.168/TimeTrackService/ListDataService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ListDataServiceSoap12" binding="tns:ListDataServiceSoap12">
+      <soap12:address location="http://207.67.25.168/TimeTrackService/ListDataService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

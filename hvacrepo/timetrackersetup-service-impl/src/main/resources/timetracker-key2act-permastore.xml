@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+	<PermaStoreConfiguration>
+		<Name>BatchSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureBatchSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>CrewSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureCrewSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>EmployeeOTSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureEmployeeOvertimeSetup</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>CustomerBillingSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureCustomerBillingSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>HolidayPayPerHourSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.HolidayPayPerHourSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>GeneralSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureGeneralSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>CrewPositionsToLogSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureCrewPositionsToLogSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	<PermaStoreConfiguration>
+		<Name>TransactionTypeSettingsConfiguration</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="timeSetup" featureGroup="timeTracker" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.key2act.timetracker.builder.ConfigureTransactionTypeSetting</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	
+</PermaStoreConfigurations>

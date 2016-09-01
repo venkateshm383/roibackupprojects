@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+	<IntegrationPipe name="SR-NTEChanged-handler-pipeline" isEnabled="true">
+	<PipeActivity>
+			<PropertiesActivity>
+				<PropertiesMapping setToXpath="ServiceRequest/RequestDetail" propertyValue="ServiceChanel" elementToAdd="SourceType" propertyValueSource="Direct"/>
+			</PropertiesActivity>
+		</PipeActivity>	
+		<PipeActivity>
+		<EventPublishActivity EventName="WORKORDER_NTE_CHANGED_EVENT">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceRequest/RequestDetail/WOPriority"/>
+						<EventData xpathExpression="ServiceRequest/RequestSource/TransactionNumber"/>
+					</EventActivityParams>
+				</EventPublishActivity>
+		</PipeActivity> 
+	</IntegrationPipe>
+</IntegrationPipes>

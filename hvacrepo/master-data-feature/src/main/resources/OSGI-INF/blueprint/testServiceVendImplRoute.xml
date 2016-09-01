@@ -1,0 +1,50 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.1.0"
+	xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+	<!-- <reference id="roiXADataSource"
+                interface="javax.sql.DataSource"
+               filter="(datasource.name=roiMYSQL)"/> -->
+
+	<!--  <reference id="invenXADataSource"
+                interface="javax.sql.DataSource"
+               filter="(datasource.name=invenMYSQL)"/>  -->
+               
+	<!-- <bean id="testBeanFail" class="com.getusroi.wms20.testservice.bean.TestBeanFailed">
+	<property name="dataSource" ref="roiXADataSource"/>
+	</bean>
+	<bean id="testBeanSuccess" class="com.getusroi.wms20.testservice.bean.TestBeanPass">
+	<property name="dataSource" ref="roiXADataSource"/>
+	</bean> -->
+	<bean id="testOsgiBean" class="com.getusroi.wms20.testservice.bean.TestMetaModelOsgi"/>
+	
+	<!-- <bean id="testInvenBeanSuccess" class="com.getusroi.wms20.testservice.bean.TestInventoryBeanPass">
+	<property name="dataSource" ref="invenXADataSource"/>
+	</bean> -->
+	<camelContext id="testserviceVendRouteImpl" xmlns="http://camel.apache.org/schema/blueprint">
+
+		<route id="testService-roi-vend-route">
+			<from uri="direct-vm:testService-testjob-roi-IR" />
+			<log message="inside testService-testjob-vend route" />
+			<!-- <to uri="bean:testBeanSuccess" />
+			
+			<to uri="bean:testBeanSuccess?method=updateTable" />
+					
+			<to uri="bean:testBeanSuccess?method=selectTable" /> -->
+			<!-- to test delete on single source meta model 		
+			 <to uri="bean:testBeanFail" /> 	-->			 
+			 <!-- uncomment below line if want to test rollback,Its failure scenario 
+			  <to uri="bean:testBeanFail?method=deleteFail" />  	-->	
+			  
+			  <!-- extra bean used to test accross db for XA transaction
+			  <to uri="bean:testInvenBeanSuccess"/>	
+			<to uri="bean:testInvenBeanSuccess?method=updateTable"/> -->	
+			<to uri="bean:testOsgiBean"/>
+			<to uri="bean:testOsgiBean?method=updateData"/>
+		</route>
+
+		
+	</camelContext>
+</blueprint>

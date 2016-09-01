@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring" id="timeandexpenseExecution">
+	<!-- Execution route for GeneralSetup Service -->
+		<route id="generalSetup-key2act-TR">
+			<from uri="direct:timeSetup-generalSetup-TR" />
+			<log message="Entered into generalSetup route TR" />
+			<to uri="direct:generalSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:generalSetup-ER" />
+			<log message="Entered into generalSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for BatchSetup Service -->
+		<route id="batchSetup-key2act-TR">
+			<from uri="direct:timeSetup-batchSetup-TR" />
+			<log message="Entered into batchSetup route TR" />
+			<to uri="direct:generalSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:batchSetup-ER" />
+			<log message="Entered into batchSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for CrewSetup Service -->
+		<route id="crewSetup-key2act-TR">
+			<from uri="direct:timeSetup-crewSetup-TR" />
+			<log message="Entered into crewSetup route TR" />
+			<to uri="direct:crewSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:crewSetup-ER" />
+			<log message="Entered into crewSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for EmployeeOTSetup Service -->
+		<route id="employeeOTSetup-key2act-TR">
+			<from uri="direct:timeSetup-employeeOTSetup-TR" />
+			<log message="Entered into employeeOTSetup route TR" />
+			<to uri="direct:employeeOTSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:employeeOTSetup-ER" />
+			<log message="Entered into employeeOTSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for CustmerBillingSetup Service -->
+		<route id="timeSetup-customerbillingSetup-TR">
+			<from uri="direct:timeSetup-customerbillingsetup-TR" />
+			<log message="Entered into customerbillingsetup route TR" />
+			<to uri="direct:customerbillingSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:customerbillingSetup-ER" />
+			<log message="Entered into employeeOTSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for HolidayPayPerHourSetup Service -->
+		<route id="holidaypayperhoursetup-TR">
+			<from uri="direct:timeSetup-holidaypayperhoursetup-TR" />
+			<log message="Entered into holidaypayperhoursetup route TR" />
+			<to uri="direct:holidaypayperhourSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:holidaypayperhourSetup-ER" />
+			<log message="Entered into holidaypayperhoursetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for TransactionTypeSetup Service -->
+		<route id="transactiontypesetup-TR">
+			<from uri="direct:timeSetup-transactiontypesetup-TR" />
+			<log message="Entered into transactiontypesetup route TR" />
+			<to uri="direct:transactiontypeSetup-ER" />
+		</route>
+		<route>
+			<from uri="direct:transactiontypeSetup-ER" />
+			<log message="Entered into transactiontypeSetup-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for CrewSetup Data Input Service -->
+		<route id="crewSetupInput-key2act-TR">
+			<from uri="direct:timeSetup-crewSetupInput-TR" />
+			<log message="Entered into crewSetup route TR" />
+			<to uri="direct:crewSetupInput-ER" />
+		</route>
+		<route>
+			<from uri="direct:crewSetupInput-ER" />
+			<log message="Entered into crewSetupInput-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for CrewPositionSetup Data Input Service -->
+		<route id="crewPosition-key2act-TR">
+			<from uri="direct:timeSetup-crewPosition-TR" />
+			<log message="Entered into crewPosition route TR" />
+			<to uri="direct:crewPosition-ER" />
+		</route>
+		<route>
+			<from uri="direct:crewPosition-ER" />
+			<log message="Entered into crewPosition-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for GeneralSetup Data Input Service -->
+		<route id="generalSetupInput-key2act-TR">
+			<from uri="direct:timeSetup-generalSetupInput-TR" />
+			<log message="Entered into generalSetupInput route TR" />
+			<to uri="direct:generalSetupInput-ER" />
+		</route>
+		<route>
+			<from uri="direct:generalSetupInput-ER" />
+			<log message="Entered into generalSetupInput-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for BatchSetup Data Input Service -->
+		<route id="batchSetupInput-key2act-TR">
+			<from uri="direct:timeSetup-batchSetupInput-TR" />
+			<log message="Entered into batchSetupInput route TR" />
+			<to uri="direct:batchSetupInput-ER" />
+		</route>
+		<route>
+			<from uri="direct:batchSetupInput-ER" />
+			<log message="Entered into batchSetupInput-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for EmployeeOTSetup Data Input Service -->
+		<route id="employeeOTSetupInput-key2act-TR">
+			<from uri="direct:timeSetup-employeeOTSetupInput-TR" />
+			<log message="Entered into employeeOTSetupInput route TR" />
+			<to uri="direct:employeeOTSetupInput-ER" />
+		</route>
+		<route>
+			<from uri="direct:employeeOTSetupInput-ER" />
+			<log message="Entered into employeeOTSetupInput-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		<!-- Execution route for CustmerBillingSetup Data Input Service -->
+		<route id="customerBillingSetupInput-key2act-TR">
+			<from uri="direct:timeSetup-customerBillingSetupInput-TR" />
+			<log message="Entered into customerBillingSetupInput route TR" />
+			<to uri="direct:customerBillingSetupInput-ER" />
+		</route>
+		<route>
+			<from uri="direct:customerBillingSetupInput-ER" />
+			<log message="Entered into customerBillingSetupInput-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+
+
+		<route id="createtimesheet-TR">
+			<from uri="direct:timeSetup-createtimesheet-TR" />
+			<log message="Entered into create timesheet route TR" />
+			<to uri="direct:createtimesheet-ER" />
+		</route>
+		<route>
+			<from uri="direct:createtimesheet-ER" />
+			<log message="Entered into createtimesheet-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+		
+		
+		<route id="gettimesheet-TR">
+			<from uri="direct:timeSetup-gettimesheet-TR" />
+			<log message="Entered into get timesheet route TR" />
+			<to uri="direct:gettimesheet-ER" />
+		</route>
+		<route>
+			<from uri="direct:gettimesheet-ER" />
+			<log message="Entered into gettimesheet-ER" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />
+		</route>
+	</routeContext>
+</beans>

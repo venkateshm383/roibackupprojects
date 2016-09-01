@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd">
+	<IntegrationPipe name="email-sc-notification-pipeline" isEnabled="true">
+		<PipeActivity>
+			<XSLTEnricherActivity name="emailEventXsltTransform1">
+				<xsltpathMapper>
+					<xsltPathMap filePath="emailRequestFormation.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<PropertiesActivity>
+				<PropertiesMapping setToXpath="EmailNotification/Recipients" propertyValue="joydeep.paul@bizruntime.com" elementToAdd="Recipient" propertyValueSource="Direct"/>
+				<PropertiesMapping setToXpath="EmailNotification/Recipients" propertyValue="joydeeppaul2541@gmail.com" elementToAdd="Recipient"  propertyValueSource="Direct"/>
+				<PropertiesMapping setToXpath="EmailNotification/Recipients" propertyValue="venkatesh.m@bizruntime.com" elementToAdd="Recipient"  propertyValueSource="Direct"/>
+			</PropertiesActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<FTLEnricherActivity name="testftlTransform1">
+				<ftlpathMapper>
+					<ftlPathMap filePath="ftlSubjectTemplate.ftl" />
+					<ftlMapto toXpath="EmailNotification/Subject" />
+				</ftlpathMapper>
+				<ftlDataMapper>
+					<ftlfieldMapper msgXpath="EmailNotification/Payload/Event/@ID"
+						ftlField="serviceID" />
+					<ftlfieldMapper msgXpath="EmailNotification/Payload/Event/SRNumber"
+						ftlField="SRNumber" />
+				</ftlDataMapper>
+			</FTLEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<FTLEnricherActivity name="testftlTransform1">
+				<ftlpathMapper>
+					<ftlPathMap filePath="ftlBodyTemplate.ftl" />
+					<ftlMapto toXpath="EmailNotification/Body" />
+				</ftlpathMapper>
+				<ftlDataMapper>
+					<ftlfieldMapper msgXpath="EmailNotification/Payload/Event/@ID"
+						ftlField="serviceID" />
+					<ftlfieldMapper msgXpath="EmailNotification/Payload/Event/SRNumber"
+						ftlField="SRNumber" />
+					<ftlfieldMapper msgXpath="EmailNotification/Payload/Event/SRLocation"
+						ftlField="location" />
+				</ftlDataMapper>
+			</FTLEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<EmailNotifyActivity name="testemailnotification">
+			<!-- 	<MailServerConfig transport="smtp" mailHost="smtp.gmail.com"
+					smtpport="587" smtpsslenable="true" authenticate="true"
+					starttlsenable="true" authUser="joydeep.paul@bizruntime.com"
+					authPassword="dogababaA1!" /> -->
+				<EmailNotification recepientIdXpath="EmailNotification/Recipients/Recipient"
+					mailSubjectXpath="EmailNotification/Subject" mailBodyXpath="EmailNotification/Body">
+					 <!-- <MailAttachments>
+						<MailAttachment mailAttachmentXpath="EmailNotification/Attachments/Attachment"
+							mailAttachmentNameXpath="EmailNotification/Attachments/Attachment/@filename"
+							mailAttachmentFormatXpath="EmailNotification/Attachments/Attachment/@contentType" />
+					</MailAttachments> -->
+				</EmailNotification>
+			</EmailNotifyActivity>
+		</PipeActivity>
+		
+	<!-- 	<PipeActivity>
+		<EventPublishActivity EventName="NOTIFICATION_PROCESSED">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/TenantId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventRaisedDTM" />
+					</EventActivityParams>
+				</EventPublishActivity>
+	</PipeActivity> -->
+		<!-- <PipeActivity>
+			<XSLTEnricherActivity name="testxsltTransform1">
+				<xsltpathMapper>
+					<xsltPathMap filePath="RouteToWorkOrder.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">
+					below tag is not needed if feature is true but required when false
+					<FeatureContext FeatureGroup="parcel" FeatureName="parcelService" 
+						VendorName="getusroi" Version="wms1.0" />
+					<ServiceName>workOrder</ServiceName>
+					<ExecutionRoute>direct:sac-workOrder-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity> -->
+	</IntegrationPipe>
+</IntegrationPipes>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>sacGroup</Name>
+		<Features>
+			<Feature vendorName="key2act" vendorVersion="1.0">
+				<Name>sac</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="sac-key2act-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="sac-key2act-permastore.xml" />
+				</fms:PermaStoreConfigurations>
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="sac-key2act-featureservice.xml" />
+				</FeatureImplementations>
+				<IntegrationPipeLineConfigurations>
+					<PipeConfiguration resourceName="SR-WONEW-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-generic-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-SCToInternalMessage-pipeline-config.xml" />
+					<PipeConfiguration resourceName="sac-key2act-integrationpipeline-test-config.xml" />
+					<PipeConfiguration resourceName="sac-key2act-pipelineConfiguration.xml" />
+					<PipeConfiguration resourceName="sac-key2act-integrationpipeline-update-config.xml" />
+					<PipeConfiguration resourceName="SR-WONumberChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-PurchaseOrderChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-StatusChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-ScheduleDateTimeChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-ProviderChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-PriorityChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-ProblemDescriptionChanged-pipeline-config.xml"/>
+					<PipeConfiguration resourceName="SR-NTEChanged-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SR-noteAdded-pipeline-config.xml"/>
+					<PipeConfiguration resourceName="SR-tradeChanged-pipeline-config.xml"/>
+					<PipeConfiguration resourceName="SR-callerChanged-pipeline-config.xml"/>
+					<PipeConfiguration resourceName="SC-AcceptedNotification-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-CheckInNotifiction-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-CheckOutNotification-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-DeclinedNotifiction-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-EmailNotification-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-NoteAddedNotifiction-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-PartsOnOrderNotification-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-ProposalSubmittedNotification-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-ReScheduledDTMNotifiction-pipeline-config.xml" />
+					<PipeConfiguration resourceName="SC-ResolutionSuggestedNotifiction-pipeline-config.xml" />
+				    <PipeConfiguration resourceName="SC-ScheduledDTMNotifiction-pipeline-config.xml" />
+					
+				</IntegrationPipeLineConfigurations>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

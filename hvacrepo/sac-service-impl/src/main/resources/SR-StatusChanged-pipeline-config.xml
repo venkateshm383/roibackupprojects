@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+	<IntegrationPipe name="SR-StatusChanged-handler-pipeline" isEnabled="true">
+		<PipeActivity>
+			<PropertiesActivity>				
+				<PropertiesMapping setToXpath="ServiceRequest/RequestDetail" propertyValue="newServiceRequestInternalStatus" elementToAdd="InternalStatus" propertyValueSource="MeshHeader"/>				
+			</PropertiesActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<JDBCIntActivity name="serviceRequestStatusUpdate">
+				<DBConfig operation="UPDATE" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>UPDATE servicerequest SET internalstatus=internalStatusfld,sourcestatus=statusfld WHERE tenantid=tenantfld AND sourcerequestid=transNumfld</SQL>
+				<dbmsMapper>								
+					<fieldMapper xPath="ServiceRequest/RequestDetail/InternalStatus"
+						Field="internalStatusfld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/WOStatus"
+						Field="statusfld" />	
+					<fieldMapper xPath="ServiceRequest/RequestDetail/TenantId"
+						Field="tenantfld" />
+					<fieldMapper xPath="ServiceRequest/RequestSource/TransactionNumber"
+						Field="transNumfld" />							
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		<PipeActivity>
+			<FilterPipelineActivity name="filterPipeLineStatusNote">
+				<conditions operator="AND">
+					<condition expression="ServiceRequest/RequestDetail/ATTR/NAME" value="NOTE" />					
+				</conditions>
+				<conditionSuccess>
+					<fwk:send value="true" />
+				</conditionSuccess>
+				<conditionFaliure>
+					<fwk:drop value="true" />
+				</conditionFaliure>
+			</FilterPipelineActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<JDBCIntActivity name="serviceRequestStatusNoteAddedInsert">
+				<DBConfig operation="INSERT" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>INSERT INTO servicerequestnote (tenantid,sourcerequestid,line,datetime,createdby,newscheduledate,notexmlpayload) VALUES (tenantfld,transNumfld,linefld,dateTimefld,createdByfld,newScheduleDateTimefld,attrDatefld);</SQL>
+				<dbmsMapper>
+					<fieldMapper xPath="ServiceRequest/RequestDetail/TenantId"
+						Field="tenantfld" />					
+					<fieldMapper xPath="ServiceRequest/RequestSource/TransactionNumber"
+						Field="transNumfld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/ATTR/LINE"
+						Field="linefld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/ATTR/DATETIME"
+						Field="dateTimefld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/ATTR/CREATED_BY"
+						Field="createdByfld" />
+					<fieldMapper xPath="ServiceRequest/RequestDetail/ATTR/NEW_SCHED_DATETIME"
+						Field="newScheduleDateTimefld" />					
+					<fieldMapper xPath="ServiceRequest/RequestDetail/ATTR"
+						Field="attrDatefld" />						
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity>
+		<PipeActivity>
+		<EventPublishActivity EventName="WORKORDER_STATUS_CHANGED_EVENT">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceRequest/RequestDetail/InternalStatus"/>
+						<EventData xpathExpression="ServiceRequest/RequestDetail/WOStatus"/>
+						<EventData xpathExpression="ServiceRequest/RequestSource/TransactionNumber"/>
+					</EventActivityParams>
+				</EventPublishActivity>
+		</PipeActivity> 		
+	</IntegrationPipe>
+</IntegrationPipes>

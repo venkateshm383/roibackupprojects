@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd"	
+	xmlns:fwk="http://getusroi.com/internal/integration-fwk-Supporting">
+
+	<IntegrationPipe name="proposalSubmitted-sc-notification-pipeline" isEnabled="true">
+		<PipeActivity>
+			<JDBCIntActivity name="jdbcextention">
+				<DBConfig operation="SELECT" dbType="CASSANDRA" />
+				<SQL>select (providernumber,sourcecustid,sourcerequestid) from servicerequest where servicecallnumber = ServiceCallId  </SQL>
+				<dbmsMapper>
+					<fieldMapper xPath="Event/ServiceCallId" Field="ServiceCallId" />
+				</dbmsMapper>
+				<RowMapper>
+					<xmlFieldMapper xpath="Event/SRSourceRequestId"
+						columnKey="sourcerequestid" />
+					<xmlFieldMapper xpath="Event/SRSourceProviderId"
+						columnKey="providernumber" />
+					<xmlFieldMapper xpath="Event/SRCustomerId"
+						columnKey="sourcecustid" />
+
+				</RowMapper>
+			</JDBCIntActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<XSLTEnricherActivity name="xsltTransform">
+				<xsltpathMapper>
+					<xsltPathMap filePath="proposalSubmittedNotification.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">
+					<ServiceName>scNotificationService</ServiceName>
+					<ExecutionRoute>direct:sac-scNotificationService-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity>
+		
+	<!-- 		<PipeActivity>
+		<EventPublishActivity EventName="NOTIFICATION_PROCESSED">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/SRSourceRequestId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/TenantId" />
+						<EventData xpathExpression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventRaisedDTM" />
+					</EventActivityParams>
+				</EventPublishActivity>
+		</PipeActivity> -->
+		
+			<PipeActivity>
+			<FilterPipelineActivity name="filterPipeLineSC">
+				<conditions operator="AND">
+					<condition expression="ServiceChannelNotification/Payload/Event/SRSucessStatus" value="sucess" />
+				</conditions>
+				<conditionSuccess>
+					<fwk:send value="true" />
+				</conditionSuccess>
+				<conditionFaliure>
+					<fwk:drop value="true" />
+				</conditionFaliure>
+			</FilterPipelineActivity>
+		</PipeActivity>
+			<PipeActivity>
+			<JDBCIntActivity name="serviceSacStatusUpdate">
+				<DBConfig operation="UPDATE" dbType="CASSANDRA"/>
+				<!-- the string is split based on ' '~single space, hence, it can give 
+					exceptions if /n is present, or if xml being formated -->
+				<SQL>UPDATE servicerequest SET internalstatus=internalStatusfld,sourcestatus=statusfld WHERE tenantid=tenantfld AND sourcerequestid=transNumfld</SQL>
+				<dbmsMapper>	
+				
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRInternalStatus"
+						Field="internalStatusfld" />							
+					<fieldMapper xPath="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/@STATUS"
+						Field="statusfld" />	
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/TenantId"
+						Field="tenantfld" />
+					<fieldMapper xPath="ServiceChannelNotification/Payload/Event/SRSourceRequestId"
+						Field="transNumfld" />							
+				</dbmsMapper>
+			</JDBCIntActivity>
+		</PipeActivity> 
+		
+	</IntegrationPipe>
+</IntegrationPipes>

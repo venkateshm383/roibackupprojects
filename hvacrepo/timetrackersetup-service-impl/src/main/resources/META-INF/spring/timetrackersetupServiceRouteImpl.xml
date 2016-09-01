@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="generalsetting" class="com.key2act.timetracker.service.GeneralSettingProcessor" />
+	<bean id="batchsetting" class="com.key2act.timetracker.service.BatchSettingProcessor" />
+	<bean id="crewsetting" class="com.key2act.timetracker.service.CrewSettingProcessor" />
+	<bean id="employeeotsetting" class="com.key2act.timetracker.service.EmployeeOTSettingProcessor" />
+	<bean id="customerbillingsetting" class="com.key2act.timetracker.service.CustomerBillingSettingProcessor" />
+	<bean id="transactiontypesetting" class="com.key2act.timetracker.service.TransactionTypeSettingProcessor" />
+	
+	<bean id="insertCrew" class="com.key2act.timetracker.insertionservice.CrewSetupInsertionService" />
+	<bean id="insertCrewPosition" class="com.key2act.timetracker.insertionservice.CrewPositionInsertionService" />
+	<bean id="insertGeneralSetup" class="com.key2act.timetracker.insertionservice.GeneralSetupInsertionService"/>
+	<bean id="insertBatchSetup" class="com.key2act.timetracker.insertionservice.BatchSetupInsertionService" />
+	<bean id="insertEmployeeOTSetup" class="com.key2act.timetracker.insertionservice.EmployeeOTSetupInsertionService" />
+	<bean id="insertCustomerBillingSetup" class="com.key2act.timetracker.insertionservice.CustomerBiilingSetupInsertionService" />
+			<bean id="createtimesheetbean" class="com.key2act.timetracker.bean.TimeSheetEntryBean" />
+	<routeContext xmlns="http://camel.apache.org/schema/spring" id="timeandexpenseimpl">
+	
+		<!-- Service to setup Batch Settings  -->
+		<route id="timeSetup-batchSetup-IR">
+			<from uri="direct:timeSetup-batchSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(BatchSettingsConfiguration)" />
+			<log message="inside batchSetup impl route.. ${body}" />
+			<to uri="bean:batchsetting" />
+		</route>
+		
+		<!-- Service to setup General Settings -->
+		<route id="timeSetup-generalSetup-IR">
+			<from uri="direct:timeSetup-generalSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(GeneralSettingsConfiguration)" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(HolidayPayPerHourSettingsConfiguration)" />
+			<log message="inside generalSetup impl route.. ${body}" />
+			<to uri="bean:generalsetting" />
+		</route>
+		
+		<!-- Service to setup Crew Setup -->
+		<route id="direct:timeSetup-crewSetup-IR">
+			<from uri="direct:timeSetup-crewSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(CrewSettingsConfiguration)" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(CrewPositionsToLogSettingsConfiguration)" />
+			<log message="inside crewSetup impl route.. ${body}" />
+			<to uri="bean:crewsetting" />
+		</route>
+
+		<!-- Service to setup Employee OT Calculations -->
+		<route id="timeSetup-employeeOTSetup-IR">
+			<from uri="direct:timeSetup-employeeOTSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(EmployeeOTSettingsConfiguration)" />
+			<log message="inside employeeOTSetup impl route.. ${body}" />
+			<to uri="bean:employeeotsetting" />
+		</route>
+		
+		<!-- Service to setup Customer Billing Setup  -->
+		<route id="timeSetup-customerbillingSetup-IR">
+			<from uri="direct:timeSetup-customerbillingSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(CustomerBillingSettingsConfiguration)" />
+			<log message="inside customerbillingsetup impl route.. ${body}" />
+			<to uri="bean:customerbillingsetting" />
+		</route>
+		
+		<!-- Service to setup Transaction Types Setup  -->
+		<route id="timeSetup-transactiontypeSetup-IR">
+			<from uri="direct:timeSetup-transactiontypeSetup-key2Act-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(TransactionTypeSettingsConfiguration)" />
+			<to uri="bean:transactiontypesetting" />
+			<log message="inside transactiontypesetup impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert CrewSetUp Data -->
+		<route id="timeSetup-crewSetupInput-IR">
+			<from uri="direct:timeSetup-crewSetupInput-key2Act-IR" />
+			<to uri="bean:insertCrew" />
+			<log message="inside crewSetupInput impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert CrewPosition Data -->
+		<route id="timeSetup-crewPosition-IR">
+			<from uri="direct:timeSetup-crewPosition-key2Act-IR" />
+			<to uri="bean:insertCrewPosition" />
+			<log message="inside crewPosition impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert GeneralSetup Data -->
+		<route id="timeSetup-generalSetupInput-IR">
+			<from uri="direct:timeSetup-generalSetupInput-key2Act-IR" />
+			<to uri="bean:insertGeneralSetup" />
+			<log message="inside generalSetupInput impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert BatchSetup Data -->
+		<route id="timeSetup-batchSetupInput-IR">
+			<from uri="direct:timeSetup-batchSetupInput-key2Act-IR" />
+			<to uri="bean:insertBatchSetup" />
+			<log message="inside batchSetupInput impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert EmployeeOTSetup Data -->
+		<route id="timeSetup-employeeOTSetupInput-IR">
+			<from uri="direct:timeSetup-employeeOTSetupInput-key2Act-IR" />
+			<to uri="bean:insertEmployeeOTSetup" />
+			<log message="inside employeeOTSetupInput impl route.. ${body}" />
+		</route>
+		
+		<!-- Service to insert CustmerBillingSetup Data -->
+		<route id="timeSetup-customerBillingSetupInput-IR">
+			<from uri="direct:timeSetup-customerBillingSetupInput-key2Act-IR" />
+			<to uri="bean:insertCustomerBillingSetup" />
+			<log message="inside customerBillingSetupInput impl route.. ${body}" />
+		</route>
+		
+		
+		
+		<route id="timeSetup-createtimesheet-IR">
+			<from uri="direct:timeSetup-createtimesheet-key2Act-IR" />
+			<log message="inside createtimesheet impl route.. " />
+			<to uri="bean:createtimesheetbean" />
+		</route>
+		
+			<route id="timeSetup-gettimesheet-IR">
+			<from uri="direct:timeSetup-gettimesheet-key2Act-IR" />
+			<log message="inside gettimesheet impl route.. " />
+			<to uri="bean:createtimesheetbean?method=getTimeSheetDetails" />
+		</route>
+	</routeContext>
+</beans>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd">
+	<IntegrationPipe name="notedAdded-sc-notification-pipeline"
+		isEnabled="true">
+	<!--evnet-sc-notification-pipeline  -->
+
+		<!-- <PipeActivity> <PropertiesActivity> <PropertiesMapping setToXpath="Event" 
+			propertyValue="providernumber" elementToAdd="SRSourceProviderId" propertyValueSource="Exchange"/> 
+			<PropertiesMapping setToXpath="Event" propertyValue="sourcestatus" elementToAdd="SRSourceStatus" 
+			propertyValueSource="Exchange"/> <PropertiesMapping setToXpath="Event" propertyValue="internalstatus" 
+			elementToAdd="SRInternalStatus" propertyValueSource="Exchange"/> <PropertiesMapping 
+			setToXpath="Event" propertyValue="sourcetype" elementToAdd="SRSourceType" 
+			propertyValueSource="Exchange"/> <PropertiesMapping setToXpath="Event" propertyValue="sourcecustid" 
+			elementToAdd="SRCustomerId" propertyValueSource="Exchange"/> <PropertiesMapping 
+			setToXpath="Event" propertyValue="workordernumber" elementToAdd="SRWorkOrderNumber" 
+			propertyValueSource="Exchange"/> </PropertiesActivity> </PipeActivity> -->
+
+		<PipeActivity>
+			<JDBCIntActivity name="jdbcextention">
+				<DBConfig operation="SELECT" dbType="CASSANDRA" />
+				<SQL>select (providernumber,sourcecustid,sourcerequestid) from servicerequest where servicecallnumber = ServiceCallId </SQL>
+				<dbmsMapper>
+					<fieldMapper xPath="Event/ServiceCallId" Field="ServiceCallId" />
+				</dbmsMapper>
+				<RowMapper>
+					<xmlFieldMapper xpath="Event/SRSourceRequestId"
+						columnKey="sourcerequestid" />
+					<xmlFieldMapper xpath="Event/SRSourceProviderId"
+						columnKey="providernumber" />
+					<xmlFieldMapper xpath="Event/SRCustomerId"
+						columnKey="sourcecustid" />
+
+				</RowMapper>
+			</JDBCIntActivity>
+		</PipeActivity>
+
+
+		<PipeActivity>
+			<XSLTEnricherActivity name="xsltTransform">
+				<xsltpathMapper>
+					<xsltPathMap filePath="NotedAddedNotification.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+
+
+		<PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">
+					<ServiceName>scNotificationService</ServiceName>
+					<ExecutionRoute>direct:sac-scNotificationService-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity>
+<!-- 	<PipeActivity>
+		<EventPublishActivity EventName="NOTIFICATION_PROCESSED">
+					<EventActivityParams>
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/SRSourceRequestId" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/TenantId" />
+						<EventData xpathExpression="ServiceChannelNotification/RequestData2SC/xmlData/DATA2SC/CALL/ATTR/@NOTE" />
+						<EventData xpathExpression="ServiceChannelNotification/Payload/Event/EventRaisedDTM" />
+					</EventActivityParams>
+				</EventPublishActivity>
+	</PipeActivity> -->
+	</IntegrationPipe>
+</IntegrationPipes>

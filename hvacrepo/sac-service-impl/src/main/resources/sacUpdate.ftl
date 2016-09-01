@@ -1,0 +1,1 @@
+This is message is updated using ftlt over service request for request id  ${Id} with price  ${Price} for call type ${Type}
