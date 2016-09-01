@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureService.xsd">
+<Features featureGroup="nicelabel">
+	
+		<Feature featureName="nicelabelservice" version="v1" enabled='true' interfaceName="com.getusroi.wms20.label.nicelabel.ws.INiceLabelService">
+			<Service name="startlabel" enabled='true' vendorName="proship" Description="nicelabelService through Proship" >
+				<GenericRestEndpoint httpMethod="GET" urlMappingScheme="nicelabel/nicelabelservice/startlabel">nicelabelservice-startlabel-vend-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">nicelabelservice-startlabel-vend-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="addlabel" enabled='true' vendorName="fedix" Description="nicelabelService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">nicelabelservice-addlabel-vend-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">nicelabelservice-addlabel-vend-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="producelabel" enabled='true' vendorName="pro-fed" Description="nicelabelService through pro-fed" >
+				<GenericRestEndpoint httpMethod="POST">nicelabelservice-producelabel-vend-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">nicelabelservice-producelabel-vend-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

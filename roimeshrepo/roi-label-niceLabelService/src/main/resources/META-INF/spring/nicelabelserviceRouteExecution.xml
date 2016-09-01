@@ -1,0 +1,150 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:camelcxf="http://camel.apache.org/schema/cxf" xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging limit="1024" />
+
+		</cxf:features>
+	</cxf:bus>
+	<!-- WEB SERVICE FACADE -->
+	<camelcxf:cxfEndpoint id="basecxf"
+		address="http://0.0.0.0:9070/nicelabel/nicelabelservice" serviceClass="com.getusroi.wms20.label.nicelabel.ws.INiceLabelService" />
+
+
+	<routeContext id="nicelabelServiceRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="proxyws">
+
+			<!-- get data from proxy ws call -->
+			<from uri="cxf:bean:basecxf?dataFormat=PAYLOAD" />
+			<log message="inside proxy ws of " />
+			<setHeader headerName="featuregroup">
+				<simple>nicelabel</simple>
+			</setHeader>
+			<setHeader headerName="feature">
+				<simple>nicelabelservice</simple>
+			</setHeader>
+			<setHeader headerName="endpointType">
+				<simple>CXF-ENDPOINT</simple>
+			</setHeader>
+			<log message="excahe hearder : ${in.headers}" />
+			<marshal ref="xmljsonWithOptions" />
+			<convertBodyTo type="java.lang.String" />
+			<log message="body : ${body}" />
+			<to uri="bean:cxfDataTransform?method=transformRequestData" />
+			<log message="body : ${body}" />
+			<log
+				message="header feature group : ${in.header.featuregroup}, feature : ${in.header.feature}, service : ${in.header.servicetype}" />
+			<to uri="direct:baseEntry" />
+			<unmarshal ref="xmljsonWithOptions" />
+			<log message="body in xml : ${body}" />
+		</route>
+
+		<route id="nicelabelServiceStartlabelTransformation">
+			<from uri="direct:nicelabelservice-startlabel-TR" />
+			<log message="inside nicelabel startlabel service execution route" />
+			<to uri="direct:nicelabelservice-startlabel-ER" />
+		</route>
+
+		<route id="nicelabelserviceStartlabelExecutionRoute">
+
+			<from uri="direct:nicelabelservice-startlabel-ER" />
+			<log
+				message="inside nicelableservice startlabel nicelabelexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+
+			<toD uri="direct:${in.header.implroute}" />
+
+			<log
+				message="inside nicelableservice startlabel executionroute after calling feature execution" />
+		</route>
+
+		<route id="nicelabelServiceAddlabelTransformation">
+			<from uri="direct:nicelabelService-addlabel-TR" />
+			<log message="inside nicelabel addlabel service execution route" />
+			<to uri="direct:nicelabelservice-addlabel-ER" />
+		</route>
+
+		<route id="nicelabelserviceAddlabelExecutionRoute">
+			<from uri="direct:nicelabelservice-addlabel-ER" />
+			<log
+				message="inside nicelableservice addlabel nicelabelexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside nicelableservice addlabel executionroute after calling feature execution" />
+		</route>
+
+		<route id="nicelabelServiceProducelabelTransformation">
+			<from uri="direct:nicelabelService-producelabel-TR" />
+			<log message="inside nicelabel producelabel service execution route" />
+			<to uri="direct:nicelabelservice-producelabel-ER" />
+		</route>
+		
+		<route id="nicelabelserviceProducelabelExecutionRoute">
+			<from uri="direct:nicelabelservice-producelabel-ER" />
+			<log
+				message="inside nicelableservice producelabel nicelabelexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside nicelableservice producelabel executionroute after calling feature execution" />
+		</route>
+
+
+<route id="nicelabelServiceVoidLabelTransformation">
+			<from uri="direct:nicelabelService-voidlabel-TR" />
+			<log message="inside nicelabel voidlabel service execution route" />
+			<to uri="direct:nicelabelservice-voidlabel-ER" />
+		</route>
+
+		<route id="nicelabelserviceVoidlabelExecutionRoute">
+
+			<from uri="direct:nicelabelservice-voidlabel-ER" />
+			<log
+				message="inside nicelableservice voidlabel executionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+
+			<toD uri="direct:${in.header.implroute}" />
+
+			<log
+				message="inside nicelableservice voidlabel executionroute after calling feature execution" />
+		</route>
+
+
+
+
+
+
+
+
+		<!-- <route id="nicelabelServiceGeneratePdfTransformation">
+			<from uri="direct:nicelabelservice-generatepdf-TR" />
+			<log message="inside nicelabel generatepdf service execution route" />
+			<to uri="direct:nicelabelservice-generatepdf-ER" />
+		</route>
+
+		<route id="nicelabelserviceGeneratePdfExecutionRoute">
+
+			<from uri="direct:nicelabelservice-generatepdf-ER" />
+			<log
+				message="inside nicelableservice generatepdf nicelabelexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+
+			<toD uri="direct:${in.header.implroute}" />
+
+			<log
+				message="inside nicelableservice generatepdf executionroute after calling feature execution" />
+		</route> -->
+
+	</routeContext>
+</beans>

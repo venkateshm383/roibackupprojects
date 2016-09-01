@@ -1,0 +1,72 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+
+	<routeContext id="testserviceRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="testserviceTestJobTransformation">
+			<from uri="direct:testService-testjob-TR" />
+			<log message="inside testService-testjob execution route" />
+			<to uri="direct:testService-testjob-ER" />
+		</route>
+		
+		<route id="testserviceTestJobExecutionRoute">
+
+			<from uri="direct:testService-testjob-ER" />
+			<log
+				message="inside testService-testjob before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside testService-testjob executionroute after calling feature execution" />
+		</route>
+		
+		<route id="testserviceCompositeViewTransformation">
+			<from uri="direct:testService-compositeView-TR" />
+			<log message="inside testService-compositeView execution route" />
+			<to uri="direct:testService-compositeView-ER" />
+		</route>
+		
+		<route id="testserviceCompositeViewExecutionRoute">
+
+			<from uri="direct:testService-compositeView-ER" />
+			<log
+				message="inside testService-compositeView before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside testService-compositeView executionroute after calling feature execution" />
+		</route>
+		
+		<route id="testservicedataContextRefTransformation">
+			<from uri="direct:testService-dataContextRef-TR" />
+			<log message="inside testService-dataContextRef execution route" />
+			<to uri="direct:testService-dataContextRef-ER" />
+		</route>
+		
+		<route id="testservicedataContextRefExecutionRoute">
+
+			<from uri="direct:testService-dataContextRef-ER" />
+			<log
+				message="inside testService-dataContextRef before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside testService-dataContextRef executionroute after calling feature execution" />
+		</route>
+		
+	</routeContext>
+</beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="policies.xsd">
+	
+	<policy>
+		<policyName>GetPrinterConfig</policyName>
+		<feature featureGroup="label" featureName="labelservice" vendor="" />
+		<enabled>true</enabled>
+		<fact>
+			<name>PrinterConfig</name>
+			<type>String</type>
+		</fact>
+		<policyEvaluation>
+			<evaluation evalDialect="SQL" salience="1">
+				<expression name="printerInList" expValue="$printerId = 1 OR $printerId = 2 OR $printerId = 3" />
+				<evaluateExp>printerInList</evaluateExp>
+			</evaluation>
+		</policyEvaluation>
+		
+		<policyResponse type="mappedFact">
+			<factMapping>(::PS(LabelPrinterConfig))</factMapping>
+		</policyResponse>
+		
+	</policy>
+	
+</policies>

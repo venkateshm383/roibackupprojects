@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureService.xsd">
+<Features featureGroup="print">
+	
+		<Feature featureName="printservice" version="v1" enabled='true' interfaceName="com.getusroi.IPrintService">
+			<Service name="printjob" enabled='true' vendorName="proship" Description="printService through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="print/printservice/printjob">printservice-printjob-vend-IR</GenericRestEndpoint>
+				
+			</Service>
+			<Service name="printstatus" enabled='true' vendorName="fedix" Description="printService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">printservice-printstatus-vend-IR</GenericRestEndpoint>
+				
+			</Service>
+			
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

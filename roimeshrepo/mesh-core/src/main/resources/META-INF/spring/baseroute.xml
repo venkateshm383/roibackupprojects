@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:camel="http://camel.apache.org/schema/spring"
+      xmlns:camelcxf="http://camel.apache.org/schema/cxf"
+      xmlns:cxf="http://cxf.apache.org/core"
+      xsi:schemaLocation="http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+	
+	<import resource="beans.xml"/>
+		
+	<!-- Initialization for datastore for mysql -->
+	<bean id="dataSourceA" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>DataSourceA</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="databaseName">roi</prop>
+				<prop key="serverName">192.168.1.77</prop>
+				<prop key="port">3306</prop>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="url">jdbc:mysql://192.168.1.77:3306/roi</prop>
+			</props>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+
+		</property>
+		<property name="maxPoolSize">
+			<value>2</value>
+		</property>
+	</bean>
+	
+	
+	<!-- Initialization for TransactionManager -->
+	<bean id="transactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<property name="forceShutdown" value="false" />
+	</bean>	
+	<bean id="userTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<property name="transactionTimeout" value="120" />
+	</bean>
+
+	<!-- Initializing jta transaction to support distributed transaction -->
+	<bean id="jtaTransactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="userTransaction" ref="userTransaction" />
+	</bean>
+
+
+	<!-- initializing transaction attribute -->
+	<bean id="PROPAGATION_REQUIRED" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+		<property name="transactionManager" ref="jtaTransactionManager" />
+	</bean>
+	
+	
+	<!-- Camel notifier bean declaralation -->
+	<bean id="lognotifier" class="com.getusroi.mesh.notifier.ROICamelEventNotifier" />	
+	
+	<!-- This bean is used to route to execution route -->
+	<bean id="basedynamicExecution" class="com.getusroi.mesh.base.MeshBaseRouting" />
+	
+	<!-- This bean is used to get configuration data for mesh -->
+	<bean id="meshConfigUtil" class="com.getusroi.mesh.util.MeshConfigurationUtil" />
+	
+	<!-- This bean is used to generated unique request id -->
+	<bean id="requestIdGenrator" class="com.getusroi.mesh.randomuuid.RandomStringUUID" />
+
+	<!-- This bean is used to route to implementation route by loading requested feature -->
+	<bean id="labelServiceDynamic"
+		class="com.getusroi.mesh.feature.routing.ExecutionFeatureDynamic" />
+
+	<!-- This bean is used to initialize mesh header with request data -->
+	<bean id="featureHeaderInit"
+		class="com.getusroi.mesh.header.initializer.FeatureHeaderInitializer">
+		<property name="userTransactionManager" ref="transactionManager" />
+	</bean>
+	
+	<!-- This bean is used to transform data into the format understand by framework -->
+	<bean id="dataTransform"
+		class="com.getusroi.mesh.transform.TransformData"/>
+		
+	<bean id="getPipeConfigurationFromCache" class="com.getusroi.mesh.integrationpipeline.IntegrationPipelineInitializer"/>
+	
+	<bean id="exceptionHandler"
+		class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
+	</bean>
+	
+	
+	<!-- camelcontext start here -->
+	<camelContext id="baseroute" xmlns="http://camel.apache.org/schema/spring" trace="true"
+		errorHandlerRef="exceptionHandler">
+		 <!-- <routeContextRef ref="eventnotifier-test-wiretap" /> -->
+	
+		<!-- It is for integration pipeline execution and impl routecontext -->
+	 	<routeContextRef ref="enricherContext" />
+		<routeContextRef ref="sacExecution" />
+		<routeContextRef ref="sacimpl" />
+		
+		<!-- It is for performance testing execution and impl routecontext 
+		<routeContextRef ref="performanceexec" />
+		<routeContextRef ref="performanceimpl" />  -->
+		
+		<!-- importing label service execution and implementation route 
+		<routeContextRef ref="labelServiceRouteExecution" />
+		<routeContextRef ref="labelvendorserviceRouteImpl" /> -->
+
+		<!-- It is for roi print service execution and impl routecontext
+		<routeContextRef ref="printserviceRouteExecution" />
+		<routeContextRef ref="printserviceVendRouteImpl" />   -->
+		
+		<!-- It is test feature added to test metamodel
+		<routeContextRef ref="testserviceRouteExecution" />
+		<routeContextRef ref="testserviceVendRouteImpl" /> --> 
+		
+		<!-- It is a cups print service execution and impl routecontext 
+		<routeContextRef ref="cupsPrintserviceRouteExecution" />
+		<routeContextRef ref="cupsPrintserviceVendRouteImpl" /> -->
+		
+		 <!-- It is for nicelable execution and impl routecontext 
+		<routeContextRef ref="nicelabelServiceRouteExecution" />
+		<routeContextRef ref="nicelabelvendorserviceRouteImpl" />-->
+		 
+		 
+		
+		<!-- It is used to convert xmlToJson or JsonToXml -->
+		 <dataFormats>
+			<xmljson id="xmljson" />
+			<xmljson id="xmljsonWithOptions" forceTopLevelObject="true"
+				trimSpaces="true" rootName="feature" skipNamespaces="true"
+				removeNamespacePrefixes="true" expandableProperties="d e" />
+		</dataFormats> 
+	
+	  <!-- Rolling back the transaction when any of the exception occurred-->
+		<onException>
+			<exception>java.lang.Exception</exception>
+			<handled>
+				<constant>true</constant>
+			</handled>
+			<rollback markRollbackOnly="true" />
+		</onException>
+
+		<!-- This route takes json request data  -->
+		<route id="rest-call">
+
+			<!-- get data from rest call -->
+			<from
+				uri="restlet:http://0.0.0.0:9080/ecomm/json/{featuregroup}/{feature}/{servicetype}?restletMethod=post" />
+			<from uri="direct:baseEntry"/>
+			<transacted ref="PROPAGATION_REQUIRED">
+				<doTry>
+					<!-- camel processor to process json data from request -->
+					<to uri="bean:featureHeaderInit?method=process" />
+					<!-- camel exchange exception -->
+					<doCatch>
+						<exception>org.apache.camel.CamelExchangeException</exception>
+					</doCatch>					
+				</doTry>
+				<to uri="direct:entryroute" />
+			</transacted>
+
+		</route>
+
+		<!-- This route takes xml based request data  -->
+		<route id="rest-call-xml">
+			<!-- get data from rest call -->
+			<from
+				uri="restlet:http://0.0.0.0:9090/ecomm/xml/{featuregroup}/{feature}/{servicetype}?restletMethod=post" />
+				<to uri="bean:dataTransform?method=marshalXmltoJson"/>				
+				<log message="log message : ${body}"/>
+				<!-- <marshal ref="xmljsonWithOptions" /> -->
+			 	<setHeader headerName="endpointType">
+				<simple>HTTP-XML</simple>
+				</setHeader>				
+				 <to uri="direct:baseEntry"/>
+				<!--<unmarshal ref="xmljsonWithOptions" />	 -->		 	
+				<!-- <to uri="bean:dataTransform?method=unmarshalJsonToXML"/> -->
+		</route>
+
+	
+		<!-- This route support GET/POST request of rest -->
+		<route id="rest-get-post">
+		<from uri="restlet:http://0.0.0.0:9060/ecomm/rest/{featuregroup}/{feature}/{servicetype}?restletMethods=get,post"/>
+		<to uri="bean:dataTransform?method=transformRestRequestData"/>
+		<to uri="direct:baseEntry"/>
+		</route>
+
+		<!-- This is the first route to be called and generate unique request id,load bean which decide which execution route to call and call other routes-->
+		<route id="entryRoute">
+			<from uri="direct:entryroute" />
+			<to uri="bean:requestIdGenrator?method=uuidgenrate"/>
+			<to uri="direct:basetransformation" />
+			<to uri="bean:basedynamicExecution?method=route"/>
+			<toD uri="direct:${in.header.exeroute}" />
+			<to uri="direct:exitRoute" />
+		</route>
+
+		<!-- This is base transformation route -->
+		<route id="BaseTransformation">
+			<from uri="direct:basetransformation" />
+			<log message="inside basetransaformation route"/>
+		</route>
+		
+		<!-- This is exit route which will be called at last -->
+		<route id="ExitRoute">
+			<from uri="direct:exitRoute" />
+            <log message="inside ExitRoute route"/>
+			
+		</route>
+		
+		<!-- This route is called when request feature doesn't exist and send related error code -->
+		<route id="featureNotExistRoute">
+		<from uri="direct:${in.header.implroute}"/>
+		<log message="body : ${body}"/>		
+		</route>
+
+	</camelContext>
+</beans>
+

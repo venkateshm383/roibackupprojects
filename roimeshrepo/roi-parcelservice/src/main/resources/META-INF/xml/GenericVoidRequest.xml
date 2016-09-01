@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Void>
+	<Carrierservice>UPS</Carrierservice>
+ 	<!-- <Carrierservice>UPS</Carrierservice> -->
+	<Request>
+		<TrackingId>
+			<!--Required in case of MPS to delete the entire Shipment : -->
+			<MasterTrackingNumber>?</MasterTrackingNumber>
+			<!--Zero or more repetitions on the basis of Packages of MPS: -->
+			<PackageTrackingNumber>794684452191</PackageTrackingNumber>
+		</TrackingId>
+	</Request>
+</Void>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+
+	<Features featureGroup="print">
+	
+		<Feature featureName="printservice" version="v1" enabled='true' interfaceName="com.getusroi.ILabelService">
+			<Service name="printjob" enabled='true' vendorName="proship" Description="labelService through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="label/labelservice/startlabel">printservice-printjob-cups-vend-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">printservice-printjob-cups-vend-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="printstatus" enabled='true' vendorName="fedix" Description="labelService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">printservice-printstatus-cups-vend-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">printservice-printstatus-cups-vend-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

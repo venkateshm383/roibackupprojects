@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="parcel">
+
+		<Feature featureName="parcelservice" version="v1" enabled='true'
+			interfaceName="com.getusroi.wms20.parcel.parcelservice.ws.IParcelService">
+			<Service name="shop" enabled='true' vendorName="roi"
+				Description="parcelService rateShop">
+				<GenericRestEndpoint httpMethod="GET"
+					urlMappingScheme="parcel/parcelservice/shop">parcelservice-shop-roi-IR</GenericRestEndpoint>
+
+				<ConcreteSoapEndpoint wsdl="auto-generated">parcelservice-shop-roi-IR</ConcreteSoapEndpoint>
+
+			</Service>
+			<Service name="rates" enabled='true' vendorName="roi"
+				Description="parcelService ratesService">
+				<GenericRestEndpoint httpMethod="GET"
+					urlMappingScheme="parcel/parcelservice/rates">parcelservice-rates-roi-IR</GenericRestEndpoint>
+
+				<ConcreteSoapEndpoint wsdl="auto-generated">parcelservice-rates-roi-IR</ConcreteSoapEndpoint>
+
+			</Service>
+			<Service name="createship" enabled='true' vendorName="roi"
+				Description="parcelService shipmentService">
+				<GenericRestEndpoint httpMethod="GET"
+					urlMappingScheme="parcel/parcelservice/createship">parcelservice-createship-roi-IR</GenericRestEndpoint>
+
+				<ConcreteSoapEndpoint wsdl="auto-generated">parcelservice-createship-roi-IR</ConcreteSoapEndpoint>
+
+			</Service>
+			<Service name="voidship" enabled='true' vendorName="roi"
+				Description="parcelService ratesService">
+				<GenericRestEndpoint httpMethod="GET"
+					urlMappingScheme="parcel/parcelservice/voidship">parcelservice-voidship-roi-IR</GenericRestEndpoint>
+
+				<ConcreteSoapEndpoint wsdl="auto-generated">parcelservice-voidship-roi-IR</ConcreteSoapEndpoint>
+
+			</Service>
+
+		</Feature>
+
+	</Features>
+</FeaturesServiceInfo>

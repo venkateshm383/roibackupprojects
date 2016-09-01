@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>	
+		<Name>label</Name>		
+		<Features>
+			<Feature vendorName="roi" vendorVersion="1.0">
+				<Name>labelservice</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="labelservice-roi-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="labelservice-roi-permastore.xml" />
+				</fms:PermaStoreConfigurations>
+				<fms:DynaStoreConfigurations>
+					<fms:DynaStoreConfiguration
+						resourceName="labelservice-roi-dynastore.xml" />
+				</fms:DynaStoreConfigurations>
+				<fms:PolicyConfigurations>
+					<fms:PolicyConfiguration resourceName="labelservice-roi-policy.xml" />
+				</fms:PolicyConfigurations>
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="labelservice-roi-featureservice.xml" />
+				</FeatureImplementations>
+			</Feature>			
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

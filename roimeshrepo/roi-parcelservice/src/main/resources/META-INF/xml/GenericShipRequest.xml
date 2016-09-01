@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shipment>
+	<Service>
+		<ServiceDesignation>?</ServiceDesignation>
+		<DirectServiceType>?</DirectServiceType>
+		<HostServiceType>
+			<HostNaming>
+				<HostSystem>?</HostSystem>
+				<NamingType>?</NamingType>
+				<HostName>
+					<Type>?</Type>
+					<!-- For FedEx -->
+					<!-- <Carrier>FEDEX</Carrier> 
+					<Service>FEDEX_GROUND</Service>  -->
+					<!-- For UPS -->
+					<Carrier>UPS</Carrier>
+					<Service>02</Service> 
+					<DirectName>?</DirectName>
+				</HostName>
+			</HostNaming>
+		</HostServiceType>
+	</Service>
+	<Shipper>
+		<shipper_id>104967</shipper_id>
+	</Shipper>
+	<ShipToAddress>
+		<ContactAndAddress>
+			<AccountNumber>?</AccountNumber>
+			<ContactId>?</ContactId>
+			<PersonName>Input Your Information</PersonName>
+			<Title>?</Title>
+			<CompanyName>Input Your Information</CompanyName>
+			<PhoneNumber>3124676543</PhoneNumber>
+			<PhoneExtension>?</PhoneExtension>
+			<TollFreePhoneNumber>?</TollFreePhoneNumber>
+			<PagerNumber>?</PagerNumber>
+			<FaxNumber>?</FaxNumber>
+			<EmailAddress>?</EmailAddress>
+			<StreetLine1>Input Your Information</StreetLine1>
+			<StreetLine2>Input Your Information</StreetLine2>
+			<StreetLine3>?</StreetLine3>
+			<City>Collierville</City>
+			<StateOrProvinceCode>TN</StateOrProvinceCode>
+			<PostalCode>38017</PostalCode>
+			<UrbanizationCode>?</UrbanizationCode>
+			<CountryCode>US</CountryCode>
+			<CountryName>?</CountryName>
+			<Residential>?</Residential>
+			<ResidentialAddressIndicator>?</ResidentialAddressIndicator>
+		</ContactAndAddress>
+	</ShipToAddress>
+	<AlternateDeliveryAddress>
+		<ContactAndAddress>
+			<AccountNumber>?</AccountNumber>
+			<ContactId>?</ContactId>
+			<PersonName>?</PersonName>
+			<Title>?</Title>
+			<CompanyName>?</CompanyName>
+			<PhoneNumber>?</PhoneNumber>
+			<PhoneExtension>?</PhoneExtension>
+			<TollFreePhoneNumber>?</TollFreePhoneNumber>
+			<PagerNumber>?</PagerNumber>
+			<FaxNumber>?</FaxNumber>
+			<EmailAddress>?</EmailAddress>
+			<StreetLine1>?</StreetLine1>
+			<StreetLine2>?</StreetLine2>
+			<StreetLine3>?</StreetLine3>
+			<City>?</City>
+			<StateOrProvinceCode>?</StateOrProvinceCode>
+			<PostalCode>?</PostalCode>
+			<UrbanizationCode>?</UrbanizationCode>
+			<CountryCode>?</CountryCode>
+			<CountryName>?</CountryName>
+			<Residential>?</Residential>
+			<ResidentialAddressIndicator>?</ResidentialAddressIndicator>
+		</ContactAndAddress>
+	</AlternateDeliveryAddress>
+	<ShipFromAddress>
+		//In case Ship from address is different from Shipper Address
+		<ShipperNumber>?</ShipperNumber>
+		<ContactAndAddress>
+			<AccountNumber>?</AccountNumber>
+			<ContactId>?</ContactId>
+			<PersonName>Brian Pier</PersonName>
+			<Title>?</Title>
+			<CompanyName>?</CompanyName>
+			<PhoneNumber>?</PhoneNumber>
+			<PhoneExtension>?</PhoneExtension>
+			<TollFreePhoneNumber>?</TollFreePhoneNumber>
+			<PagerNumber>?</PagerNumber>
+			<FaxNumber>?</FaxNumber>
+			<EmailAddress>?</EmailAddress>
+			<StreetLine1>148 Westlake Point</StreetLine1>
+			<StreetLine2>?</StreetLine2>
+			<StreetLine3>?</StreetLine3>
+			<City>MONTGOMERY</City>
+			<StateOrProvinceCode>TX</StateOrProvinceCode>
+			<PostalCode>77356</PostalCode>
+			<UrbanizationCode>?</UrbanizationCode>
+			<CountryCode>US</CountryCode>
+			<CountryName>?</CountryName>
+			<Residential>?</Residential>
+			<ResidentialAddressIndicator>?</ResidentialAddressIndicator>
+		</ContactAndAddress>
+	</ShipFromAddress>
+	<Packages>
+		<PackageCount>1</PackageCount>
+		<!--Zero or more repetitions on basis of PackageCount: -->
+		<Package>
+			<Machinable>?</Machinable>
+			<DropOffTime>REGULAR_PICKUP</DropOffTime>
+			<ShipDate>2016-03-29T12:34:56-06:00</ShipDate>
+			<PackagingType>
+				<!-- For FedEx -->
+				<!-- <Code>YOUR_PACKAGING</Code> -->
+				<!-- For UPS -->
+				 <Code>2b</Code> 
+			</PackagingType>
+			<Dimensions>
+				<UnitOfMeasurement>
+					<Code>IN</Code>
+					<Description>?</Description>
+				</UnitOfMeasurement>
+				<Length>1</Length>
+				<Width>1</Width>
+				<Height>11</Height>
+				<Units>IN</Units>
+			</Dimensions>
+			<Weight>
+				<UnitOfMeasurement>
+					<Code>LB</Code>
+					<Description>?</Description>
+				</UnitOfMeasurement>
+				<Weight>20.0</Weight>
+			</Weight>
+		</Package>
+	</Packages>
+	<PaymentInformation>
+		<ShipmentCharge>
+			<!-- For FedEx -->
+			<!-- <Type>SENDER</Type> -->
+			<!-- For UPS -->
+			<Type>01</Type>
+			<BillShipper>
+				<AccountNumber>104967</AccountNumber>
+				<CreditCard>
+					<Type>?</Type>
+					<Number>?</Number>
+					<ExpirationDate>?</ExpirationDate>
+					<SecurityCode>?</SecurityCode>
+					<Address>
+						<AddressLine>?</AddressLine>
+						<City>?</City>
+						<StateProvinceCode>?</StateProvinceCode>
+						<PostalCode>?</PostalCode>
+						<CountryCode>?</CountryCode>
+					</Address>
+				</CreditCard>
+				<AlternatePaymentMethod>?</AlternatePaymentMethod>
+			</BillShipper>
+			<BillReceiver>
+				<AccountNumber>?</AccountNumber>
+				<Address>
+					<PostalCode>?</PostalCode>
+				</Address>
+			</BillReceiver>
+			<BillThirdParty>
+				<AccountNumber>?</AccountNumber>
+				<Address>
+					<PostalCode>?</PostalCode>
+					<CountryCode>?</CountryCode>
+				</Address>
+			</BillThirdParty>
+			<ConsigneeBilledIndicator>?</ConsigneeBilledIndicator>
+		</ShipmentCharge>
+		<SplitDutyVATIndicator>?</SplitDutyVATIndicator>
+	</PaymentInformation>
+	<LabelSpecification>
+		<ImageType>ZPL</ImageType>
+	</LabelSpecification>
+</Shipment>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	
+	
+	
+	<!-- this is to support Oracle XA Transaction
+ 	<bean id="oracleDB" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>OracleDB</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>oracle.jdbc.xa.client.OracleXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="serverName">192.168.1.78</prop>
+	      		<prop key="portNumber">1521</prop>
+	     		 <prop key="databaseName">XE</prop>
+				<prop key="user">admin</prop>
+				<prop key="password">admin</prop>
+				<prop key="URL">jdbc:oracle:thin:@192.168.1.78:1521:XE</prop>
+			</props>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+
+		</property>
+		<property name="maxPoolSize">
+			<value>2</value>
+		</property>
+	</bean>  -->
+	
+	<!-- this is to support mssql XA Transaction
+ 	<bean id="msSQLDB" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>MSSQLDB</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="databaseName">roi_test</prop>
+				<prop key="serverName">192.168.1.59</prop>
+				<prop key="portNumber">1433</prop>
+				<prop key="user">roiadmin</prop>
+				<prop key="password">bizruntime@1234</prop>
+				<prop key="URL">jdbc:sqlserver://192.168.1.59:1433;instanceName=WIN-NAVISION\\ROISQL;databaseName=roi_test</prop>
+			</props>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+
+		</property>
+		<property name="maxPoolSize">
+			<value>2</value>
+		</property>
+	</bean> -->
+	
+	
+	<!-- importing routecontext files -->
+	<!-- importing label service execution and implementation route 
+	<import resource="labelserviceRouteExecution.xml" />
+	<import resource="labelvendorserviceRouteImpl.xml" />   -->
+	
+	<!-- It is for nicelable execution and impl routecontext 
+	<import resource="nicelabelserviceRouteExecution.xml" />
+	<import resource="nicelabelvendorserviceRouteImpl.xml" /> -->
+	
+	<!-- It is for roi print service execution and impl routecontext
+	<import resource="printServiceRouteExecution.xml" />
+	<import resource="printServiceVendImplRoute.xml" />     -->
+	
+	<!-- It is for performance testing execution and impl routecontext 
+	 <import resource="performanceExecution.xml" />
+	 <import resource="performanceImpl.xml" /> --> 
+	 
+ 	 <!-- <import resource="roi-test-eventnotifierimpl.xml" />
+ 	  <import resource="roi-test-evntwiretap.xml" />  -->
+ 	  
+ 	<!-- It is for integration pipeline execution and impl routecontext -->
+ 	<import resource="sacServiceRouteExecution.xml" />
+	<import resource="sacServiceRoutImpl.xml" /> 
+	<import resource="integration-activity-enricher.xml"/> 
+	
+	<!-- It is a cups print service execution and impl routecontext 
+	<import resource="cupsPrintServiceRouteExecution.xml" />
+	<import resource="cupsPrintServiceVendImplRoute.xml" /> -->
+	
+	<!-- It is test feature added to test metamodel 
+	<import resource="testServiceRouteExecution.xml" />
+	<import resource="testServiceVendImplRoute.xml" /> -->                     
+</beans> 

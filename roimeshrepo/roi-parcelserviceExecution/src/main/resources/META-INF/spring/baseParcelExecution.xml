@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="convertJsonToXml"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.GenericInputConversionBean" />
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="parcelservice-ER-Decider">
+		<!-- This is the route which is called from the baseroute dynamicly -->
+		<camel:route id="parcelservice-shop-ER">
+			<from uri="direct:parcelservice-shop-ER" />
+			<log message="the incoming-inside shop"/>
+		 	<to uri="bean:convertJsonToXml" /> 
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+		</camel:route>
+		<camel:route id="parcelservice-rates-ER">
+			<from uri="direct:parcelservice-rates-ER" />
+			<log message="the incoming-inside rates"/>
+		 	<to uri="bean:convertJsonToXml" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+		</camel:route>
+		<camel:route id="parcelservice-createship-ER">
+			<from uri="direct:parcelservice-createship-ER" />
+			<log message="the incoming-inside createship"/>
+			<to uri="bean:convertJsonToXml" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+		</camel:route>
+		<camel:route id="parcelservice-voidship-ER">
+			<from uri="direct:parcelservice-voidship-ER" />
+			<to uri="bean:convertJsonToXml" />
+			<log message="the incoming-inside void ${body}"/>
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+		</camel:route>
+	</routeContext>
+
+</beans>

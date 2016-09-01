@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureServiceNew.xsd">
+<Features featureGroup="print">
+	
+		<Feature featureName="printservice" version="v1" enabled='true' interfaceName="com.getusroi.ILabelService">
+			<Service name="printjob" enabled='true' vendorName="proship" Description="labelService through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="print/printservice/printjob">printservice-printjob-rhapsody-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">printservice-printjob-rhapsody-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="printstatus" enabled='true' vendorName="fedix" Description="labelService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">printservice-printstatus-rhapsody-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">printservice-printstatus-rhapsody-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

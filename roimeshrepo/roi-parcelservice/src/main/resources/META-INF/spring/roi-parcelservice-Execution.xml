@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="genericOperationrates"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.ParcelserviceHelperShopRates" />
+	<bean id="genericOperationvoid"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.ParcelServiceHelperVoid" />
+	<bean id="genericOperationship"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.ParcelServiceHelperShip" />
+	<bean id="genericOperationshop"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.ParcelserviceHelperRate" />
+
+	<!-- <bean id="forced" class="java.lang.Exception"> <constructor-arg index="0" 
+		value="This is forced" /> </bean> -->
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="parcelserviceExecutionRoute">
+
+		<!-- Test route active when testing -->
+		<!-- <route id="test-RateService"> <from uri="file:src/main/resources/META-INF/xml?noop=true&amp;fileName=GenericRateRequest.xml" 
+			/> <to uri="direct:rateService-ER" /> </route> -->
+
+		<route id="parcelservice-rates-roi-IR">
+			<from uri="direct:parcelservice-rates-roi-IR" />
+<!-- 			<to uri="bean:genericOperationshop?method=readGenericFile" />
+ -->			<log message="the in xml: ${body}" />
+			<camel:choice>
+				<camel:when>
+					<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="FEDEX"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<log message="inside fedex execution" />
+					<to uri="direct:fedex-impl-rate" />
+					<log message="The Response from FedEx: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="UPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:ups-impl-rateService-request" />
+					<log message="The Response from Ups: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="STAMPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:stamps-impl-rateService-request" />
+					<log message="The Response from Stamps: ${body}" />
+				</camel:when>
+			</camel:choice>
+		</route>
+
+
+		<!-- All-RateService-shop ExecutionRoute -->
+		<route id="parcelservice-shop-roi-IR">
+			<from uri="direct:parcelservice-shop-roi-IR" />
+			<!-- <log message="This is the body entry: ${body}"/> -->
+
+<!-- 			<to uri="bean:genericOperationrates?method=readGenericFile" />
+ -->			
+ 			<multicast stopOnException="false" parallelAggregate="true"
+				strategyRef="aggregatorStrategy">
+				<to uri="direct:fedExFilter" />
+				<to uri="direct:upsFilter" />
+				<to uri="direct:stampsFilter" />
+
+			</multicast>
+			<to uri="bean:genericOperationrates?method=getListofExchangeBody" />
+			<inOut uri="bean:genericOperationrates" />
+		</route>
+
+		<route id="fedExRoute">
+			<from uri="direct:fedExFilter" />
+			<log message="inside fedex exec route" />
+			<filter>
+				<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="FEDEX"]
+				</xpath>
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExCredentials)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExProperties)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+				<to uri="direct:fedex-impl-shop" />
+				<!-- <inOnly uri="direct:responseToAggregate" /> -->
+				<!-- <log message="FEDEX_RATE_RESPONSE ${body}" /> -->
+			</filter>
+		</route>
+
+		<route id="upsRoute">
+			<from uri="direct:upsFilter" />
+			<log message="inside ups exec route" />
+			<filter>
+				<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="UPS"]
+				</xpath>
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsCredentials)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+				<to uri="direct:ups-impl-shopService-request" />
+				<!-- <delay asyncDelayed="true"> <constant>1000</constant> </delay> -->
+				<!-- <inOnly uri="direct:responseToAggregate" /> -->
+
+				<!-- <log message="UPS_RATE_RESPONSE ${body}" /> -->
+			</filter>
+		</route>
+
+
+		<route id="stampsRoute">
+			<from uri="direct:stampsFilter" />
+			<log message="inside stamps exec route" />
+			<filter>
+				<xpath>RateRequest/RateRequestInfo/ServiceTypes//Carrier[text()="STAMPS"]
+				</xpath>
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsCredentials)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsProperties)" />
+				<to
+					uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+				<to uri="direct:stamps-impl-shop" />
+				<!-- <inOnly uri="direct:responseToAggregate" /> -->
+				<!-- <log message="FEDEX_RATE_RESPONSE ${body}" /> -->
+			</filter>
+		</route>
+
+		<route id="responsesAggregator">
+
+			<from uri="direct:responseToAggregate" />
+			<aggregate strategyRef="aggregatorStrategy"
+				completionTimeout="6000">
+				<correlationExpression>
+					<simple>true</simple>
+				</correlationExpression>
+				<!-- <to uri="direct:aggregatedResponse" /> -->
+				<!-- <setBody><simple>${body}</simple></setBody> -->
+				<!-- <log message="The aggregated value: ${body}" /> -->
+				<inOut uri="bean:genericOperationrates?method=setResp" />
+			</aggregate>
+		</route>
+
+		<route id="AggregatedOutValue">
+			<from uri="direct:aggregatedResponse" />
+			<!-- <camel:marshal ref="xmljson"/> -->
+			<log message="The aggregated value: ${body}" />
+			<to uri="mock:endp" />
+		</route>
+		<!-- End of the Rate Service ExecutionRoute -->
+		<!-- This is for the voidship -->
+		<route id="parcelservice-voidship-roi-IR">
+			<from uri="direct:parcelservice-voidship-roi-IR" />
+<!-- 			<to uri="bean:genericOperationvoid?method=readGenericFile" />
+ -->			<!-- <log message="File read from: ${body}"/> -->
+			<camel:choice>
+				<camel:when>
+					<xpath>Void//Carrierservice[text()="FEDEX"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<log message="inside fedex execution" />
+					<to uri="direct:fedex-impl-voidShipmentService-request" />
+					<log message="The Response from FedEx: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>Void//Carrierservice[text()="UPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:ups-impl-voidShipmentService-request" />
+					<log message="The Response from Ups: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>Void//Carrierservice[text()="STAMPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:stamps-impl-voidShipmentService-request" />
+					<log message="The Response from Stamps: ${body}" />
+				</camel:when>
+			</camel:choice>
+		</route>
+		<!-- End of the voidShip -->
+		<!-- This is for the createship -->
+		<route id="parcelservice-createship-roi-IR">
+			<from uri="direct:parcelservice-createship-roi-IR" />
+<!-- 			<to uri="bean:genericOperationship?method=readGenericFile" />
+ -->			<camel:choice>
+				<camel:when>
+					<xpath>Shipment/Service/HostServiceType/HostNaming/HostName//Carrier[text()="FEDEX"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(FedExProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<log message="inside fedex execution" />
+					<to uri="direct:fedex-impl-shipment-request" />
+					<log message="The Response from FedEx: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>Shipment/Service/HostServiceType/HostNaming/HostName//Carrier[text()="UPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:ups-impl-shipment-request" />
+					<log message="The Response from Ups: ${body}" />
+				</camel:when>
+				<camel:when>
+					<xpath>Shipment/Service/HostServiceType/HostNaming/HostName//Carrier[text()="STAMPS"]</xpath>
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsCredentials)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(StampsProperties)" />
+					<to
+						uri="bean:meshConfigUtil?method=getPermastoreConfiguration(ParcelShipperAddress)" />
+					<to uri="direct:stamps-ship-impl" />
+					<log message="The Response from Stamps createIndicium: ${body}" />
+				</camel:when>
+
+			</camel:choice>
+		</route>
+		<!-- End of the createShip -->
+	</routeContext>
+	<bean id="aggregatorStrategy"
+		class="com.getusroi.wms20.parcel.parcelservice.generic.ParcelserviceHelperShopRates" />
+</beans>

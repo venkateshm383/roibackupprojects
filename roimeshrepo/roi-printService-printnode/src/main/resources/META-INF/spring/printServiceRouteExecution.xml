@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+
+	<routeContext id="printserviceRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="printservicePrintJobTransformation">
+			<from uri="direct:printservice-printjob-TR" />
+			<log message="inside printservice-printjob execution route" />
+			<to uri="direct:printservice-printjob-ER" />
+		</route>
+		
+		<route id="printservicePrintJobExecutionRoute">
+
+			<from uri="direct:printservice-printjob-ER" />
+			<log
+				message="inside printservice-printjob before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside printservice-printjob executionroute after calling feature execution" />
+		</route>
+		
+		<route id="printservicePrintStatusTransformation">
+			<from uri="direct:printservice-printstatus-TR" />
+			<log message="inside printservice-printstatus  execution route" />
+			<to uri="direct:printservice-printstatus-ER" />
+		</route>
+
+	<route id="printsericePrintStatusExecutionRoute">
+
+			<from uri="direct:printservice-printstatus-ER" />
+			<log
+				message="inside printservice-printstatus executionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}"/>
+			
+			<toD uri="direct:${in.header.implroute}"/>
+			
+			<log
+				message="inside printservice-printstatus executionroute after calling feature execution" />
+		</route>
+		
+		
+	</routeContext>
+</beans>

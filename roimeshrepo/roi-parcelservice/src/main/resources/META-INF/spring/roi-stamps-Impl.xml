@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+
+	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	
+	<bean id="stamps_request_Builder"
+		class="com.getusroi.wms20.parcel.parcelservice.stamps.beans.StampsShopRateRequestBuilder" />
+	<bean id="detailRateStamps"
+		class="com.getusroi.wms20.parcel.parcelservice.stamps.beans.StampsRATERequestBuilder" />
+	<bean id="stampsShipmentSoapBuilder"
+		class="com.getusroi.wms20.parcel.parcelservice.stamps.beans.StampsShipmentRequestBuilder" />
+	<bean id="soapBuilderForStampsVoid" class="com.getusroi.wms20.parcel.parcelservice.stamps.beans.StampsVoidShipmentRequestBuilder"/>
+
+	<cxf:cxfEndpoint id="stampsRateService"
+		address="https://swsim.testing.stamps.com/swsim/swsimV50.asmx"
+		wsdlURL="https://swsim.testing.stamps.com/swsim/swsimv50.asmx?wsdl"
+		endpointName="SwsimV50Soap" serviceName="SwsimV50"
+		xmlns="http://stamps.com/xml/namespace/2015/12/swsim/swsimV50" />
+
+	<cxf:cxfEndpoint id="stampsVoidService"
+		address="https://swsim.testing.stamps.com/swsim/swsimV50.asmx"
+		wsdlURL="https://swsim.testing.stamps.com/swsim/swsimv50.asmx?wsdl"
+		endpointName="SwsimV50Soap" serviceName="SwsimV50"
+		xmlns="http://stamps.com/xml/namespace/2015/12/swsim/swsimV50" />
+
+	<cxf:cxfEndpoint id="stampsCreateIndiciumService"
+		address="https://swsim.testing.stamps.com/swsim/swsimV50.asmx"
+		wsdlURL="https://swsim.testing.stamps.com/swsim/swsimv50.asmx?wsdl"
+		endpointName="SwsimV50Soap" serviceName="SwsimV50"
+		xmlns="http://stamps.com/xml/namespace/2015/12/swsim/swsimV50" />
+
+	<http:conduit name="*.http-conduit">
+		<http:client AllowChunking="false" MaxRetransmits="11"
+			Connection="Keep-Alive" ReceiveTimeout="60000" CacheControl="No-Cache" />
+	</http:conduit>
+
+	<!-- Impl route of StampsShop -->
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="parcelervice-Stamps-Impl">
+		<route id="stamps-impl-shopService-request">
+			<from uri="direct:stamps-impl-shop" />
+			<!-- <log message="${body}"/> -->
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="xslt:META-INF/xslt/Stamps_Shop_Rate_GeniricToRaw.xsl" />
+
+			<to uri="bean:stamps_request_Builder" />
+			<log message="the rawXml: ${body}" />
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/Stamps_Shop_Rate_SoapTransform.xsl" />
+			<log message="THe soap Request to stamps ${body}" />
+			<setHeader headerName="soapAction">
+				<simple>http://stamps.com/xml/namespace/2015/12/swsim/swsimV50/GetRates
+				</simple>
+			</setHeader>
+
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+
+			<!-- calling CXF endpoint of fedEx Rate service -->
+			<to uri="cxf:bean:stampsRateService?dataFormat=MESSAGE" />
+
+			<!-- <log message = "The stamps rates-resp: ${body}"/> -->
+			<!-- To Generate Genric Response from the soap response -->
+			<to uri="xslt:META-INF/xslt/Stamps_Shop_Rate_GeniricResponse.xsl" />
+			<!-- <log message="stampsshopResponse: ${body}"/> -->
+			<!-- <to uri="direct:responseToAggregate"/> -->
+			<!-- <marshal ref="xmljson"/> -->
+		</route>
+
+		<!-- Stamps Rates impl -->
+
+		<route id="stamps-impl-rateService-request">
+			<from uri="direct:stamps-impl-rateService-request" />
+			<!-- <log message="${body}"/> -->
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="xslt:META-INF/xslt/Stamps_Rate_GeniricToRaw.xsl" />
+
+			<to uri="bean:stamps_request_Builder" />
+			<log message="the rawXml: ${body}" />
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/Stamps_Rate_SoapTransform.xsl" />
+			<log message="THe soap Request to stamps ${body}" />
+			<setHeader headerName="soapAction">
+				<simple>http://stamps.com/xml/namespace/2015/12/swsim/swsimV50/GetRates
+				</simple>
+			</setHeader>
+
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+
+			<!-- calling CXF endpoint of fedEx Rate service -->
+			<to uri="cxf:bean:stampsRateService?dataFormat=MESSAGE" />
+
+			<!-- <log message = "The stamps rates-resp: ${body}"/> -->
+			<!-- To Generate Genric Response from the soap response -->
+			<to uri="xslt:META-INF/xslt/Stamps_Rate_GeniricResponse.xsl" />
+			<to uri="bean:detailRateStamps" />
+			<!-- <to uri="direct:responseToAggregate"/> -->
+			<!-- <marshal ref="xmljson"/> -->
+		</route>
+
+		<!-- the stamps createShip impl -->
+		<route id="stamps-ship-impl">
+			<from uri="direct:stamps-ship-impl" />
+<!-- 			<log message = "The first xml: ${body}"/>
+ -->			<!-- To Generate raw xml using xslt template -->
+		 	<to uri="xslt:META-INF/xslt/Stamps_Ship_GeniricToRaw.xsl" /> 
+			<to uri="bean:stampsShipmentSoapBuilder?method=processBean" />
+			<log message ="the xml beforesoap: ${body}"/>
+			<to uri="xslt:META-INF/xslt/Stamps_Ship_SoapTransform.xsl" />
+			<setHeader headerName="soapAction">
+				<simple>http://stamps.com/xml/namespace/2015/12/swsim/swsimV50/CreateIndicium
+				</simple>
+			</setHeader>
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+			<log message="the request to Ship: ${body}"/>
+			<to uri="cxf:bean:stampsCreateIndiciumService?dataFormat=MESSAGE" />
+			<to uri="xslt:META-INF/xslt/Stamps_Ship_GeniricResponse.xsl" />
+			<log message="The generic Stamps ShipResponse: ${body}"/>
+			<marshal ref="xmljson" />
+		</route>
+
+
+		<route id ="stamps-void-impl">
+		<!-- Impl for the VoidShip in FedEx -->
+			<from uri="direct:stamps-impl-voidShipmentService-request" />
+			<log message="inside stamps impl route" />
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="bean:soapBuilderForStampsVoid" />
+			<!-- To Generate Soap Envelope using xslt template -->
+			 <to uri="xslt:META-INF/xslt/Stamps_Void_SoapTransform.xsl" />
+			<setHeader headerName="soapAction">
+				<simple>http://stamps.com/xml/namespace/2015/12/swsim/swsimV50/CancelIndicium
+				</simple>
+			</setHeader>
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+			<to uri="cxf:bean:stampsVoidService?dataFormat=MESSAGE" />
+			<to uri="xslt:META-INF/xslt/Stamps_Void_GeniricResponse.xsl" />
+			<marshal ref="xmljson" />
+			<log message="The firstStep: ${body}"/>
+		</route>
+
+	</routeContext>
+
+</beans>

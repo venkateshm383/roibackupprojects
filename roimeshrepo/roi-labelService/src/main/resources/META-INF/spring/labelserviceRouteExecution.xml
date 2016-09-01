@@ -1,0 +1,75 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:camelcxf="http://camel.apache.org/schema/cxf" xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging limit="1024" />
+		</cxf:features>
+	</cxf:bus>
+	<routeContext id="labelServiceRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+	
+		<route id="labelServiceStartlabelTransformation">
+			<from uri="direct:labelservice-startlabel-TR" />
+			<to uri="direct:labelservice-startlabel-ER" />
+		</route>
+		<route id="labelserviceStartlabelExecutionRoute">
+			<from uri="direct:labelservice-startlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />			
+		</route>
+		
+		<route id="labelServiceAddlabelTransformation">
+			<from uri="direct:labelservice-addlabel-TR" />
+			<to uri="direct:labelservice-addlabel-ER" />
+		</route>
+		<route id="labelserviceAddlabelExecutionRoute">
+			<from uri="direct:labelservice-addlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />			
+		</route>
+		
+		<route id="labelServiceProducelabelTransformation">
+			<from uri="direct:labelservice-producelabel-TR" />
+			<to uri="direct:labelservice-producelabel-ER" />
+		</route>
+		<route id="labelserviceProducelabelExecutionRoute">
+			<from uri="direct:labelservice-producelabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />			
+		</route>
+		
+		<route id="labelServiceVoidLabelTransformation">
+			<from uri="direct:labelservice-voidlabel-TR" />
+			<to uri="direct:labelservice-voidlabel-ER" />
+		</route>
+		<route id="labelserviceVoidlabelExecutionRoute">
+			<from uri="direct:labelservice-voidlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct:${in.header.implroute}" />			
+		</route>
+		
+		
+		<route id="label-labelservice-route">
+			<from uri="cxf:bean:label_labelservice?dataFormat=PAYLOAD" />
+			<setHeader headerName="featuregroup">
+				<simple>label</simple>
+			</setHeader>
+			<setHeader headerName="feature">
+				<simple>labelservice</simple>
+			</setHeader>
+			<setHeader headerName="endpointType">
+				<simple>CXF-ENDPOINT</simple>
+			</setHeader>
+			<marshal ref="xmljsonWithOptions" />
+			<convertBodyTo type="java.lang.String" />
+			<to uri="bean:dataTransform?method=transformRequestData" />
+			<to uri="direct:baseEntry" />
+			<unmarshal ref="xmljsonWithOptions" />
+		</route>
+		
+	</routeContext>
+	<camelcxf:cxfEndpoint id="label_labelservice"
+		address="http://0.0.0.0:9070/ecomm/soap/label/labelservice"
+		serviceClass="com.getusroi.wms20.label.ws.ILabelService" />
+</beans>

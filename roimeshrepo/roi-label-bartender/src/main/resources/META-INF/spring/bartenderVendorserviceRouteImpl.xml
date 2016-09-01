@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	<bean id="startLabelBeanVend" class="com.getusroi.wms20.label.bartender.bean.StartLabelBean" />
+	<bean id="addLabelBeanVend" class="com.getusroi.wms20.label.bartender.bean.AddLabelBean">
+		<property name="dataSource" ref="dataSourceA" />
+	</bean>
+	<bean id="produceLabelBeanVend"
+		class="com.getusroi.wms20.label.bartender.bean.ProduceLabelBean" />
+
+	<routeContext id="bartendervendorserviceRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="proshipstartlabel-bartender">
+
+			<from uri="direct:labelservice-startlabel-bartender-IR" />
+			<log message="inside proship vendor startbartenderRoute" />
+			<!-- <to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(LabelPrinterConfig)"/> -->
+
+			<to uri="bean:startLabelBeanVend?method=processBean" />
+
+
+		</route>
+
+		<route id="proshipaddlabel-bartender">
+
+			<from uri="direct:labelservice-addlabel-bartender-IR" />
+			<log message="inside proship vendor addlabelRoute" />
+			<to uri="bean:addLabelBeanVend" />
+
+		</route>
+
+		<route id="fedexproducelabel--bartender">
+
+			<from uri="direct:labelservice-producelabel-bartender-IR" />
+			<log message="inside fedex vendor producelabelRoute" />
+			<to uri="bean:produceLabelBeanVend" />
+			<log message="${body}" />
+		</route>
+
+	</routeContext>
+</beans>

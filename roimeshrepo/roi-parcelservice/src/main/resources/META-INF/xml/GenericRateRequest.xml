@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RateRequest>
+	<RateRequestInfo>
+		<ServiceTypes>
+			<Carrier>FEDEX</Carrier>
+			<Carrier>UPS</Carrier>
+			
+			<Way>Ground</Way>
+
+			<ServiceType>2_DAY</ServiceType>
+
+			<!-- <CarrierServices>UPS-Next Day Air</CarrierServices>
+			<CarrierServices>FEDEX-Next Day Air</CarrierServices> -->
+		</ServiceTypes>
+		<RateRequestType>
+			<RateRequestCode>Least-Cost|Least-Cost-InWindow</RateRequestCode>
+			<RequestArriveDate>06/13/2015(mm/dd/yyyy)</RequestArriveDate>
+			<ReturnTransitTime>true</ReturnTransitTime>
+		</RateRequestType>
+	</RateRequestInfo>
+
+	<Shipper>
+		<shipper_id>104967</shipper_id>
+	</Shipper>
+
+	<ShipToAddress>
+		<ContactAndAddress>
+			<AccountNumber>123</AccountNumber>
+			<ContactId>?</ContactId>
+			<PersonName>name</PersonName>
+			<Title>?</Title>
+			<CompanyName>abccompany</CompanyName>
+			<PhoneNumber>989787</PhoneNumber>
+			<PhoneExtension>?</PhoneExtension>
+			<TollFreePhoneNumber>?</TollFreePhoneNumber>
+			<PagerNumber>?</PagerNumber>
+			<FaxNumber>?</FaxNumber>
+			<EmailAddress>abcdeemail</EmailAddress>
+			<StreetLine1>abc</StreetLine1>
+			<StreetLine2>abc</StreetLine2>
+			<StreetLine3>?</StreetLine3>
+			<City>Collierville</City>
+			<StateOrProvinceCode>TN</StateOrProvinceCode>
+			<PostalCode>38017</PostalCode>
+			<UrbanizationCode>?</UrbanizationCode>
+			<CountryCode>US</CountryCode>
+			<CountryName>?</CountryName>
+			<Residential>?</Residential>
+			<ResidentialAddressIndicator>?</ResidentialAddressIndicator>
+		</ContactAndAddress>
+	</ShipToAddress>
+	<Packages>
+		<PackageCount>1</PackageCount>
+
+		<Package>
+			<Machinable>?</Machinable>
+			<DropOffTime>?</DropOffTime>
+			<ShipDate>?</ShipDate>
+			<PackagingType>
+				<Code>?</Code>
+				<Description>?</Description>
+			</PackagingType>
+			<Dimensions>
+				<UnitOfMeasurement>
+					<Code>LB</Code>
+					<Description>?</Description>
+				</UnitOfMeasurement>
+				<Length>12</Length>
+				<Width>12</Width>
+				<Height>12</Height>
+				<Units>IN</Units>
+			</Dimensions>
+			<Weight>
+				<UnitOfMeasurement>
+					<Code>LB</Code>
+					<Description>?</Description>
+				</UnitOfMeasurement>
+				<Weight>1.0</Weight>
+			</Weight>
+		</Package>
+	</Packages>
+</RateRequest>

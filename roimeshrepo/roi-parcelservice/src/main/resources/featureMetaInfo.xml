@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>parcel</Name>		
+		<Features>
+			<Feature vendorName="roi" vendorVersion="1.0">
+				<Name>parcelservice</Name>
+				 <fms:EventResources>
+					<fms:EventResource resourceName="parcelservice-roi-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="parcelservice-permastore.xml" />
+				</fms:PermaStoreConfigurations>				
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="parcelservice-featureservice.xml" />
+				</FeatureImplementations>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

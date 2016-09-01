@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	<bean id="metamodelCRUDFail" class="com.getusroi.wms20.metamodel.bean.MetaModelCRUDFailedBean"/>	
+	<bean id="metamodelCRUDSuccess" class="com.getusroi.wms20.metamodel.bean.MetaModelCRUDSuccessBean"/>	
+	<!-- <property name="dataSourceList">
+		<list>
+			<ref bean="msSQLDB"/>
+			<ref bean="oracleDB"/>
+		</list>	
+	</property>
+	</bean> -->
+	
+	<!-- bean for compositeView -->
+	<bean id="compositeView" class="com.getusroi.wms20.metamodel.bean.MetaModelCompositeViewBean"/>
+	<bean id="featureDataContext" class="com.getusroi.wms20.metamodel.bean.MetaModelFeatureDataContext"/>
+	<routeContext id="testserviceVendRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="testService-roi-vend-route">
+			<from uri="direct:testService-testjob-roi-IR" />
+			<log message="inside testService-testjob-vend route" />
+			  <to uri="bean:metamodelCRUDSuccess" />
+			  <to uri="bean:metamodelCRUDSuccess?method=updateTable" />				
+			<to uri="bean:metamodelCRUDSuccess?method=selectTable" />
+		
+			<!-- to test delete on single source meta model 	-->			
+			 <to uri="bean:metamodelCRUDFail" /> 
+			 <!-- uncomment below line if want to test rollback,Its failure scenario 
+			 <to uri="bean:metamodelCRUDFail?method=deleteFail" />		 --> 
+		</route>
+
+		<route id="testService-compositeview-vend-route">
+			<from uri="direct:testService-compositeView-roi-IR" />
+			<log message="inside testService-compositeview-roi-IR route" />
+			  <to uri="bean:compositeView" />			  
+		</route>
+		
+		<route id="testService-dataContextRef-vend-route">
+			<from uri="direct:testService-dataContextRef-roi-IR" />
+			<log message="inside testService-dataContextRef-roi-IR route" />
+			  <to uri="bean:featureDataContext" />			  
+		</route>
+	</routeContext>
+</beans>

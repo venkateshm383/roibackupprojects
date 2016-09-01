@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+<!-- ship address perma config -->
+	<PermaStoreConfiguration>
+        <Name>ParcelShipperAddress</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"shipperId": "104967",
+	"address": {
+		"CompanyName": "Brian Pier",
+		"PhoneNumber": "987654321",
+		"StreetLine1": "Get Us ROI LLC",
+		"StreetLine2": "Do Not Delete - Test Account",
+		"City": "MONTGOMERY",
+		"StateOrProvinceCode": "TX",
+		"PostalCode": "77356",
+		"CountryCode": "US"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+    <!-- fedEx Auth -->
+      <PermaStoreConfiguration>
+        <Name>FedExCredentials</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"fedexcreds": {
+		"Key": "9CIDNRejcZ8lMBqf",
+		"Password": "Qdw85uOfrATSpFRWNVlwx9IxJ",
+		"AccountNumber": "510087100",
+		"MeterNumber": "118710470",
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    <!-- fedEx properties -->
+    <PermaStoreConfiguration>
+        <Name>FedExProperties</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"fedexproperties": {
+		"ServiceId_Rate": "crs",
+		"Major_Rate": "18",
+		"Intermediate_Rate": "0",
+		"Minor_Rate": "0",
+		"ShipTimestamp_Void": "2016-03-26T09:30:47-05:00",
+		"ServiceId_Void": "ship",
+		"Major_Void": "17",
+		"Intermediate_Void": "0",
+		"Minor_Void": "0",
+		"DeletionControl_Void": "DELETE_ALL_PACKAGES",
+		"TrackingIdType_Void": "EXPRESS",
+		"ShipTimestamp_ship": "2016-03-29T12:34:56-06:00",
+		"ServiceId_ship": "ship",
+		"Major_ship": "17",
+		"Intermediate_ship": "0",
+		"Minor_ship": "0",
+		"PaymentType_ship": "SENDER",
+		"DropoffType_ship": "REGULAR_PICKUP",
+		"PackagingType_ship": "YOUR_PACKAGING",
+		"LabelFormatType_ship": "COMMON2D"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+    <!-- Ups creds -->
+    <PermaStoreConfiguration>
+        <Name>UpsCredentials</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"upscreds": {
+		"Username": "Getusroi1",
+		"Password": "WMS20parcel",
+		"AccessLicenseNumber": "1D03F14FE2776166"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+    <!-- ups properties -->
+    <PermaStoreConfiguration>
+        <Name>UpsProperties</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"upsproperties": {
+		"RequestOption_Rate": "Shop",
+		"XpciVersion_Rate": "1.0001",
+		"PickupTypeCode_Rate": "01",
+		"CustomerClassificationCode_Rate": "04",
+		"PackagingTypeCode_Rate": "02",
+		"RequestOption_ship": "nonvalidate",
+		"XpciVersion_ship": "1.0001",
+		"LabelStockSizeHeight_ship": "6",
+		"LabelStockSizeWidth_ship": "4"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+    
+       <!-- Stamps creds -->
+    <PermaStoreConfiguration>
+        <Name>StampsCredentials</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"stampscreds": {
+		"Username": "Bizruntime-01",
+		"Password": "postage1",
+		"AccessLicenseNumber": "8002bac2-9540-423e-bc6e-9ff1df63b6d2"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+    <!-- stamps properties -->
+    <PermaStoreConfiguration>
+        <Name>StampsProperties</Name>
+        		<isEnabled>true</isEnabled>
+        
+        <featureInfo featureName="parcelservice" featureGroup="parcel"/>
+        <DataType>Map</DataType>
+        <ConfigurationBuilder type="INLINE">
+            <InlineBuilder type="JSON-TO-Map">{
+	"stampsproperties": {
+		"PickupTypeCode_Rate": "Unknown",
+		"PackagingTypeCode_Rate": "Unknown",
+		"ServiceType": "Unknown",
+		"NonMachinable": "false",
+		"RectangularShaped": "true",
+		"IsIntraBMC": "false",
+		"Zone": "0",
+		"RateCategory": "0",
+		"CubicPricing": "false",
+		"IsIntraBMC_Ship":"false",
+		"Zone_Ship":"0",
+		"RateCategory_Ship":"0",
+		"CubicPricing_Ship":"false",
+		"SampleOnly_Ship":"true",
+		"PostageMode_Ship":"Normal",
+		"ImageDpi_Ship":"ImageDpiDefault"
+	}
+}</InlineBuilder>
+        </ConfigurationBuilder>
+        <PublishPermaStoreEvent>
+            <OnConfigDelete></OnConfigDelete>
+            <OnConfigStatusChange></OnConfigStatusChange>
+            <OnConfigEntryDelete></OnConfigEntryDelete>
+            <OnConfigEntryAdd></OnConfigEntryAdd>
+            <OnConfigEntryUpdate></OnConfigEntryUpdate>
+        </PublishPermaStoreEvent>
+        <SubscribePermaStoreEvents>
+            <PermaStoreEvent onEvent="reload">
+            <EventName>TerminologyChange</EventName>
+                 <PermaStoreEventHandler>#todo</PermaStoreEventHandler>
+            </PermaStoreEvent>
+        </SubscribePermaStoreEvents>
+    </PermaStoreConfiguration>
+    
+
+  </PermaStoreConfigurations>

@@ -1,0 +1,73 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+	<!-- added datasource here to check if it can b called into another routecontext -->
+	<bean id="mysqlDB" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>MySQL</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="databaseName">roi</prop>
+				<prop key="serverName">192.168.1.77</prop>
+				<prop key="port">3306</prop>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="url">jdbc:mysql://192.168.1.77:3306/roi</prop>
+			</props>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+
+		</property>
+		<property name="maxPoolSize">
+			<value>2</value>
+		</property>
+	</bean>
+	<bean id="printerJobVend" class="com.getusroi.wms20.printservice.bean.PrintJob" />
+	<bean id="printStatusVend" class="com.getusroi.wms20.printservice.bean.PrintStatus" />
+	<routeContext id="printserviceVendRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+
+		<route id="vendorDefaultPrinterIdWithPrintJob">
+			<from uri="direct:printservice-printjob-vend-IR" />
+			<log message="inside the desired route" />
+			<to uri="bean:printerJobVend?method=getPrintersAuth" />
+			<to uri="https://api.printnode.com/printers" />
+			<to uri="bean:printerJobVend?method=setdataHeader" />
+			<to uri="bean:printerJobVend?method=processBean" />			<!-- Creates PrintJob -->
+		</route>
+
+		<route id="proshipVendPrintStatus">
+
+			<from uri="direct:printservice-printstatus-vend-IR" />
+			<log message="inside proship vendor printstatus" />
+			<to uri="bean:printStatusVend?method=processBean" />		<!-- Gets PrintJobStatus -->
+			<delay>
+				<constant>1000</constant>
+			</delay>
+			
+			<to uri="https://api.printnode.com/printjobs/${body}/states" />
+			<to uri="bean:printStatusVend?method=getLatestStatus" />
+			<log message="The job status : ${body}"/> 
+			 			
+		</route>
+
+		<route id="VendorAvailPrinters">								<!-- Gets all available printerDetails -->
+			<from uri="direct:printservice-allPrinterDetails-vend-IR" />
+			<to uri="bean:printerJobVend?method=getPrintersAuth" />
+			<to uri="https://api.printnode.com/printers" />
+		</route>
+		
+		<route id="testEventSubscription">
+		<from uri="mesh://Event?eventId=PRINTLABEL_STATUS_PROCESSED&amp;subscriberId=subs1"/>
+		<log message="inside event subscription route"/>
+		</route>
+	</routeContext>
+</beans>

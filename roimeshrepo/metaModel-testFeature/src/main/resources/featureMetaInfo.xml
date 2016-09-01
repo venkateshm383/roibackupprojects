@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>test</Name>
+		
+		<Features>
+			<Feature vendorName="testvendor" vendorVersion="1.0">
+				<Name>testService</Name>		
+				<fms:EventResources>
+					<fms:EventResource resourceName="testservice-roi-eventing.xml" />
+				</fms:EventResources>		
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="testservice-roi-featureservice.xml" />
+				</FeatureImplementations>
+				<FeatureDataContexts>
+				<DataContexts resourceName="testservice-roi-featureDataContext.xml"/>
+				</FeatureDataContexts>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

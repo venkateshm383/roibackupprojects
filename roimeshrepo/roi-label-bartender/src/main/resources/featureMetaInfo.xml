@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>label</Name>		
+		<Features>
+			<Feature vendorName="bartender" vendorVersion="1.0">
+				<Name>labelservice</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="labelservice-bartender-eventing.xml" />
+				</fms:EventResources>
+				
+			
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="labelservice-bartender-featureservice.xml" />
+				</FeatureImplementations>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

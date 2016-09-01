@@ -1,0 +1,88 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xmlns:cxf="http://cxf.apache.org/blueprint/core"
+	xmlns:camelcxf="http://camel.apache.org/schema/blueprint/cxf"	
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd">
+	  <cxf:bus>
+		<cxf:features>
+			<cxf:logging limit="1024" />
+		</cxf:features>
+	</cxf:bus> 
+	<bean id="dataTransform" class="com.getusroi.mesh.transform.TransformData" />
+	<bean id="labelServiceDynamic"
+		class="com.getusroi.mesh.feature.routing.ExecutionFeatureDynamic" />
+		
+	<camelContext id="labelServiceRouteOSGIExecution"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		
+		<dataFormats>
+			<xmljson id="xmljson1" />
+			<xmljson id="xmljsonWithOptions1" forceTopLevelObject="true"
+				trimSpaces="true" rootName="feature" skipNamespaces="true"
+				removeNamespacePrefixes="true" expandableProperties="d e" />
+		</dataFormats>
+		
+		<route id="labelServiceStartlabelTransformation">
+			<from uri="direct-vm:labelservice-startlabel-TR" />
+			<to uri="direct-vm:labelservice-startlabel-ER" />
+		</route>
+		<route id="labelserviceStartlabelExecutionRoute">
+			<from uri="direct-vm:labelservice-startlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct-vm:${in.header.implroute}" />
+		</route>
+		
+		
+		<route id="labelServiceAddlabelTransformation">
+			<from uri="direct-vm:labelservice-addlabel-TR" />
+			<to uri="direct-vm:labelservice-addlabel-ER" />
+		</route>
+		<route id="labelserviceAddlabelExecutionRoute">
+			<from uri="direct-vm:labelservice-addlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct-vm:${in.header.implroute}" />			
+		</route>
+		
+		<route id="labelServiceProducelabelTransformation">
+			<from uri="direct-vm:labelservice-producelabel-TR" />
+			<to uri="direct-vm:labelservice-producelabel-ER" />
+		</route>		
+		<route id="labelserviceProducelabelExecutionRoute">
+			<from uri="direct-vm:labelservice-producelabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct-vm:${in.header.implroute}" />			
+		</route>
+		
+		<route id="labelServiceVoidLabelTransformation">
+			<from uri="direct-vm:labelservice-voidlabel-TR" />
+			<to uri="direct-vm:labelservice-voidlabel-ER" />
+		</route>
+		<route id="labelserviceVoidlabelExecutionRoute">
+			<from uri="direct-vm:labelservice-voidlabel-ER" />			
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<toD uri="direct-vm:${in.header.implroute}" />			
+		</route>
+		
+		 <route id="label-labelservice-route">
+			<from uri="cxf:bean:label_labelservice?dataFormat=PAYLOAD" />
+			<setHeader headerName="featuregroup">
+				<simple>label</simple>
+			</setHeader>
+			<setHeader headerName="feature">
+				<simple>labelservice</simple>
+			</setHeader>
+			<setHeader headerName="endpointType">
+				<simple>CXF-ENDPOINT</simple>
+			</setHeader>
+			<marshal ref="xmljsonWithOptions1" />
+			<convertBodyTo type="java.lang.String" />
+			<to uri="bean:dataTransform?method=transformRequestData" />
+			<to uri="direct-vm:baseEntry" />
+			<unmarshal ref="xmljsonWithOptions1" />
+		</route> 
+	</camelContext>
+	
+	 <camelcxf:cxfEndpoint id="label_labelservice"
+		address="http://0.0.0.0:9070/ecomm/soap/label/labelservice"
+		serviceClass="com.getusroi.wms20.label.ws.ILabelService" /> 
+</blueprint>

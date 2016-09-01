@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+	<PermaStoreConfiguration>
+		<Name>LabelTemplate</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="labelservice" featureGroup="label" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.getusroi.wms20.label.builder.LabelTemplateBuilder</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<PublishPermaStoreEvent>
+			<OnConfigDelete>AreaListDeletedEvent</OnConfigDelete>
+			<OnConfigStatusChange>AreaListStatusChangedEvent
+			</OnConfigStatusChange>
+			<OnConfigEntryDelete>AreaDeletedEvent</OnConfigEntryDelete>
+			<OnConfigEntryAdd>AreaAddedEvent</OnConfigEntryAdd>
+			<OnConfigEntryUpdate>AreaUpdatedEvent</OnConfigEntryUpdate>
+		</PublishPermaStoreEvent>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+	
+	<PermaStoreConfiguration>
+		<Name>LabelPrinterConfig</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="labelservice" featureGroup="label" />
+		<DataType>List</DataType>
+		<ConfigurationBuilder type="CUSTOM">
+			<CustomBuilder>
+				<builder>com.getusroi.wms20.label.builder.PrinterConfigBuilder</builder>
+			</CustomBuilder>
+		</ConfigurationBuilder>
+		<PublishPermaStoreEvent>
+			<OnConfigDelete>AreaListDeletedEvent</OnConfigDelete>
+			<OnConfigStatusChange>AreaListStatusChangedEvent
+			</OnConfigStatusChange>
+			<OnConfigEntryDelete>AreaDeletedEvent</OnConfigEntryDelete>
+			<OnConfigEntryAdd>AreaAddedEvent</OnConfigEntryAdd>
+			<OnConfigEntryUpdate>AreaUpdatedEvent</OnConfigEntryUpdate>
+		</PublishPermaStoreEvent>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+</PermaStoreConfigurations>

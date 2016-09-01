@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>nicelabel</Name>		
+		<Features>
+			<Feature vendorName="nicelabel" vendorVersion="1.0">
+				<Name>nicelabelservice</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="labelservice-nicelabel-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="labelservice-nicelabel-permastore.xml" />
+				</fms:PermaStoreConfigurations>
+				<fms:DynaStoreConfigurations>
+					<fms:DynaStoreConfiguration
+						resourceName="labelservice-nicelabel-dynastore.xml" />
+				</fms:DynaStoreConfigurations>
+				<fms:PolicyConfigurations>
+					<fms:PolicyConfiguration resourceName="labelservice-nicelabel-policy.xml" />
+				</fms:PolicyConfigurations>
+				
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="labelservice-nicelabel-featureservice.xml" />
+				</FeatureImplementations>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

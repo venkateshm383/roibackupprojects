@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>print</Name>
+		
+		<Features>
+			<Feature vendorName="cups" vendorVersion="1.0">
+				<Name>printservice</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="printservice-cups-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="xyz.xml" />
+				</fms:PermaStoreConfigurations>
+				<fms:DynaStoreConfigurations>
+					<fms:DynaStoreConfiguration
+						resourceName="uvw.xml" />
+				</fms:DynaStoreConfigurations>
+				<fms:PolicyConfigurations>
+					<fms:PolicyConfiguration resourceName="xyz.xml" />
+				</fms:PolicyConfigurations>
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="printservice-cups-featureservice.xml" />
+				</FeatureImplementations>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

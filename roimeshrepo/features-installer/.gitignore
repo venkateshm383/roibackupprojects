@@ -1,0 +1,13 @@
+/bin/
+# Compiled source #
+###################
+*.class
+*.jar
+# Ignore Eclipse
+*.classpath
+*.project
+*.out
+*.lck
+*out.lck
+tm.out.1
+*.log

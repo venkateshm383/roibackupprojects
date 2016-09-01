@@ -1,0 +1,298 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="RateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RateRequestInfo" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+
+
+ 	<!-- <xs:element name="ServiceTypes" minOccurs="1" maxOccurs="1">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element type="xs:string" name="Carrier" minOccurs="0"
+				maxOccurs="1" />
+			<xs:choice>
+				<xs:element ref="ServiceTypeEnumerationFedEX" name="ServiceType" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="ServiceTypeEnumerationUPS" name="ServiceType" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="ServiceTypeEnumerationStamps" name="ServiceType" minOccurs="0" maxOccurs="1"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element> 
+ -->
+ <!-- <xs:element name="ServiceTypes" minOccurs="1" maxOccurs="1">
+    <xs:complexType>
+    <xs:sequence>
+    <xs:element type="xs:string" name="Carrier" minOccurs="0" maxOccurs="1" />
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+        <xs:element name="ServiceType" minOccurs="0" maxOccurs="1">
+          <xs:alternative test="@name='FEDEX'" type="ServiceTypeEnumerationFedEX"/>
+          <xs:alternative test="@name='UPS'" type="ServiceTypeEnumerationUPS"/>
+          <xs:alternative test="@name='STAMPS'" type="ServiceTypeEnumerationStamps"/>
+        </xs:element>
+      </xs:choice>
+      <xs:attribute name="ServiceType" type="xs:string" use="required" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> -->
+            
+            
+             <xs:element name="ServiceTypes" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Carrier" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="ServiceTypeEnumerationFedEX" name="ServiceType" minOccurs="0" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RateRequestType" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ReturnTransitTime" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="RateRequestCode" minOccurs="0" maxOccurs="1"/>
+                   <xs:element type="xs:string" name="RequestArriveDate" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Packages" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="PackageCount" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="Package" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="DropOffTime" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="PackagingType" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="Description" minOccurs="0" maxOccurs="1"/>
+                          <xs:element type="PackagingTypeCode" name="Code" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Weight" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="UnitOfMeasurement" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Description" minOccurs="0" maxOccurs="1"/>
+                                <xs:element type="xs:string" name="Code" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:byte" name="Weight" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Dimensions" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="UnitOfMeasurement" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Description" minOccurs="0" maxOccurs="unbounded"/>
+                                <xs:element type="xs:string" name="Code" minOccurs="1" maxOccurs="1"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="Units" minOccurs="1" maxOccurs="1"/>
+                          <xs:element type="xs:byte" name="Length" minOccurs="1" maxOccurs="1"/>
+                          <xs:element type="xs:byte" name="Height" minOccurs="1" maxOccurs="1"/>
+                          <xs:element type="xs:byte" name="Width" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="Machinable" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element type="xs:string" name="ShipDate" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Shipper" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:int" name="shipper_id" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ShipToAddress" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ContactAndAddress" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="CountryName" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="PersonName" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="Residential" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:int" name="AccountNumber" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="PhoneExtension" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="PagerNumber" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="StateOrProvinceCode" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:int" name="PhoneNumber" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="StreetLine1" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="StreetLine2" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="CompanyName" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="StreetLine3" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="Title" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="City" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:int" name="PostalCode" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="TollFreePhoneNumber" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="ResidentialAddressIndicator" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="FaxNumber" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="UrbanizationCode" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="EmailAddress" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="ContactId" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="xs:string" name="CountryCode" minOccurs="1" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Only FEDEX can be given as type of Carrier-->
+  <xs:simpleType name="Carrier">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FEDEX"/>
+    </xs:restriction>
+  </xs:simpleType>
+      
+
+  <!--Only FEDEX can be given as type of Service-->
+  <xs:simpleType name="ServiceTypeEnumerationFedEX">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FEDEX_1_DAY_FREIGHT"/>
+      <xs:enumeration value="FEDEX_2_DAY"/>
+      <xs:enumeration value="FEDEX_2_DAY_AM"/>
+      <xs:enumeration value="FEDEX_2_DAY_FREIGHT"/>
+      <xs:enumeration value="FEDEX_3_DAY_FREIGHT"/>
+      <xs:enumeration value="FEDEX_DISTANCE_DEFERRED"/>
+      <xs:enumeration value="FEDEX_EXPRESS_SAVER"/>
+      <xs:enumeration value="FEDEX_FIRST_FREIGHT"/>
+      <xs:enumeration value="FEDEX_FREIGHT_ECONOMY"/>
+      <xs:enumeration value="FEDEX_FREIGHT_PRIORITY"/>
+      <xs:enumeration value="FEDEX_GROUND"/>
+      <xs:enumeration value="FEDEX_NEXT_DAY_AFTERNOON"/>
+      <xs:enumeration value="FEDEX_NEXT_DAY_EARLY_MORNING"/>
+      <xs:enumeration value="FEDEX_NEXT_DAY_END_OF_DAY"/>
+      <xs:enumeration value="FEDEX_NEXT_DAY_FREIGHT"/>
+      <xs:enumeration value="FEDEX_NEXT_DAY_MID_MORNING"/>
+      <xs:enumeration value="FIRST_OVERNIGHT"/>
+      <xs:enumeration value="GROUND_HOME_DELIVERY"/>
+      <xs:enumeration value="INTERNATIONAL_ECONOMY"/>
+      <xs:enumeration value="INTERNATIONAL_ECONOMY_FREIGHT"/>
+      <xs:enumeration value="INTERNATIONAL_FIRST"/>
+      <xs:enumeration value="INTERNATIONAL_PRIORITY"/>
+      <xs:enumeration value="INTERNATIONAL_PRIORITY_FREIGHT"/>
+      <xs:enumeration value="PRIORITY_OVERNIGHT"/>
+      <xs:enumeration value="SAME_DAY"/>
+      <xs:enumeration value="SAME_DAY_CITY"/>
+      <xs:enumeration value="SMART_POST"/>
+      <xs:enumeration value="STANDARD_OVERNIGHT"/>
+      <xs:enumeration value="11"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="12"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="59"/>
+      <xs:enumeration value="13"/>
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="14"/>
+      <xs:enumeration value="07"/>
+      <xs:enumeration value="54"/>
+      <xs:enumeration value="08"/>
+      <xs:enumeration value="65"/>
+      <xs:enumeration value="US-FC"/>
+      <xs:enumeration value="US-MM"/>
+      <xs:enumeration value="US-PP"/>
+      <xs:enumeration value="US-PM"/>
+      <xs:enumeration value="US-XM"/>
+      <xs:enumeration value="US-EMI"/>
+      <xs:enumeration value="US-PMI"/>
+      <xs:enumeration value="US-FCI"/>
+      <xs:enumeration value="US-PS"/>
+      <xs:enumeration value="US-LM"/>
+      <xs:enumeration value="DHL-PE"/>
+      <xs:enumeration value="DHL-PG"/>
+       <xs:enumeration value="DHL-PPE"/>
+      <xs:enumeration value="DHL-PPG"/>
+      <xs:enumeration value="DHL-BPME"/>
+      <xs:enumeration value="DHL-BPMG"/>
+      <xs:enumeration value="DHL-MPE"/>
+      <xs:enumeration value="DHL-MPG"/>
+      <xs:enumeration value="AS-IPA"/>
+      <xs:enumeration value="AS-ISAL"/>
+      <xs:enumeration value="AS-EPKT"/>
+      <xs:enumeration value="DHL-PIPA"/>
+      <xs:enumeration value="DHL-PISAL"/>
+         <xs:enumeration value="GG-IPA"/>
+      <xs:enumeration value="GG-ISAL"/>
+      <xs:enumeration value="GG-EPKT"/>
+      <xs:enumeration value="IBC-IPA"/>
+      <xs:enumeration value="IBC-ISAL"/>
+      <xs:enumeration value="IBC-EPKT"/>
+      <xs:enumeration value="RRD-IPA"/>
+      <xs:enumeration value="RRD-ISAL"/>
+      <xs:enumeration value="RRD-EPKT"/>
+      <xs:enumeration value="AS-GNRC"/>
+      <xs:enumeration value="GG-GNRC"/>
+      <xs:enumeration value="RRD-GNRC"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="PackagingTypeCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Postcard"/>
+      <xs:enumeration value="Letter"/>
+      <xs:enumeration value="Large Envelope or Flat"/>
+      <xs:enumeration value="Thick Envelope"/>
+      <xs:enumeration value="Package"/>
+      <xs:enumeration value="Small Flat Rate Box"/>
+      <xs:enumeration value="Flat Rate Box"/>
+      <xs:enumeration value="Large Flat Rate Box"/>
+      <xs:enumeration value="Flat Rate Envelope"/>
+      <xs:enumeration value="Flat Rate Padded Envelope"/>
+      <xs:enumeration value="Large Package"/>
+      <xs:enumeration value="Oversized Package"/>
+      <xs:enumeration value="Regional Rate Box A"/>
+      <xs:enumeration value="Regional Rate Box B"/>
+      <xs:enumeration value="Regional Rate Box C"/>
+      <xs:enumeration value="Legal Flat Rate Envelope"/>
+      <xs:enumeration value="10KG BOX"/>
+      <xs:enumeration value="BOX"/>
+      <xs:enumeration value="25KG BOX"/>
+      <xs:enumeration value="TUBE"/>
+      <xs:enumeration value="All"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- This is only for the UPS -->
+   <xs:simpleType name="ServiceTypeEnumerationUPS">
+    <xs:restriction base="xs:string">
+   
+    </xs:restriction>
+  </xs:simpleType>
+   <!-- This is only for the Stamps -->
+   <xs:simpleType name="ServiceTypeEnumerationStamps">
+    <xs:restriction base="xs:string">
+      
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--Only Least-Cost-->
+  <xs:simpleType name="RateRequestCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Least-Cost">
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

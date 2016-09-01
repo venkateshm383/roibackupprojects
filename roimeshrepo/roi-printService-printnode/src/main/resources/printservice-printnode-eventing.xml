@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<EventFramework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="eventframework.xsd"
+	xmlns:dis="http://getusroi.com/internalevents/Dispatcher">
+
+	 <EventSubscriptions>
+		<EventSubscription eventId="PRINTLABEL_STATUS_PROCESSED" enabled='true'>
+			<Subscriber id="subs1" type="route" enabled='true'>xyzRoute</Subscriber>
+			<Subscriber id="subs2" type="component" enabled='true'>com.abc.MYComponent</Subscriber>
+
+		</EventSubscription>
+		
+	</EventSubscriptions> 
+	<DispatchChanels>
+
+		<DispatchChanel id="FILE_STORE" description="file store" isEnabled="true">
+			<ChanelImplementation fqcn="com.getusroi.eventframework.dispatcher.chanel.FileStoreDispatchChanel" beanRefid="fileStoreDispatcher" />
+			<ChanelConfiguration>
+				{"filepath":"D:/LogDispatcher","filename":"LogDispatchChanel.txt"}
+			</ChanelConfiguration>
+		</DispatchChanel>
+
+		<DispatchChanel id="EVT_FILE_STORE" description="event file store" isEnabled="true">
+			<ChanelImplementation fqcn="com.getusroi.eventframework.dispatcher.chanel.FileStoreDispatchChanel" beanRefid="fileEventStoreDispatcher" />
+			<ChanelConfiguration>
+				{"filepath":"D:/LogDispatcher","filename":"EventDispatchChanel.txt"}
+			</ChanelConfiguration>
+		</DispatchChanel>
+	
+	<DispatchChanel id="TEST_CHANEL" description="Chanel that writes to Hazelcast"
+			isEnabled="true">
+			<ChanelImplementation
+				fqcn="com.getusroi.eventframework.dispatcher.chanel.HazelcastQueueDispatchChanel"
+				beanRefid="testHCQueue" />
+			<ChanelConfiguration>{"queueName":"TestChanel"}</ChanelConfiguration>
+		</DispatchChanel>
+		
+	</DispatchChanels>
+
+	<SystemEvents>
+		<SystemEvent id="SERVICE_COMPLETION_FAILURE" description="Standard Event for failure of every service Type" isEnabled="true">
+			<CamelSystemEventBuilder fqcn="com.getusroi.eventframework.camel.eventproducer.ServiceCompletionFailureEventBuilder" beanRefid="ServiceEventBuilder" />
+			<dis:EventDispatchers>
+				<dis:EventDispatcher>
+					<dis:DispatchChanelId>FILE_STORE</dis:DispatchChanelId>
+					<dis:EventTransformation Type="JSON"/>
+		
+				</dis:EventDispatcher>
+			</dis:EventDispatchers>
+		</SystemEvent>
+
+		<SystemEvent id="SERVICE_COMPLETION_SUCCESS" description="Standard Event for sucess of every service Type" isEnabled="true">
+			<CamelSystemEventBuilder fqcn="com.getusroi.eventframework.camel.eventproducer.ServiceCompletionSuccessEventBuilder" beanRefid="ServiceEventBuilder" />
+			<dis:EventDispatchers>
+				<dis:EventDispatcher>
+					<dis:DispatchChanelId>FILE_STORE</dis:DispatchChanelId>
+						<dis:EventTransformation Type="JSON"/>
+
+				</dis:EventDispatcher>
+			</dis:EventDispatchers>
+		</SystemEvent>
+	</SystemEvents>
+
+	<Events>
+
+		<Event id="PRINTLABEL_EVENT" type="internal" description="print label testevent"
+			isEnabled="true">
+			<EventParams>
+				<EventParam name="tenant" dataType="string" validationRegEx="" />
+				<EventParam name="site" dataType="string" validationRegEx="" />
+			</EventParams>
+			<CamelEventProducer>
+				<CamelProducerConfig serviceName="printjob" feature="printservice" component="com.getusroi.wms20.printservice.beanṭ.PrintJob" raiseOn="success" />
+				
+				<CamelEventBuilder type="OGNL">
+					<OGNLMapping>
+						<Source from="CamelExchange">
+							<EventMapping destination="eventParam['servicetype']" source="In.headers['meshHeader.servicetype']" />
+							<EventMapping destination="eventParam['tenant']"  	source="In.headers['meshHeader.servicetype']" />
+						</Source>
+						
+					</OGNLMapping>
+				</CamelEventBuilder>
+			</CamelEventProducer>
+			<dis:EventDispatchers>
+				<dis:EventDispatcher>
+					<dis:DispatchChanelId>EVT_FILE_STORE</dis:DispatchChanelId>
+					<dis:EventTransformation Type="JSON" />
+				</dis:EventDispatcher>
+			</dis:EventDispatchers>
+		</Event>
+
+		
+
+		<Event id="PRINTLABEL_PROCESSED" type="internal" description="print label processed" isEnabled="true">
+			<EventParams>
+				<EventParam name="tenant" dataType="string" validationRegEx="" />
+				<EventParam name="site" dataType="string" validationRegEx="" />
+			</EventParams>
+			<CamelEventProducer>
+				<CamelProducerConfig serviceName="printjob" feature="printservice" component="" raiseOn="success" />
+				<CamelEventBuilder type='OGNL'>
+					<OGNLMapping>
+						<Source from="CamelExchange">
+							<EventMapping destination="eventParam['tenant']" source="In.headers['meshHeader'].tenant" />
+							<EventMapping destination="eventParam['site']"    source="In.headers['meshHeader'].site" />
+						</Source>
+					</OGNLMapping>
+				</CamelEventBuilder>
+			</CamelEventProducer>
+			<dis:EventDispatchers>
+				<dis:EventDispatcher>
+					<dis:DispatchChanelId>EVT_FILE_STORE</dis:DispatchChanelId>
+					<dis:EventTransformation Type="XML-XSLT">
+									<dis:XSLTName>eventxmlTransformation.xsl</dis:XSLTName>						        
+
+						</dis:EventTransformation>
+						</dis:EventDispatcher>
+			</dis:EventDispatchers>
+		</Event>
+		
+		<Event id="PRINTLABEL_STATUS_PROCESSED" type="internal" description="print label status processed" isEnabled="true">
+			<EventParams>
+				<EventParam name="tenant" dataType="string" validationRegEx="" />
+				<EventParam name="site" dataType="string" validationRegEx="" />
+			</EventParams>
+			<CamelEventProducer>
+				<CamelProducerConfig serviceName="printstatus" feature="printservice" component="" raiseOn="success" />
+				<CamelEventBuilder type='OGNL'>
+					<OGNLMapping>
+						<Source from="CamelExchange">
+							<EventMapping destination="eventParam['tenant']" source="In.headers['meshHeader'].tenant" />
+							<EventMapping destination="eventParam['site']"    source="In.headers['meshHeader'].site" />
+						</Source>
+					</OGNLMapping>
+				</CamelEventBuilder>
+			</CamelEventProducer>
+			<dis:EventDispatchers>
+			<dis:EventDispatcher>
+					<dis:DispatchChanelId>TEST_CHANEL</dis:DispatchChanelId>
+					<dis:EventTransformation Type="JSON"/>						
+						</dis:EventDispatcher> 
+			 <dis:EventDispatcher>
+					<dis:DispatchChanelId>EVT_FILE_STORE</dis:DispatchChanelId>
+					<dis:EventTransformation Type="JSON"/>						
+						</dis:EventDispatcher> 
+				 
+			</dis:EventDispatchers>
+		</Event>
+
+		<Event id="PRINTLABLE_PROC_FAILED" type="internal"
+			description="print label process failed" isEnabled="true">
+			<EventParams>
+				<EventParam name="tenant" dataType="string" validationRegEx="" />
+				<EventParam name="site" dataType="string" validationRegEx="" />
+			</EventParams>
+			<CamelEventProducer>
+				<CamelProducerConfig serviceName="printlabel" feature="printservice" component="" raiseOn="failure" />
+				<CamelEventBuilder type='OGNL'>
+					<OGNLMapping>
+						<Source from="CamelExchange">
+							<EventMapping destination="eventParam['tenant']" source="In.headers['meshHeader'].tenant" />
+							<EventMapping destination="eventParam['site']"    source="In.headers['meshHeader'].site" />
+						</Source>
+					</OGNLMapping>
+				</CamelEventBuilder>
+			</CamelEventProducer>
+			<dis:EventDispatchers>
+				<dis:EventDispatcher>
+					<dis:DispatchChanelId>EVT_FILE_STORE</dis:DispatchChanelId>
+						<dis:EventTransformation Type="CUSTOM">
+							<dis:CustomTransformer fqcn="com.getusroi.wms20.printservice.event.transformer.CustomPrintLabelTransformer"/>
+						</dis:EventTransformation>
+				</dis:EventDispatcher>
+			</dis:EventDispatchers>
+		</Event>
+		
+	</Events>
+	
+</EventFramework>
+

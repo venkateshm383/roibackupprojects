@@ -1,0 +1,16 @@
+^XA
+^MMT
+^PW812
+^LL1218
+^LS0
+^FT368,1204^A0N,17,16^FH\^FD~CMD_FILE=uc_ctnlbl_walmartcom.msql,50~^FS
+^FT33,80^A0N,25,24^FH\^FD~sfr_address1,40~^FS
+^FT425,122^A0N,25,24^FH\^FD~rt_address2,30~^FS
+^FT425,84^A0N,25,24^FH\^FD~rt_address1,40~^FS
+^FT199,551^A0N,28,28^FH\^FD~st_cstnam,40~^FS
+^FT425,160^A0N,25,24^FH\^FD~rt_address3,30~^FS
+^FT33,118^A0N,25,24^FH\^FD~sfr_address2,30~^FS
+^FT33,155^A0N,25,24^FH\^FD~sfr_address3,30~^FS
+^FT227,653^A0N,28,28^FH\^FD~po_number,30~^FS
+^FT315,602^A0N,28,28^FH\^FD~edi_fld,30~^FS
+^PQ1,0,1,Y^XZ

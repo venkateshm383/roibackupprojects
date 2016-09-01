@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureService.xsd">
+<Features featureGroup="test">
+	
+		<Feature featureName="testService" version="v1" enabled='true' interfaceName="com.getusroi.ITestService">
+			<Service name="testjob" enabled='true' vendorName="proship" Description="testService through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="test/testService/testjob">testService-testjob-roi-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="compositeView" enabled='true' vendorName="proship" Description="composite view through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="test/testService/compositeView">testService-compositeView-roi-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="dataContextRef" enabled='true' vendorName="proship" Description="dataContextRef view through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="test/testService/dataContextRef">testService-dataContextRef-roi-IR</GenericRestEndpoint>
+			</Service>
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

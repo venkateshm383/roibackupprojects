@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FeatureDataContext xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureDataContext.xsd">
+	<DataContexts contextName="test-testService-DataContext">
+		 <DataContext dbBeanRefName="oracleDB" dbType='oracle' dbHost="192.168.1.78" dbPort="1521" dbSchema="XE"/> 
+		<!--<DataContext dbBeanRefName="roiMYSQL" dbType='mysql' dbHost="192.168.1.77" dbPort="3306" dbSchema="roi"/>	-->				
+	</DataContexts>
+	<RefDataContexts featureGroup="print" featureName="printservice">
+		<RefDataContext dbBeanRefName="mysqlDB" dbType='mysql' dbHost="192.168.1.77" dbPort="3306" dbSchema="roi"/>
+	</RefDataContexts>	
+</FeatureDataContext>

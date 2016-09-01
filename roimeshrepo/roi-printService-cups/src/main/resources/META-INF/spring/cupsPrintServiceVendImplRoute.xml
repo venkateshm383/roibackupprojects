@@ -1,0 +1,62 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	<bean id="printerJobVend" class="com.getusroi.wms20.printservice.cups.bean.PrintJob" />
+	<bean id="printStatusVend" class="com.getusroi.wms20.printservice.cups.bean.PrintStatus" />
+	<routeContext id="cupsPrintserviceVendRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+		 <route id="registerPrinters">
+			<from uri="timer:rep?fixedRate=true&amp;period=60000" />
+			<log message="inside registerPrinters"/>
+			<to uri="bean:printerJobVend?method=registerPrinter" />
+		</route> 
+		
+		<route id="cupsVendorDefaultPrinterIdWithPrintJob">
+			<from uri="direct:printservice-printjob-cups-vend-IR" />
+			<log message="inside the desired route" />
+		<doTry>
+			<to uri="bean:printerJobVend" />			<!-- Creates PrintJob -->
+		<doCatch>
+					<exception>com.getusroi.wms20.printservice.cups.Impl.CupsPrinterOperationException</exception>
+					<handled>
+						<simple>true</simple>
+					</handled>
+					<to uri="bean:printJob?method=restletResponse" />
+					<setBody>
+						<simple>500: No printer available / set different printerId</simple>
+					</setBody>
+				</doCatch>
+			</doTry>
+		</route>
+		<route id="cupsProshipVendPrintStatus">
+
+			<from uri="direct:printservice-printstatus-cups-vend-IR" />
+			<log message="inside proship vendor printstatus" />
+			<doTry>
+			<to uri="bean:printStatusVend" />		<!-- Gets PrintJobStatus -->
+			<doCatch>
+					<exception>com.getusroi.wms20.printservice.cups.Impl.CupsPrinterOperationException</exception>
+					<exception>java.lang.NumberFormatException</exception>
+					<handled>
+						<simple>true</simple>
+					</handled>
+					<to uri="bean:printJob?method=restletResponse" />
+					<setBody>
+						<simple>500: Specified printJob Not-available / set different printJobId</simple>
+					</setBody>
+				</doCatch>
+			</doTry>
+			<log message="The job status : ${body}" />
+		</route>
+
+		<route id="cupsVendorAvailPrinters">								<!-- Gets all available printerDetails -->
+			<from uri="direct:printservice-allPrinterDetails-vend-IR" />
+			<to uri="bean:printerJob?method=getPrintersAttr" />  
+			<to uri="mock:endp" />
+		</route>
+
+	</routeContext>
+</beans>

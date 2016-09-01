@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<bean id="xsltEnricherBean"
+		class="com.getusroi.integrationfwk.activities.bean.XsltEnricher" />
+	<bean id="ftlEnricherBean" class="com.getusroi.integrationfwk.activities.bean.FtlEnricher" />
+	<bean id="jdbcIntActivityBean"
+		class="com.getusroi.integrationfwk.activities.bean.JdbcIntActivity" />
+	<bean id="jdbcCassandraIntActivityBean"
+		class="com.getusroi.integrationfwk.activities.bean.JDBCIntActivityCassandra" />
+	<bean id="filterPipelineActivity"
+		class="com.getusroi.integrationfwk.activities.bean.FilterPipelineActivityProcessor" />
+	<bean id="eventPublishActivityBean"
+		class="com.getusroi.integrationfwk.activities.bean.EventPublishActivityProcessor" />
+	<bean id="pipelineRouteDecider"
+		class="com.getusroi.mesh.integrationpipeline.IntegrationPipelineRouteDecider" />
+	<bean id="emailnotifier"
+		class="com.getusroi.integrationfwk.activities.bean.EmailNotifier" />
+	<bean id="putExchangeToMesh" class="com.getusroi.mesh.integrationpipeline.EmailPipeLineUtil" />
+	<bean id="setRouteInHeader"
+		class="com.getusroi.integrationfwk.activities.bean.RouteActivity" />
+	<bean id="meshConfigUtil" class="com.getusroi.mesh.util.MeshConfigurationUtil" />
+	<bean id="propertyEnricherBean"
+		class="com.getusroi.integrationfwk.activities.bean.PropertiesActivityEnricher" />
+	<bean id="pipelineExchangeInitializer"
+		class="com.getusroi.integrationfwk.activities.bean.PipelineExchangeInitializer" />
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="enricherContext">
+
+		<camel:route>
+			<camel:from uri="direct:pipeactivity" />
+			<to uri="bean:pipelineExchangeInitializer?method=processPipelineInit" />
+			<log message="After Initialization of configuration Bean being called" />
+			<camel:to uri="direct:pipeActivity" />
+		</camel:route>
+
+		<route id="pipeExecution">
+			<from uri="direct:pipeActivity" />
+			<loop>
+				<simple>${in.header.counter}</simple>
+				<log message="Logging the count of loop : ${in.header.counter}" />
+				<!-- Bean being looped for each activity in-order to process the routeName -->
+				<to uri="bean:pipelineRouteDecider?method=loopandProcessActivity" />
+				<toD uri="direct:${in.header.routeDecider}" />
+			</loop>
+		</route>
+		<route id="xsltEnricherRoute">
+			<from uri="direct:xsltEnricherRoute" />
+			<log message="inside xsltEnricher" />
+			<to uri="bean:xsltEnricherBean?method=processorBean" />
+		</route>
+		<route id="ftlEnricherRoute">
+			<from uri="direct:ftlEnricherRoute" />
+			<log message="inside ftlEnricherRoute" />
+			<to uri="bean:ftlEnricherBean?method=processorBean" />
+		</route>
+		<!-- The logic is now available in roi-metaModel-jdbcIntActivity, #TODO 
+			have to be cloned to the bean jdbcIntActivityBean -->
+		<route id="jdbcIntMYSQLActivityRoute">
+			<from uri="direct:jdbcIntMySQLActivityRoute" />
+			<log message="inside jdbcIntActivityRoute" />
+			<to uri="bean:jdbcIntActivityBean" />
+			<!-- <to uri="bean:queryExecuter" /> -->
+			<log message="the final response: ${body}" />
+		</route>
+		<route id="jdbcIntCassandraActivityRoute">
+			<from uri="direct:jdbcIntCassandraActivityRoute" />
+			<log message="inside jdbcIntActivityRoute" />
+			<to uri="bean:jdbcCassandraIntActivityBean" />
+			<!-- <to uri="bean:queryExecuter" /> -->
+			<log message="the final response: ${body}" />
+		</route>
+		<route id="filterPipelineActivityRoute">
+			<from uri="direct:filterPipelineRoute" />
+			<log message="inside filterPipelineActivityRoute" />
+			<to uri="bean:filterPipelineActivity?method=processAndFilterRequest" />
+			<log message="the final response: ${body}" />
+		</route>
+		<route id="emailNotifyActivityRoute">
+			<from uri="direct:emailNotifyActivityRoute" />
+			<to uri="bean:emailnotifier?method=processor" />
+			<to uri="bean:putExchangeToMesh?method=setExchangeBodyToMeshHeader" />
+			<toD uri="${in.header.smtpEndpoint}" />
+			<to uri="bean:putExchangeToMesh?method=getMeshHeaderToExchangeBody" />
+			<log message="the final response: ${body}" />
+		</route>
+		<route id="camelRouteActivity">
+			<from uri="direct:camelRouteActivity" />
+			<to uri="bean:setRouteInHeader?method=routeDecidingActivity" />
+			<to uri="bean:meshConfigUtil?method=setOldMeshHeader" />
+			<toD uri="${in.header.executionRoute}" />
+			<to uri="bean:meshConfigUtil?method=getOldMeshHeader" />
+		</route>
+		<route id="propertiesEnricherRoute">
+			<from uri="direct:propertiesEnricherRoute" />
+			<to uri="bean:propertyEnricherBean?method=processorBean" />
+		</route>
+		<route id="eventPublishRoute">
+			<from uri="direct:eventPublishPipelineRoute" />
+			<to uri="bean:eventPublishActivityBean?method=processPipelineEvent" />
+		</route>
+	</routeContext>
+</beans>

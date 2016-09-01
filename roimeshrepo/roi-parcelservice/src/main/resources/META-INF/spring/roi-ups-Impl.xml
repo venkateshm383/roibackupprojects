@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+
+	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	<bean id="soapBuilderForUPSVoid"
+		class="com.getusroi.wms20.parcel.parcelservice.ups.beans.UPSVoidShipmentRequestBuilder" />
+	<bean id="ups_request_Builder"
+		class="com.getusroi.wms20.parcel.parcelservice.ups.beans.UPSShopRequestBuilder" />
+	<bean id="upsShipmentSoapBuilder"
+		class="com.getusroi.wms20.parcel.parcelservice.ups.beans.UPSShipmentRequestBuilder" />
+	<bean id="upsshopSoapBuilder"
+		class="com.getusroi.wms20.parcel.parcelservice.ups.beans.UPSRATERequestBuilder" />
+
+	<!-- <cxf:cxfEndpoint id="upsRateService"
+		address="https://wwwcie.ups.com/webservices/Rate"
+		wsdlURL="/home/vivek/vivek/fromUmar/roi-parcelservice/src/main/resources/META-INF/wsdl/rates/RateWS.wsdl"
+		endpointName="RatePort" serviceName="RateService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Rate/v1.1" /> -->
+		
+		<cxf:cxfEndpoint id="upsRateService"
+		address="https://wwwcie.ups.com/webservices/Rate"
+		wsdlURL="classpath:META-INF/wsdl/rates/RateWS.wsdl"
+		endpointName="RatePort" serviceName="RateService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Rate/v1.1" />
+
+	<!-- <cxf:cxfEndpoint id="upsVoidService"
+		address="https://wwwcie.ups.com/webservices/Void"
+		wsdlURL="/home/vivek/vivek/fromUmar/roi-parcelservice/src/main/resources/META-INF/wsdl/voidship/Void.wsdl"
+		endpointName="VoidPort" serviceName="VoidService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Void/v1.1" /> -->
+		
+		<cxf:cxfEndpoint id="upsVoidService"
+		address="https://wwwcie.ups.com/webservices/Void"
+		wsdlURL="classpath:META-INF/wsdl/voidship/Void.wsdl"
+		endpointName="VoidPort" serviceName="VoidService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Void/v1.1" />
+
+	<!-- <cxf:cxfEndpoint id="upsShipmentService"
+		address="https://wwwcie.ups.com/webservices/Ship"
+		wsdlURL="/home/vivek/vivek/fromUmar/roi-parcelservice/src/main/resources/META-INF/wsdl/ship/Ship.wsdl"
+		endpointName="ShipPort" serviceName="ShipService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Ship/v1.0" /> -->
+		
+		<cxf:cxfEndpoint id="upsShipmentService"
+		address="https://wwwcie.ups.com/webservices/Ship"
+		wsdlURL="classpath:META-INF/wsdl/ship/Ship.wsdl"
+		endpointName="ShipPort" serviceName="ShipService"
+		xmlns="http://www.ups.com/WSDL/XOLTWS/Ship/v1.0" />
+
+	<http:conduit name="*.http-conduit">
+		<http:client AllowChunking="false" MaxRetransmits="11"
+			Connection="Keep-Alive" ReceiveTimeout="60000" CacheControl="No-Cache" />
+	</http:conduit>
+
+
+
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="parcelervice-UPS-Impl">
+		<!-- This has to be interchanged wit rates and shop -->
+		<!-- Impl route rate of UPS -->
+		<route id="ups-impl-rateService-request">
+			<from uri="direct:ups-impl-rateService-request" />
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Rate_GeniricToRaw.xsl" />
+
+			<!-- <to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" 
+				/> -->
+
+			<to uri="bean:upsshopSoapBuilder" />
+			<log message="the request before the soap transform: ${body}"/>
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Rate_SoapTransform.xsl" />
+			<log message="THe soap Request to ups ${body}" />
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+			<!-- calling CXF endpoint of ups Rate service -->
+			<to uri="cxf:bean:upsRateService?dataFormat=MESSAGE" />
+			<!-- 	<log message="the response from the ups service: ${body}"/> -->
+			<!-- To Generate Genric Response from the soap response -->
+		 	<to uri="xslt:META-INF/xslt/UPS_Rate_GeniricResponse.xsl" />
+		
+			<to uri="bean:upsshopSoapBuilder?method=processBean1" />
+		</route>
+
+
+		<!-- Impl route shop of UPS -->
+		<route id="ups-impl-shopService-request">
+			<from uri="direct:ups-impl-shopService-request" />
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Rate_GeniricToRaw.xsl" />
+
+			<!-- <to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(UpsProperties)" 
+				/> -->
+
+			<to uri="bean:ups_request_Builder?method=processBean" />
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Rate_SoapTransform.xsl" />
+			<log message="THe soap Request to ups ${body}" />
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+			<!-- calling CXF endpoint of ups Rate service -->
+			<to uri="cxf:bean:upsRateService?dataFormat=MESSAGE" />
+			<!-- To Generate Genric Response from the soap response -->
+			<to uri="xslt:META-INF/xslt/UPS_Rate_GeniricResponse.xsl" />
+			<log message="this is it: ${body}" />
+			<!-- <to uri="direct:responseToAggregate"/> -->
+		</route>
+
+		<!-- Impl route voidship of UPS -->
+		<route id="ups-impl-voidShipmentService-request">
+			<from uri="direct:ups-impl-voidShipmentService-request" />
+			<log message="inside ups implRoute" />
+			<log message="Service request of ups" />
+
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="bean:soapBuilderForUPSVoid?method=processBean" />
+
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Void_SoapTransform.xsl" />
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+			<!-- calling CXF endpoint of ups Rate service -->
+			<to uri="cxf:bean:upsVoidService?dataFormat=MESSAGE" />
+
+
+			<!-- To Generate Genric Response from the soap response -->
+			<to uri="xslt:META-INF/xslt/UPS_Void_GeniricResponse.xsl" />
+			<marshal ref="xmljson" />
+			<!-- <to uri="file:src/data?noop=true&amp;fileName=TEST.xml" /> -->
+		</route>
+
+
+		<!-- Impl route createShip of UPS -->
+		<route id="ups-impl-shipment-request">
+			<from uri="direct:ups-impl-shipment-request" />
+			<log message="Service request of ups" />
+			<!-- To Generate raw xml using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Ship_GeniricToRaw.xsl" />
+			<to uri="bean:upsShipmentSoapBuilder?method=processBean" />
+
+			<!-- To Generate Soap Envelope using xslt template -->
+			<to uri="xslt:META-INF/xslt/UPS_Ship_SoapTransform.xsl" />
+
+			<setHeader headerName="org.restlet.http.headers">
+				<simple></simple>
+			</setHeader>
+
+			<!-- calling CXF endpoint of ups Rate service -->
+			<to uri="cxf:bean:upsShipmentService?dataFormat=MESSAGE" />
+
+			<!-- To Generate Genric Response from the soap response -->
+			<to uri="xslt:META-INF/xslt/UPS_Ship_GeniricResponse.xsl" />
+			<marshal ref="xmljson" />
+		</route>
+
+	</routeContext>
+
+</beans>

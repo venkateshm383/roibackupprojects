@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureService.xsd">
+<Features featureGroup="label">
+	
+		<Feature featureName="labelservice" version="v1" enabled='true' interfaceName="com.getusroi.wms20.label.ws.ILabelService">
+			<Service name="startlabel" enabled='true' vendorName="proship" Description="labelService through Proship" >
+				<GenericRestEndpoint httpMethod="GET" urlMappingScheme="label/labelservice/startlabel">labelservice-startlabel-roi-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">labelservice-startlabel-roi-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="addlabel" enabled='true' vendorName="fedix" Description="labelService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">labelservice-addlabel-roi-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">labelservice-addlabel-roi-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="producelabel" enabled='true' vendorName="pro-fed" Description="labelService through pro-fed" >
+				<GenericRestEndpoint httpMethod="POST">labelservice-producelabel-roi-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">labelservice-producelabel-roi-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+			<Service name="voidlabel" enabled='true' vendorName="fedix-pro" Description="labelService through fedix-pro" >
+				<GenericRestEndpoint httpMethod="POST">labelservice-voidlabel-roi-IR</GenericRestEndpoint>
+				
+				<ConcreteSoapEndpoint wsdl="auto-generated">labelservice-voidlabel-roi-IR</ConcreteSoapEndpoint>
+				
+			</Service>
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

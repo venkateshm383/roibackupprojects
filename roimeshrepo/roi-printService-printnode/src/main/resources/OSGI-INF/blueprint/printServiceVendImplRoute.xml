@@ -1,0 +1,44 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+	<bean id="printerJobVend" class="com.getusroi.wms20.printservice.bean.PrintJob" />
+	<bean id="printStatusVend" class="com.getusroi.wms20.printservice.bean.PrintStatus" />
+	<camelContext id="printserviceVendRouteImpl" xmlns="http://camel.apache.org/schema/blueprint">
+
+		<route id="vendorDefaultPrinterIdWithPrintJob">
+			<from uri="direct-vm:printservice-printjob-vend-IR" />
+			<log message="inside the desired route" />
+			<to uri="bean:printerJobVend?method=getPrintersAuth" />
+			<to uri="https://api.printnode.com/printers" />
+			<to uri="bean:printerJobVend?method=setdataHeader" />
+			<to uri="bean:printerJobVend?method=processBean" />			<!-- Creates PrintJob -->
+
+		</route>
+
+		<route id="proshipVendPrintStatus">
+
+			<from uri="direct-vm:printservice-printstatus-vend-IR" />
+			<log message="inside proship vendor printstatus" />
+			<to uri="bean:printStatusVend" />		<!-- Gets PrintJobStatus -->
+			<delay>
+				<constant>1000</constant>
+			</delay>
+			<to uri="https://api.printnode.com/printjobs/${body}/states" />
+			<to uri="bean:printStatusVend?method=getLatestStatus" />
+			 <log message="The job status : ${body}"/> 
+		</route>
+
+		<route id="VendorAvailPrinters">								<!-- Gets all available printerDetails -->
+			<from uri="direct-vm:printservice-allPrinterDetails-vend-IR" />
+			<to uri="bean:printerJob?method=getPrintersAuth" />
+			<to uri="https://api.printnode.com/printers" />
+		</route>
+		<route id="testEventSubscription">
+		<from uri="mesh://Event?eventId=PRINTLABEL_STATUS_PROCESSED&amp;subscriberId=subs1"/>
+		<log message="inside event subscription route"/>
+		</route>  
+	</camelContext>
+</blueprint>

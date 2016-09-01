@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="featureService.xsd">
+<Features featureGroup="label">
+	
+		<Feature featureName="labelservice" version="v1" enabled='true' interfaceName="com.getusroi.wms20.label.bartender.ws.IBartenderService">
+			<Service name="startlabel" enabled='true' vendorName="proship" Description="bartenderService through Proship" >
+				<GenericRestEndpoint httpMethod="POST" urlMappingScheme="label/labelservice/startlabel">labelservice-startlabel-bartender-IR</GenericRestEndpoint>
+				
+				
+			</Service>
+			<Service name="addlabel" enabled='true' vendorName="fedix" Description="bartenderService through fedix" >
+				<GenericRestEndpoint httpMethod="POST">labelservice-addlabel-bartender-IR</GenericRestEndpoint>
+				
+				
+			</Service>
+			<Service name="producelabel" enabled='true' vendorName="pro-fed" Description="bartenderService through pro-fed" >
+				<GenericRestEndpoint httpMethod="POST">labelservice-producelabel-bartender-IR</GenericRestEndpoint>
+				
+				
+			</Service>
+			
+		</Feature>
+	
+	</Features>
+</FeaturesServiceInfo>

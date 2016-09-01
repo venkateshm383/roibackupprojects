@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>Inventory</Name>
+		<fms:EventResources>
+			<fms:EventResource resourceName="StandardEvent.xml" />
+			<fms:EventResource resourceName="PICEvent.xml" />
+		</fms:EventResources>
+		<fms:PermaStoreConfigurations>
+			<fms:PermaStoreConfiguration
+				resourceName="InventoryPermastore.xml" />
+		</fms:PermaStoreConfigurations>
+		<fms:DynaStoreConfigurations>
+			<fms:DynaStoreConfiguration resourceName="InventoryDynastore.xml" />
+		</fms:DynaStoreConfigurations>
+		<fms:PolicyConfigurations>
+			<fms:PolicyConfiguration resourceName="InventoryPolicy.xml" />
+			<fms:PolicyConfiguration resourceName="PicAreaPolicy.xml" />
+		</fms:PolicyConfigurations>
+		<Features>
+			<Feature vendorName="testvendor" vendorVersion="1.0">
+				<Name>Inventory</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="xyz.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="def.xml" />
+				</fms:PermaStoreConfigurations>
+				<fms:DynaStoreConfigurations>
+					<fms:DynaStoreConfiguration
+						resourceName="uvw.xml" />
+				</fms:DynaStoreConfigurations>
+				<fms:PolicyConfigurations>
+					<fms:PolicyConfiguration resourceName="xyzPolicy.xml" />
+				</fms:PolicyConfigurations>
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="xya.xml" />
+				</FeatureImplementations>
+				<FeatureDataContexts>
+				<DataContexts resourceName="abc.xml"/>
+				</FeatureDataContexts>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>

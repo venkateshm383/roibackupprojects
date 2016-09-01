@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+    
+    <bean id="startLabelBeanVend" class="com.getusroi.wms20.label.bean.StartLabelBean" />
+	<bean id="addLabelBeanVend" class="com.getusroi.wms20.label.bean.AddLabelBean">
+	<property name="dataSource" ref="dataSourceA"/>
+	</bean>
+	<bean id="produceLabelBeanVend" class="com.getusroi.wms20.label.bean.ProduceLabelBean" />
+	<bean id="closeLabelBeanVend" class="com.getusroi.wms20.label.bean.CloseLabelBean">
+	<property name="dataSource" ref="dataSourceA"/>
+	</bean>
+	
+	
+<routeContext id="labelvendorserviceRouteImpl" xmlns="http://camel.apache.org/schema/spring">
+ 
+	<route id="proshipstartlabel">
+			<from uri="direct:labelservice-startlabel-roi-IR" />
+			<to uri="bean:meshConfigUtil?method=getPermastoreConfiguration(LabelPrinterConfig)"/>
+			<to uri="bean:startLabelBeanVend?method=callLabelStartLabel(LabelPrinterConfig)"/>
+		</route>
+
+		<route id="proshipaddlabel">
+			<from uri="direct:labelservice-addlabel-roi-IR" />
+			 <to uri="bean:addLabelBeanVend"/>
+		</route>
+
+		<route id="fedexproducelabel">
+			<from uri="direct:labelservice-producelabel-roi-IR" />
+			<to uri="bean:produceLabelBeanVend?method=callProduceLable(GetPrinterConfig)"/>
+		</route>
+		
+		<route id="fedexvoidlabelRoute">
+			<from uri="direct:labelservice-voidlabel-roi-IR" />
+			<to uri="bean:closeLabelBeanVend"/>
+		</route>
+
+</routeContext>
+</beans>

@@ -1,0 +1,249 @@
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="RateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RateRequestInfo" minOccurs="1"
+					maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ServiceTypes" minOccurs="1"
+								maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="WayType" name="Way" minOccurs="0"
+											maxOccurs="1" />
+										<xs:element type="CarrierType" name="Carrier"
+											maxOccurs="3" minOccurs="1" />
+										<xs:element type="ServiceProviderType" name="ServiceType"
+											minOccurs="0" maxOccurs="1" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="RateRequestType" minOccurs="1"
+								maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="ReturnTransitTime"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="RateRequestCodeType" name="RateRequestCode"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="RequestArriveDate"
+											minOccurs="0" maxOccurs="1" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Packages" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:byte" name="PackageCount"
+								minOccurs="1" maxOccurs="1" />
+							<xs:element name="Package" minOccurs="1" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="DropOffTime"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element name="PackagingType" minOccurs="0"
+											maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:string" name="Description"
+														minOccurs="0" maxOccurs="1" />
+													<xs:element type="PackagingType" name="Code"
+														minOccurs="0" maxOccurs="1" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Weight" minOccurs="1" maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="UnitOfMeasurement" minOccurs="0"
+														maxOccurs="1">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="Description"
+																	minOccurs="0" maxOccurs="1" />
+																<xs:element type="xs:string" name="Code"
+																	minOccurs="1" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element type="xs:byte" name="Weight"
+														minOccurs="1" maxOccurs="1" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Dimensions" minOccurs="1"
+											maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="UnitOfMeasurement" minOccurs="0"
+														maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="Description"
+																	minOccurs="0" maxOccurs="unbounded" />
+																<xs:element type="xs:string" name="Code"
+																	minOccurs="1" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element type="xs:string" name="Units"
+														minOccurs="1" maxOccurs="1" />
+													<xs:element type="xs:byte" name="Length"
+														minOccurs="1" maxOccurs="1" />
+													<xs:element type="xs:byte" name="Height"
+														minOccurs="1" maxOccurs="1" />
+													<xs:element type="xs:byte" name="Width"
+														minOccurs="1" maxOccurs="1" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element type="xs:string" name="Machinable"
+											minOccurs="0" maxOccurs="unbounded" />
+										<xs:element type="xs:string" name="ShipDate"
+											minOccurs="0" maxOccurs="unbounded" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Shipper" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:int" name="shipper_id" minOccurs="1"
+								maxOccurs="1" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ShipToAddress" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ContactAndAddress" minOccurs="1"
+								maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="CountryName"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="PersonName"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="Residential"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:int" name="AccountNumber"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="xs:string" name="PhoneExtension"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="PagerNumber"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="StateOrProvinceCode"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="xs:int" name="PhoneNumber"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="xs:string" name="StreetLine1"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="xs:string" name="StreetLine2"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="CompanyName"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="StreetLine3"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="Title"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="City" minOccurs="1"
+											maxOccurs="1" />
+										<xs:element type="xs:int" name="PostalCode"
+											minOccurs="1" maxOccurs="1" />
+										<xs:element type="xs:string" name="TollFreePhoneNumber"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="ResidentialAddressIndicator"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="FaxNumber"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="UrbanizationCode"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="EmailAddress"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="ContactId"
+											minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:string" name="CountryCode"
+											minOccurs="1" maxOccurs="1" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Only FEDEX or UPS or USPS can be given as type of Carriers -->
+	<xs:simpleType name="CarrierType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FEDEX" />
+			<xs:enumeration value="UPS" />
+			<xs:enumeration value="STAMPS" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Only Ground or Express or Air or Fright can be given as type of Ways -->
+	<xs:simpleType name="WayType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ground" />
+			<xs:enumeration value="Express" />
+			<xs:enumeration value="Air" />
+			<xs:enumeration value="Freight" />
+			<xs:enumeration value="All" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Only All or 2_DAY or 3_DAY can be given as type of Ways -->
+	<xs:simpleType name="ServiceProviderType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="All" />
+			<xs:enumeration value="2_DAY" />
+			<xs:enumeration value="3_DAY" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- Only Least-Cost and Least-Cost-InWindow -->
+	<xs:simpleType name="RateRequestCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Least-Cost" />
+			<xs:enumeration value="Least-Cost-InWindow" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- Enumeration list of the PackagingTypeAllowed in roi-parcelService -->
+	<xs:simpleType name="PackagingType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="All" />
+			<xs:enumeration value="Unknown" />
+			<xs:enumeration value="Postcard" />
+			<xs:enumeration value="Letter" />
+			<xs:enumeration value="Large Envelope or Flat" />
+			<xs:enumeration value="Thick Envelope" />
+			<xs:enumeration value="Package" />
+			<xs:enumeration value="Small Flat Rate Box" />
+			<xs:enumeration value="Flat Rate Box" />
+			<xs:enumeration value="Large Flat Rate Box" />
+			<xs:enumeration value="Flat Rate Envelope" />
+			<xs:enumeration value="Flat Rate Padded Envelope" />
+			<xs:enumeration value="Large Package" />
+			<xs:enumeration value="Oversized Package" />
+			<xs:enumeration value="Regional Rate Box A" />
+			<xs:enumeration value="Regional Rate Box B" />
+			<xs:enumeration value="Regional Rate Box C" />
+			<xs:enumeration value="Legal Flat Rate Envelope" />
+			<xs:enumeration value="10KG BOX" />
+			<xs:enumeration value="BOX" />
+			<xs:enumeration value="25KG BOX" />
+			<xs:enumeration value="TUBE" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:camelcxf="http://camel.apache.org/schema/cxf" xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+
+
+	<routeContext id="bartenderServiceRouteExecution" xmlns="http://camel.apache.org/schema/spring">
+
+		
+		<route id="bartenderServiceStartlabelTransformation">
+			<from uri="direct:labelservice-startlabel-TR" />
+			<log message="inside bartender startlabel service execution route" />
+			<to uri="direct:labelservice-startlabel-ER" />
+		</route>
+
+		<route id="bartenderserviceStartlabelExecutionRoute">
+
+			<from uri="direct:labelservice-startlabel-ER" />
+			<log
+				message="inside bartenderservice startlabel bartenderexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+
+			<toD uri="direct:${in.header.implroute}" />
+
+			<log
+				message="inside bartenderservice startlabel executionroute after calling feature execution" />
+		</route>
+
+		<route id="bartenderServiceAddlabelTransformation">
+			<from uri="direct:labelService-addlabel-TR" />
+			<log message="inside bartender addlabel service execution route" />
+			<to uri="direct:labelservice-addlabel-ER" />
+		</route>
+
+		<route id="bartenderserviceAddlabelExecutionRoute">
+			<from uri="direct:labelservice-addlabel-ER" />
+			<log
+				message="inside bartenderservice addlabel bartenderexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside bartenderservice addlabel executionroute after calling feature execution" />
+		</route>
+
+		<route id="bartenderServiceProducelabelTransformation">
+			<from uri="direct:labelservice-producelabel-TR" />
+			<log message="inside bartender producelabel service execution route" />
+			<to uri="direct:labelservice-producelabel-ER" />
+		</route>
+		
+		<route id="bartenderserviceProducelabelExecutionRoute">
+			<from uri="direct:labelservice-producelabel-ER" />
+			<log
+				message="inside bartendereservice producelabel bartenderexecutionroute before calling feature execution" />
+			<to uri="bean:labelServiceDynamic?method=route" />
+			<log message="value of Impl route : ${in.header.implroute}" />
+			<toD uri="direct:${in.header.implroute}" />
+			<log
+				message="inside bartenderservice producelabel executionroute after calling feature execution" />
+		</route>
+
+
+
+
+	</routeContext>
+</beans>
