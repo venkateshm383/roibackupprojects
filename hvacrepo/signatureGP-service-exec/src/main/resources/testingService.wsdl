@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns="http://www.proxySignatureGP.org/testingService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="testingService" targetNamespace="http://www.proxySignatureGP.org/testingService/">
+  <wsdl:message name="ProxySignatureGPHandlerServiceRequest">
+    <wsdl:part name="ProxySignatureGPHandlerServiceRequest" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="ProxySignatureGPHandlerServiceResponse">
+    <wsdl:part name="ProxySignatureGPHandlerServiceResponse" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:portType name="testingService">
+    <wsdl:operation name="ProxySignatureGPHandlerService">
+      <wsdl:input message="ProxySignatureGPHandlerServiceRequest"/>
+      <wsdl:output message="ProxySignatureGPHandlerServiceResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="testingServiceHTTP" type="testingService">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="ProxySignatureGPHandlerService">
+      <http:operation location="/ProxySignatureGPHandlerService"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="testingService">
+    <wsdl:port binding="testingServiceHTTP" name="testingServiceHTTP">
+      <http:address location="http://localhost:9070/SignatureGP/ProxySignatureGPHandlerService/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
