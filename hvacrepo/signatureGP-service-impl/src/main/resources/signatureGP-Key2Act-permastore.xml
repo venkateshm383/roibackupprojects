@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermaStoreConfigurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="permastoreconfig.xsd">
+	<!-- Permastore Configuration for Listing of the WebService Endpoints and 
+		the SignatureGP Version based on TenantID -->
+	<PermaStoreConfiguration>
+		<Name>tenant-signatureGPVersion-Mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="signatureGP" featureGroup="signatureGPGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+				{"gap":{"SignatureGP-Version" :
+				"1.0","WebServiceEndPoint":"http://52.201.18.79:5000/Service%20Call/ServiceCall.svc/ServiceCallCreate","SoapAction":"http://tempuri.org/IServiceCall/CreateCall"}}
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+
+	<!-- Permastore Configuration for Listing of the xsl files to transform 
+		the request based on the signatureGP name provided -->
+	<PermaStoreConfiguration>
+		<Name>signatureGPOperation-xslt-Mapping</Name>
+		<isEnabled>true</isEnabled>
+		<featureInfo featureName="signatureGP" featureGroup="signatureGPGroup" />
+		<DataType>JSON</DataType>
+		<ConfigurationBuilder type="INLINE">
+			<InlineBuilder type="JSON-TO-Map">
+								{ "1.0": { "CreateCall": { "RequestTransformerFile": "CreateServiceCallRequest.xsl", "ResponseTransformerFile": "CreateServiceCallResponse.xsl" } } }
+			</InlineBuilder>
+		</ConfigurationBuilder>
+		<SubscribePermaStoreEvents>
+			<PermaStoreEvent onEvent="reload">
+				<EventName>xyz</EventName>
+				<PermaStoreEventHandler>com.getusroi.inventory.HandlePicAddressAddition
+				</PermaStoreEventHandler>
+			</PermaStoreEvent>
+		</SubscribePermaStoreEvents>
+	</PermaStoreConfiguration>
+</PermaStoreConfigurations>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeaturesServiceInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureService.xsd">
+	<Features featureGroup="signatureGPGroup">
+
+		<Feature featureName="signatureGP" version="1.0" enabled='true'
+			interfaceName="com.getusroi.ISACService">
+			
+			<Service name="proxySignatureGPHandlerservice" enabled='true'
+				vendorName="Key2Act" Description="proxySignatureGPHandlerservice">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="signatureGPGroup/signatureGP/proxySignatureGPHandlerservice">signatureGP-proxySignatureGPHandlerservice-Key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="createCallService" enabled='true'
+				vendorName="Key2Act" Description="createCallService">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="signatureGPGroup/signatureGP/createCallService">signatureGP-createCallService-Key2Act-IR</GenericRestEndpoint>
+			</Service>
+			<Service name="PostToSignatureGPService" enabled='true'
+				vendorName="Key2Act" Description="PostToSignatureGPService">
+				<GenericRestEndpoint httpMethod="POST"
+					urlMappingScheme="signatureGPGroup/signatureGP/PostToSignatureGPService">signatureGP-PostToSignatureGPService-Key2Act-IR</GenericRestEndpoint>
+			</Service>
+			
+		</Feature>
+	</Features>
+</FeaturesServiceInfo>

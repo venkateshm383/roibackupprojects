@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IntegrationPipes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="integration-fwk-pipeline.xsd">
+	<IntegrationPipe name="signatureGP-createCall-pipeline" isEnabled="true">
+		<PipeActivity>
+			<XSLTEnricherActivity name="xsltTransformation">
+				<xsltpathMapper>
+					<xsltPathMap filePath="createCallTransformation.xsl" />
+				</xsltpathMapper>
+			</XSLTEnricherActivity>
+		</PipeActivity>
+		<PipeActivity>
+			<CamelRouteEndPoint>
+				<CamelRoute isSameFeature="true">
+					<ServiceName>PostToSignatureGPService</ServiceName>
+					<ExecutionRoute>direct:signatureGP-PostToSignatureGPService-TR</ExecutionRoute>
+				</CamelRoute>
+			</CamelRouteEndPoint>
+		</PipeActivity>
+	</IntegrationPipe>
+</IntegrationPipes>

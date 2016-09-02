@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring 
+       http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/cxf
+       http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	<bean id="SignatureGPProcessBean"
+		class="com.key2act.signatureproxy.service.SignatureGPProcessBean" />
+	<bean id="exchangeFormatTransformer" class="com.key2act.signatureproxy.util.ExchangeTransformer" />
+	<bean id="dynamiceEndpointProcessor" class="com.key2act.signatureproxy.util.DynamicOnPremiseWSEndpointBean" />
+	
+	<routeContext xmlns="http://camel.apache.org/schema/spring"
+		id="proxyServiceSignatureGP-impl">
+		<!-- Create CALL Service which will act as proxy web service for signatureGP -->
+		<route id="CreateCallService">
+			<from uri="direct:signatureGP-createCallService-Key2Act-IR" />
+			<to uri="direct:permaDataLoader" />
+			<to
+				uri="bean:SignatureGPProcessBean?method=getSignatureGPVersionFromTenant(${exchange},CreateCall)" />
+			<to
+				uri="bean:exchangeFormatTransformer?method=exchangeTransformationJSONtoXML" />
+			<toD uri="xslt:file://${in.header.OperationBasedXSLTransformerFile}" />
+ 			<to uri="bean:dynamiceEndpointProcessor?method=sendPost" />
+ 			<removeHeaders pattern="CamelHttp*" />
+		</route>
+		<!-- Service to load permaStore -->
+		<route id="permaDataLoader">
+			<from uri="direct:permaDataLoader" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(tenant-signatureGPVersion-Mapping)" />
+			<to
+				uri="bean:meshConfigUtil?method=getPermastoreConfiguration(signatureGPOperation-xslt-Mapping)" />
+		</route>
+	</routeContext>
+</beans>

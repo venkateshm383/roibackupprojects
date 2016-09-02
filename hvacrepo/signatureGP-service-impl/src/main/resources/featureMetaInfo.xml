@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Feature-Metainfo productVersion="WMS2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="featureMetaInfo.xsd"
+	xmlns:fms="http://getusroi.com/internal/FeatureMetaInfoSupporting">
+	<FeatureGroup>
+		<Name>signatureGPGroup</Name>
+		<Features>
+			<Feature vendorName="Key2Act" vendorVersion="1.0">
+				<Name>signatureGP</Name>
+				<fms:EventResources>
+					<fms:EventResource resourceName="signatureGP-Key2Act-eventing.xml" />
+				</fms:EventResources>
+				<fms:PermaStoreConfigurations>
+					<fms:PermaStoreConfiguration
+						resourceName="signatureGP-Key2Act-permastore.xml" />
+				</fms:PermaStoreConfigurations>
+				<FeatureImplementations>
+					<FeatureImplementation resourceName="signatureGP-Key2Act-featureservice.xml" />
+				</FeatureImplementations>
+				<IntegrationPipeLineConfigurations>
+					<PipeConfiguration
+						resourceName="signatureGP-Key2Act-createCallservice-pipeline-config.xml" />
+				</IntegrationPipeLineConfigurations>
+				<StaticFileConfiguration>
+					<ConfigFile
+						filePath="/home/paul/StaticConfigfiles-proxySignatureGP/gap/site1/signatureGPGroup/signatureGP/Key2Act/1.0"
+						fileName="createCallTransformation.xsl" />
+				</StaticFileConfiguration>
+			</Feature>
+		</Features>
+	</FeatureGroup>
+</Feature-Metainfo>
